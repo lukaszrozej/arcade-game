@@ -45,6 +45,11 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 const Player = function() {
   this.sprite = 'images/char-boy.png';
+  this.reset();
+}
+
+// Resets the player's position to bottom center
+Player.prototype.reset = function() {
   this.row = 5;
   this.col = 2;
 }
