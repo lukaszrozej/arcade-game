@@ -79,6 +79,9 @@ Player.prototype.handleInput = function(input) {
       if (this.row < 5) this.row += 1;
       break;
   }
+  if (this.row === 0){
+    console.log('WIN!!');
+  }
 }
 
 // Returns true or false depending of whether
