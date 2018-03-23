@@ -7,9 +7,19 @@ var Enemy = function() {
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
 
-  this.x = 0;
-  this.y = 0;
+  this.setToRandom();
 };
+
+// Set the enmies position and velocity to random values
+// Position will be off screen
+Enemy.prototype.setToRandom = function() {
+  const yPositions = [60, 143, 226];
+  //position:
+  this.x = 0;
+  this.y = yPositions[Math.floor(Math.random() * 3)];
+  //velocity:
+  this.v = Math.random() * 200 + 100;
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
