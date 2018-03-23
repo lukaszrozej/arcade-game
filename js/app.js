@@ -80,15 +80,16 @@ Player.prototype.handleInput = function(input) {
       break;
   }
   if (this.row === 0){
-    console.log('WIN!!');
+    this.reset();
   }
 }
 
 // Returns true or false depending of whether
 // the player collides with enemy or not
 Player.prototype.collidesWith = function(enemy) {
+  const collisionDistance = 60;
   const x = 101 * this.col;
-  return this.row === enemy.row && enemy.x > x - 72 && enemy.x < x + 74;
+  return this.row === enemy.row && Math.abs(enemy.x - x) < 60;
 }
 
 // Now instantiate your objects.
