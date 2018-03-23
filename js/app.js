@@ -52,6 +52,8 @@ allEnemies = [
     new Enemy()
 ];
 
+player = new Player();
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
