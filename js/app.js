@@ -16,7 +16,8 @@ Enemy.prototype.setToRandom = function() {
   const yPositions = [60, 143, 226];
   //position:
   this.x = -101;
-  this.y = yPositions[Math.floor(Math.random() * 3)];
+  // Row number from 1 to 3 - one of the 3 stone tracks
+  this.row = Math.floor(Math.random() * 3) + 1;
   //velocity:
   this.v = Math.random() * 200 + 100;
 }
@@ -35,7 +36,8 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  const y = this.col * 83 - 23;
+  ctx.drawImage(Resources.get(this.sprite), this.x, y);
 };
 
 // Now write your own player class
