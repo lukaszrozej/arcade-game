@@ -43,8 +43,8 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 const Player = function() {
   this.sprite = 'images/char-boy.png';
-  this.x = 0;
-  this.y = 0;
+  this.x = 202;
+  this.y = 375;
 }
 
 Player.prototype.update = function(dt) {
