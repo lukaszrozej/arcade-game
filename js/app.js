@@ -15,7 +15,7 @@ var Enemy = function() {
 Enemy.prototype.setToRandom = function() {
   const yPositions = [60, 143, 226];
   //position:
-  this.x = 0;
+  this.x = -101;
   this.y = yPositions[Math.floor(Math.random() * 3)];
   //velocity:
   this.v = Math.random() * 200 + 100;
