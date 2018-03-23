@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-  const y = this.col * 83 - 23;
+  const y = this.row * 83 - 23;
   ctx.drawImage(Resources.get(this.sprite), this.x, y);
 };
 
