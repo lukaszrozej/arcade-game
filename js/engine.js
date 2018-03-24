@@ -77,6 +77,11 @@ var Engine = (function(global) {
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
     document.addEventListener('keyup', function(e) {
+      if (state === 'game over') {
+        reset();
+        return;
+      }
+
       var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -223,7 +228,8 @@ var Engine = (function(global) {
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    // noop
+    player = new Player();
+    state = 'play';
   }
 
   /* Go ahead and load all of the images we know we're going to need to
