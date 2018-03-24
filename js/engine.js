@@ -145,7 +145,13 @@ var Engine = (function(global) {
       }
     }
 
+    renderScorePanel();
     renderEntities();
+  }
+
+  function renderScorePanel() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, 53);
   }
 
   /* This function is called by the render function and is called on each game
