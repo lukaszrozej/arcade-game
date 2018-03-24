@@ -56,7 +56,6 @@ Player.prototype.reset = function() {
 }
 
 Player.prototype.update = function(dt) {
-  this.checkCollisions();
 }
 
 Player.prototype.render = function() {
@@ -86,10 +85,10 @@ Player.prototype.handleInput = function(input) {
   }
 }
 
-Player.prototype.checkCollisions = function() {
+Player.prototype.checkCollisions = function(enemies) {
   const collision = enemy =>
-    enemy.row === player.row && Math.abs(enemy.x - 101*player.col) < 60;
-  if (allEnemies.some(collision)) {
+    enemy.row === this.row && Math.abs(enemy.x - 101*this.col) < 60;
+  if (enemies.some(collision)) {
     this.loseLife();
   }
 }
@@ -104,14 +103,3 @@ Object.defineProperty(Player.prototype, 'dead', {
     return this.lives === 0;
   }
 });
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-allEnemies = [
-  new Enemy(),
-  new Enemy(),
-  new Enemy()
-];
-
-player = new Player();

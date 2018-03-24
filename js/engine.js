@@ -28,6 +28,9 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
+  let allEnemies = [];
+  let player = new Player();
+
   const characterImages = [
     'images/char-boy.png',
     'images/char-cat-girl.png',
@@ -154,6 +157,7 @@ var Engine = (function(global) {
       enemy.update(dt);
     });
     player.update();
+    player.checkCollisions(allEnemies);
   }
 
   /* This function initially draws the "game level", it will then call
