@@ -92,6 +92,12 @@ Player.prototype.loseLife = function() {
   }
 }
 
+Object.defineProperty(Player.prototype, 'dead', {
+  get() {
+    return this.lives === 0;
+  }
+});
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
