@@ -25,7 +25,6 @@ var Engine = (function(global) {
     lastTime;
 
   let score = 0;
-  let lives = 3;
   let level = 0;
   let state = 'play';
 
@@ -92,9 +91,9 @@ var Engine = (function(global) {
   function update(dt) {
     updateEntities(dt);
     if (collisionDetected()) {
-        lives--;
+        player.lives--;
         player.reset();
-        if (lives === 0) {
+        if (player.lives === 0) {
           state = 'game over';
         }
     }
@@ -186,7 +185,7 @@ var Engine = (function(global) {
     ctx.textAlign = 'start'
     ctx.fillText(`Level: ${level}`, 4, 36);
     ctx.fillText(`Score: ${score}`, 140, 36);
-    for(let i = 1; i <= lives; i++) {
+    for(let i = 1; i <= player.lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i*32, 10);
     }
   }

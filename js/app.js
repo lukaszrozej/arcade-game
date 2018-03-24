@@ -45,6 +45,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 const Player = function() {
   this.sprite = 'images/char-boy.png';
+  this.lives = 3
   this.reset();
 }
 
