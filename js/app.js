@@ -6,7 +6,6 @@ var Enemy = function() {
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
-  this.score = 0;
 
   this.setToRandom();
 };
@@ -47,6 +46,7 @@ Enemy.prototype.render = function() {
 const Player = function(sprite = 'images/char-boy.png') {
   this.sprite = sprite;
   this.lives = 3
+  this.score = 0;
   this.reset();
 }
 
@@ -82,6 +82,7 @@ Player.prototype.handleInput = function(input) {
       break;
   }
   if (this.row === 0){
+    this.score++;
     this.reset();
   }
 }
