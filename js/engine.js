@@ -75,6 +75,7 @@ var Engine = (function(global) {
   // Checks if any of the enemies collides with the player
   function checkCollisions() {
     if (allEnemies.some(player.collidesWith, player)) {
+        lives--;
         player.reset();
     }
   }
