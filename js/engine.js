@@ -177,6 +177,11 @@ var Engine = (function(global) {
   function renderCharacterSelection() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
+    ctx.textAlign = 'center'
+    ctx.font = '24px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.fillText(`Choose a character`, 253, 300);
+    ctx.fillText(`using left and right arrow keys`, 253, 340);
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
     characterImages.forEach((image, index) => 
       ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
