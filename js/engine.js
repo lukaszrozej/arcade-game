@@ -129,7 +129,6 @@ var Engine = (function(global) {
   }
 
   function renderGameOver() {
-    console.log('game over')
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
     ctx.fillStyle = 'white';
