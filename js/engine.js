@@ -90,7 +90,8 @@ var Engine = (function(global) {
     document.addEventListener('keyup', function(e) {
       if (state === 'game over') {
         reset();
-        state = 'choose character'
+        state = 'choose character';
+        allEnemies = [];
         return;
       }
       if (state === 'choose character') {
