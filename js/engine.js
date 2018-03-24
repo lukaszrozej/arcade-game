@@ -26,7 +26,7 @@ var Engine = (function(global) {
 
   let score = 0;
   let level = 0;
-  let state = 'play';
+  let state = 'choose character';
 
   const characterImages = [
     'images/char-boy.png',
@@ -78,7 +78,7 @@ var Engine = (function(global) {
    * game loop.
    */
   function init() {
-    reset();
+    // reset();
     addEventListeners();
     lastTime = Date.now();
     main();
