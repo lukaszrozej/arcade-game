@@ -153,6 +153,8 @@ var Engine = (function(global) {
     renderEntities();
   }
 
+  // Displays score panel at the top of the screen
+  // and within it: level, score, and lives
   function renderScorePanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, 53);
