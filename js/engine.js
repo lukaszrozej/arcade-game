@@ -79,6 +79,7 @@ var Engine = (function(global) {
     document.addEventListener('keyup', function(e) {
       if (state === 'game over') {
         reset();
+        state = 'choose character'
         return;
       }
 
@@ -143,6 +144,22 @@ var Engine = (function(global) {
     if (state === 'game over') {
       renderGameOver();
     }
+    if (state === 'choose character') {
+      renderCharacters();
+    }
+  }
+
+  function renderCharacters() {
+    const characterImages = [
+      'images/char-boy.png',
+      'images/char-cat-girl.png',
+      'images/char-horn-girl.png',
+      'images/char-pink-girl.png',
+      'images/char-princess-girl.png',
+    ];
+    characterImages.forEach((image, index) =>
+        ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
+    )
   }
 
   function renderGameOver() {
