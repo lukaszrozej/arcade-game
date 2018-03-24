@@ -266,7 +266,7 @@ var Engine = (function(global) {
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    player = new Player();
+    player = new Player(characterImages[currentCharacter]);
     allEnemies = [
       new Enemy(),
       new Enemy(),

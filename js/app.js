@@ -43,8 +43,8 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-const Player = function() {
-  this.sprite = 'images/char-boy.png';
+const Player = function(sprite = 'images/char-boy.png') {
+  this.sprite = sprite;
   this.lives = 3
   this.reset();
 }
