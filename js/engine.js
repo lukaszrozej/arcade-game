@@ -166,11 +166,13 @@ var Engine = (function(global) {
       renderGameOver();
     }
     if (state === 'choose character') {
-      renderCharacters();
+      renderCharacterSelection();
     }
   }
 
-  function renderCharacters() {
+  function renderCharacterSelection() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
     characterImages.forEach((image, index) => 
       ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
