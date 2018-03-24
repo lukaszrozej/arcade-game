@@ -88,9 +88,7 @@ Player.prototype.handleInput = function(input) {
 
 Player.prototype.loseLife = function() {
   this.lives--;
-  if (this.lives === 0) {
-    this.reset();
-  }
+  this.reset();
 }
 
 Object.defineProperty(Player.prototype, 'dead', {

@@ -92,7 +92,6 @@ var Engine = (function(global) {
     updateEntities(dt);
     if (collisionDetected()) {
         player.loseLife();
-        player.reset();
         if (player.lives === 0) {
           state = 'game over';
         }
