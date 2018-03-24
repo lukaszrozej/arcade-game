@@ -66,6 +66,7 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(input) {
+  if (this.dead) return;
   switch(input) {
     case 'left':
       if (this.col > 0) this.col -= 1;
