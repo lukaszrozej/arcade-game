@@ -24,7 +24,6 @@ var Engine = (function(global) {
     ctx = canvas.getContext('2d'),
     lastTime;
 
-  let score = 0;
   let level = 0;
   let state = 'choose character';
 
@@ -255,7 +254,7 @@ var Engine = (function(global) {
     ctx.fillStyle = 'white';
     ctx.textAlign = 'start'
     ctx.fillText(`Level: ${level}`, 4, 36);
-    ctx.fillText(`Score: ${score}`, 140, 36);
+    ctx.fillText(`Score: ${player.score}`, 140, 36);
     for(let i = 1; i <= player.lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i*32, 10);
     }
