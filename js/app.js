@@ -85,6 +85,13 @@ Player.prototype.handleInput = function(input) {
   }
 }
 
+Player.prototype.loseLife = function() {
+  this.lives--;
+  if (this.lives === 0) {
+    this.reset();
+  }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
