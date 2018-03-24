@@ -101,6 +101,9 @@ var Engine = (function(global) {
         if (e.keyCode === 39) {
           currentCharacter += 1;
         }
+        if (e.keyCode === 13) {
+          reset();
+        }
         currentCharacter %= 5;
         return;
       }
@@ -264,6 +267,11 @@ var Engine = (function(global) {
    */
   function reset() {
     player = new Player();
+    allEnemies = [
+      new Enemy(),
+      new Enemy(),
+      new Enemy()
+    ];
     state = 'play';
   }
 
