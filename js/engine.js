@@ -25,6 +25,7 @@ var Engine = (function(global) {
     lastTime;
 
   let score = 0;
+  let lives = 3;
 
   canvas.width = 505;
   canvas.height = 606;
@@ -157,6 +158,9 @@ var Engine = (function(global) {
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
     ctx.fillText(`${score}`, 4, 36);
+    for(let i = 1; i <= lives; i++) {
+      ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i*32, 10);
+    }
   }
 
   /* This function is called by the render function and is called on each game
@@ -191,7 +195,8 @@ var Engine = (function(global) {
     'images/water-block.png',
     'images/grass-block.png',
     'images/enemy-bug.png',
-    'images/char-boy.png'
+    'images/char-boy.png',
+    'images/heart-small.png',
   ]);
   Resources.onReady(init);
 
