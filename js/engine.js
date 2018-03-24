@@ -24,6 +24,8 @@ var Engine = (function(global) {
     ctx = canvas.getContext('2d'),
     lastTime;
 
+  let score = 0;
+
   canvas.width = 505;
   canvas.height = 606;
   doc.body.appendChild(canvas);
@@ -152,6 +154,9 @@ var Engine = (function(global) {
   function renderScorePanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, 53);
+    ctx.font = '32px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.fillText(`${score}`, 4, 36);
   }
 
   /* This function is called by the render function and is called on each game
