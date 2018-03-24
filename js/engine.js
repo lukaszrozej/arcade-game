@@ -26,6 +26,7 @@ var Engine = (function(global) {
 
   let score = 0;
   let lives = 3;
+  let level = 0;
 
   canvas.width = 505;
   canvas.height = 606;
@@ -157,7 +158,8 @@ var Engine = (function(global) {
     ctx.fillRect(0, 0, canvas.width, 53);
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
-    ctx.fillText(`${score}`, 4, 36);
+    ctx.fillText(`Level: ${level}`, 4, 36);
+    ctx.fillText(`Score: ${score}`, 140, 36);
     for(let i = 1; i <= lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i*32, 10);
     }
