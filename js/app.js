@@ -56,7 +56,7 @@ Player.prototype.reset = function() {
 }
 
 Player.prototype.update = function(dt) {
-
+  this.checkCollisions();
 }
 
 Player.prototype.render = function() {
@@ -83,6 +83,14 @@ Player.prototype.handleInput = function(input) {
   }
   if (this.row === 0){
     this.reset();
+  }
+}
+
+Player.prototype.checkCollisions = function() {
+  const collision = enemy =>
+    enemy.row === player.row && Math.abs(enemy.x - 101*player.col) < 60;
+  if (allEnemies.some(collision)) {
+    this.loseLife();
   }
 }
 
