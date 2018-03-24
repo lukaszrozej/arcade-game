@@ -133,6 +133,10 @@ var Engine = (function(global) {
     console.log('game over')
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
+    ctx.fillStyle = 'white';
+    ctx.font = '64px sans-serif';
+    ctx.textAlign = 'center'
+    ctx.fillText(`Game Over`, 253, 300);
   }
 
   function renderTerrain() {
@@ -179,6 +183,7 @@ var Engine = (function(global) {
     ctx.fillRect(0, 0, canvas.width, 53);
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
+    ctx.textAlign = 'start'
     ctx.fillText(`Level: ${level}`, 4, 36);
     ctx.fillText(`Score: ${score}`, 140, 36);
     for(let i = 1; i <= lives; i++) {
