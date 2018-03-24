@@ -117,6 +117,12 @@ var Engine = (function(global) {
    * they are just drawing the entire screen over and over.
    */
   function render() {
+    renderTerrain();
+    renderScorePanel();
+    renderEntities();
+  }
+
+  function renderTerrain() {
     /* This array holds the relative URL to the image used
      * for that particular row of the game level.
      */
@@ -151,9 +157,6 @@ var Engine = (function(global) {
         ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
       }
     }
-
-    renderScorePanel();
-    renderEntities();
   }
 
   // Displays score panel at the top of the screen
