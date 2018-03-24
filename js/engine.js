@@ -131,6 +131,8 @@ var Engine = (function(global) {
     ctx.font = '64px sans-serif';
     ctx.textAlign = 'center'
     ctx.fillText(`Game Over`, 253, 300);
+    ctx.font = '24px sans-serif';
+    ctx.fillText(`Press any key to restart the game`, 253, 360);
   }
 
   function renderTerrain() {
