@@ -28,6 +28,17 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'play';
 
+  const characterImages = [
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png',
+  ];
+
+  let currentCharacter = 2;
+
+
   canvas.width = 505;
   canvas.height = 606;
   doc.body.appendChild(canvas);
@@ -80,6 +91,16 @@ var Engine = (function(global) {
       if (state === 'game over') {
         reset();
         state = 'choose character'
+        return;
+      }
+      if (state === 'choose character') {
+        if (e.keyCode === 37) {
+          currentCharacter += 4;
+        }
+        if (e.keyCode === 39) {
+          currentCharacter += 1;
+        }
+        currentCharacter %= 5;
         return;
       }
 
@@ -150,16 +171,10 @@ var Engine = (function(global) {
   }
 
   function renderCharacters() {
-    const characterImages = [
-      'images/char-boy.png',
-      'images/char-cat-girl.png',
-      'images/char-horn-girl.png',
-      'images/char-pink-girl.png',
-      'images/char-princess-girl.png',
-    ];
-    characterImages.forEach((image, index) =>
-        ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
-    )
+    ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
+    characterImages.forEach((image, index) => 
+      ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
+    );
   }
 
   function renderGameOver() {
