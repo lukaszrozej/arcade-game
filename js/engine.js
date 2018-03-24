@@ -73,11 +73,10 @@ var Engine = (function(global) {
   }
 
   // Checks if any of the enemies collides with the player
-  function checkCollisions() {
-    if (allEnemies.some(player.collidesWith, player)) {
-        lives--;
-        player.reset();
-    }
+  function collisionDetected() {
+    return allEnemies.some( enemy => 
+      enemy.row === player.row && Math.abs(enemy.x - 101*player.col) < 60
+    );
   }
 
   /* This function is called by main (our game loop) and itself calls all
@@ -91,7 +90,10 @@ var Engine = (function(global) {
    */
   function update(dt) {
     updateEntities(dt);
-    checkCollisions();
+    if (collisionDetected()) {
+        lives--;
+        player.reset();
+    }
   }
 
   /* This is called by the update function and loops through all of the
