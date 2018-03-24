@@ -1,4 +1,4 @@
-Aarcade Game
+Arcade Game
 ===============================
 
 A project for Udacity [Front-End Nanodegree](https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001).
