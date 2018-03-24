@@ -27,6 +27,7 @@ var Engine = (function(global) {
   let score = 0;
   let lives = 3;
   let level = 0;
+  let state = 'play';
 
   canvas.width = 505;
   canvas.height = 606;
@@ -93,6 +94,9 @@ var Engine = (function(global) {
     if (collisionDetected()) {
         lives--;
         player.reset();
+        if (lives === 0) {
+          state = 'game over';
+        }
     }
   }
 
@@ -120,6 +124,15 @@ var Engine = (function(global) {
     renderTerrain();
     renderScorePanel();
     renderEntities();
+    if (state === 'game over') {
+      renderGameOver();
+    }
+  }
+
+  function renderGameOver() {
+    console.log('game over')
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
   }
 
   function renderTerrain() {
