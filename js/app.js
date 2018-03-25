@@ -5,7 +5,8 @@ var Enemy = function() {
 
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
-  this.sprite = 'images/enemy-bug.png';
+  this.spriteRight = 'images/bug-right.png';
+  this.spriteLeft = 'images/bug-left.png';
 
   this.setToRandom();
 };
@@ -45,7 +46,8 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   const y = this.row * 83 - 23;
-  ctx.drawImage(Resources.get(this.sprite), this.x, y);
+  const sprite = this.v > 0 ? this.spriteRight : this.spriteLeft;
+  ctx.drawImage(Resources.get(sprite), this.x, y);
 };
 
 // Now write your own player class
