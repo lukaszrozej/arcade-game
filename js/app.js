@@ -21,13 +21,13 @@ Enemy.prototype.options = {
 // Set the enmies position and velocity to random values
 // Position will be off screen
 Enemy.prototype.setToRandom = function() {
-  //position:
-  this.x = -101;
   // Row number from 1 to 3 - one of the 3 stone tracks
   const rowNumber = Math.floor(Math.random() * this.options.rows.length);
   this.row = this.options.rows[rowNumber].row ;
   //velocity:
   this.v = Math.random() * (this.options.maxSpeed - this.options.minSpeed) + this.options.minSpeed;
+  this.v *= this.options.rows[rowNumber].direction;
+  this.x = this.v > 0 ? -101 : 505;
 }
 
 // Update the enemy's position, required method for game

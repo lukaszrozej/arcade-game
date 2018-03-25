@@ -283,7 +283,7 @@ var Engine = (function(global) {
     Enemy.prototype.options = {
       rows: [
         {row: 1, direction: 1},
-        {row: 2, direction: 1},
+        {row: 2, direction: -1},
         {row: 3, direction: 1},
       ],
       maxSpeed: 300,
