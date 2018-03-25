@@ -266,11 +266,13 @@ var Engine = (function(global) {
   function renderScorePanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, 53);
+ 
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
     ctx.textAlign = 'start'
     ctx.fillText(`Level: ${level}`, 4, 36);
     ctx.fillText(`Score: ${player.score}`, 140, 36);
+ 
     for (let i = 1; i <= player.lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 10);
     }
