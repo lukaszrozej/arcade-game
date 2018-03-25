@@ -280,12 +280,21 @@ var Engine = (function(global) {
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    player = new Player(characterImages[currentCharacter]);
+    Enemy.prototype.options = {
+      rows: [
+        {row: 1, direction: 1},
+        {row: 2, direction: 1},
+        {row: 3, direction: 1},
+      ],
+      maxSpeed: 300,
+      minSpeed: 100
+    };
     allEnemies = [
       new Enemy(),
       new Enemy(),
       new Enemy()
     ];
+    player = new Player(characterImages[currentCharacter]);
     state = 'play';
   }
 

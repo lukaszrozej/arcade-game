@@ -10,6 +10,14 @@ var Enemy = function() {
   this.setToRandom();
 };
 
+Enemy.prototype.options = {
+  rows: [
+    {row: 1, direction: 1},
+  ],
+  maxSpeed: 300,
+  minSpeed: 100
+};
+
 // Set the enmies position and velocity to random values
 // Position will be off screen
 Enemy.prototype.setToRandom = function() {
@@ -17,9 +25,9 @@ Enemy.prototype.setToRandom = function() {
   //position:
   this.x = -101;
   // Row number from 1 to 3 - one of the 3 stone tracks
-  this.row = Math.floor(Math.random() * 3) + 1;
+  this.row = this.options.rows[Math.floor(Math.random() * this.options.rows.length)].row ;
   //velocity:
-  this.v = Math.random() * 200 + 100;
+  this.v = Math.random() * (this.options.maxSpeed - this.options.minSpeed) + this.options.minSpeed;
 }
 
 // Update the enemy's position, required method for game
