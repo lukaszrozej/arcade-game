@@ -21,7 +21,6 @@ Enemy.prototype.options = {
 // Set the enmies position and velocity to random values
 // Position will be off screen
 Enemy.prototype.setToRandom = function() {
-  const yPositions = [60, 143, 226];
   //position:
   this.x = -101;
   // Row number from 1 to 3 - one of the 3 stone tracks
