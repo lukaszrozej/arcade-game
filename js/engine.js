@@ -155,17 +155,17 @@ var Engine = (function(global) {
       enemy.update(dt);
     });
 
-    for (enemy1 of enemies) {
-      for (enemy2 of enemies) {
-        if (enemy1 === enemy2) break;
-        const distance = Math.abs(enemy1.x - enemy2.x);
-        if (enemy1.row === enemy2.row && distance < 95) {
-          if (enemy1.offScreen()) {
-            enemy1.setToRandom();
-          } else if (enemy2.offScreen()) {
-            enemy1.setToRandom();
+    for (let i = 0; i < enemies.length; i++) {
+      for (let j = i+1; j < enemies.length; j++) {
+        if (enemies[i] === enemies[j]) break;
+        const distance = Math.abs(enemies[i].x - enemies[j].x);
+        if (enemies[i].row === enemies[j].row && distance < 95) {
+          if (enemies[i].offScreen()) {
+            enemies[i].setToRandom();
+          } else if (enemies[j].offScreen()) {
+            enemies[i].setToRandom();
           } else {
-            [enemy1.v, enemy2.v] = [enemy2.v, enemy1.v];
+            [enemies[i].v, enemies[j].v] = [enemies[j].v, enemy1.v];
           }
         }
       }
