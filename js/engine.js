@@ -160,9 +160,9 @@ var Engine = (function(global) {
         if (enemy1 === enemy2) break;
         const distance = Math.abs(enemy1.x - enemy2.x);
         if (enemy1.row === enemy2.row && distance < 95) {
-          if (enemy1.x < -101 || enemy1.x > 505) {
+          if (enemy1.offScreen()) {
             enemy1.setToRandom();
-          } else if (enemy2.x < -101 || enemy2.x > 505) {
+          } else if (enemy2.offScreen()) {
             enemy1.setToRandom();
           } else {
             [enemy1.v, enemy2.v] = [enemy2.v, enemy1.v];

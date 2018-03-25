@@ -58,6 +58,10 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(sprite), this.x, y);
 };
 
+Enemy.prototype.offScreen = function() {
+  return this.x < -101 || this.x > 505;
+}
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
