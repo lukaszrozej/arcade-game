@@ -36,7 +36,7 @@ Enemy.prototype.setToRandom = function() {
   //velocity:
   this.v = Math.random() * (this.options.maxSpeed - this.options.minSpeed) + this.options.minSpeed;
   this.v *= this.options.rows[rowNumber].direction;
-  this.x = this.v > 0 ? -101 : 505;
+  this.x = this.v > 0 ? -202 : 606;
 }
 
 // Update the enemy's position, required method for game
@@ -46,7 +46,7 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
   this.x += this.v * dt;
-  if (this.x > 505 || this.x < -101) {
+  if (this.x > 606 || this.x < -202) {
     this.setToRandom();
   }
 };

@@ -155,6 +155,23 @@ var Engine = (function(global) {
     enemies.forEach(function(enemy) {
       enemy.update(dt);
     });
+
+    for(enemy1 of enemies) {
+      for(enemy2 of enemies) {
+        if (enemy1 === enemy2) break;
+        const distance = Math.abs(enemy1.x - enemy2.x);
+        if (enemy1.row === enemy2.row && distance < 95) {
+          if (enemy1.x < -101 || enemy1.x > 505) {
+            enemy1.setToRandom();
+          } else if (enemy2.x < -101 || enemy2.x > 505 ) {
+            enemy1.setToRandom();
+          } else {
+            [enemy1.v, enemy2.v] = [enemy2.v, enemy1.v];
+          }
+        }
+      }
+    }
+
     player.update();
     player.checkCollisions(enemies);
   }
