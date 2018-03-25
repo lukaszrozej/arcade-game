@@ -24,7 +24,8 @@ Enemy.prototype.setToRandom = function() {
   //position:
   this.x = -101;
   // Row number from 1 to 3 - one of the 3 stone tracks
-  this.row = this.options.rows[Math.floor(Math.random() * this.options.rows.length)].row ;
+  const rowNumber = Math.floor(Math.random() * this.options.rows.length);
+  this.row = this.options.rows[rowNumber].row ;
   //velocity:
   this.v = Math.random() * (this.options.maxSpeed - this.options.minSpeed) + this.options.minSpeed;
 }
