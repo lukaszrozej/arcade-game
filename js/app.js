@@ -19,9 +19,9 @@ var Enemy = function() {
 // taken uniformly from the interval: [minSpeed, maxSpeed)
 Enemy.prototype.options = {
   rows: [
-    {row: 1, direction: 1},
-    {row: 2, direction: 1},
-    {row: 3, direction: 1},
+    { row: 1, direction: 1 },
+    { row: 2, direction: 1 },
+    { row: 3, direction: 1 },
   ],
   maxSpeed: 300,
   minSpeed: 100
@@ -32,7 +32,7 @@ Enemy.prototype.options = {
 Enemy.prototype.setToRandom = function() {
   // Row number from 1 to 3 - one of the 3 stone tracks
   const rowNumber = Math.floor(Math.random() * this.options.rows.length);
-  this.row = this.options.rows[rowNumber].row ;
+  this.row = this.options.rows[rowNumber].row;
   //velocity:
   this.v = Math.random() * (this.options.maxSpeed - this.options.minSpeed) + this.options.minSpeed;
   this.v *= this.options.rows[rowNumber].direction;
@@ -74,8 +74,7 @@ Player.prototype.reset = function() {
   this.col = 2;
 }
 
-Player.prototype.update = function(dt) {
-}
+Player.prototype.update = function(dt) {}
 
 Player.prototype.render = function() {
   const x = 101 * this.col;
@@ -85,7 +84,7 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(input) {
   if (this.dead) return;
-  switch(input) {
+  switch (input) {
     case 'left':
       if (this.col > 0) this.col -= 1;
       break;
@@ -99,7 +98,7 @@ Player.prototype.handleInput = function(input) {
       if (this.row < 5) this.row += 1;
       break;
   }
-  if (this.row === 0){
+  if (this.row === 0) {
     this.score++;
     this.reset();
   }
@@ -107,7 +106,7 @@ Player.prototype.handleInput = function(input) {
 
 Player.prototype.checkCollisions = function(enemies) {
   const collision = enemy =>
-    enemy.row === this.row && Math.abs(enemy.x - 101*this.col) < 60;
+    enemy.row === this.row && Math.abs(enemy.x - 101 * this.col) < 60;
   if (enemies.some(collision)) {
     this.loseLife();
   }

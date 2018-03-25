@@ -40,7 +40,6 @@ var Engine = (function(global) {
 
   let currentCharacter = 2;
 
-
   canvas.width = 505;
   canvas.height = 606;
   doc.body.appendChild(canvas);
@@ -123,8 +122,8 @@ var Engine = (function(global) {
 
   // Checks if any of the enemies collides with the player
   function collisionDetected() {
-    return enemies.some( enemy => 
-      enemy.row === player.row && Math.abs(enemy.x - 101*player.col) < 60
+    return enemies.some(enemy =>
+      enemy.row === player.row && Math.abs(enemy.x - 101 * player.col) < 60
     );
   }
 
@@ -156,14 +155,14 @@ var Engine = (function(global) {
       enemy.update(dt);
     });
 
-    for(enemy1 of enemies) {
-      for(enemy2 of enemies) {
+    for (enemy1 of enemies) {
+      for (enemy2 of enemies) {
         if (enemy1 === enemy2) break;
         const distance = Math.abs(enemy1.x - enemy2.x);
         if (enemy1.row === enemy2.row && distance < 95) {
           if (enemy1.x < -101 || enemy1.x > 505) {
             enemy1.setToRandom();
-          } else if (enemy2.x < -101 || enemy2.x > 505 ) {
+          } else if (enemy2.x < -101 || enemy2.x > 505) {
             enemy1.setToRandom();
           } else {
             [enemy1.v, enemy2.v] = [enemy2.v, enemy1.v];
@@ -206,7 +205,7 @@ var Engine = (function(global) {
     ctx.fillText(`using left and right arrow keys`, 253, 340);
 
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
-    characterImages.forEach((image, index) => 
+    characterImages.forEach((image, index) =>
       ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
     );
   }
@@ -272,8 +271,8 @@ var Engine = (function(global) {
     ctx.textAlign = 'start'
     ctx.fillText(`Level: ${level}`, 4, 36);
     ctx.fillText(`Score: ${player.score}`, 140, 36);
-    for(let i = 1; i <= player.lives; i++) {
-      ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i*32, 10);
+    for (let i = 1; i <= player.lives; i++) {
+      ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 10);
     }
   }
 
@@ -299,9 +298,9 @@ var Engine = (function(global) {
   function reset() {
     Enemy.prototype.options = {
       rows: [
-        {row: 1, direction: 1},
-        {row: 2, direction: -1},
-        {row: 3, direction: 1},
+        { row: 1, direction: 1 },
+        { row: 2, direction: -1 },
+        { row: 3, direction: 1 },
       ],
       maxSpeed: 300,
       minSpeed: 100
