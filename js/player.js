@@ -1,3 +1,32 @@
+const characterSprites = [
+  {
+    main: 'images/char-boy.png',
+    head: 'images/char-boy-head.png',
+    trunk:  'images/char-boy-trunk.png',
+  },
+  {
+    main: 'images/char-cat-girl.png',
+    head: 'images/char-cat-girl-head.png',
+    trunk:  'images/char-cat-girl-trunk.png',
+  },
+  {
+    main: 'images/char-horn-girl.png',
+    head: 'images/char-horn-girl-head.png',
+    trunk:  'images/char-horn-girl-trunk.png',
+  },
+  {
+    main: 'images/char-pink-girl.png',
+    head: 'images/char-pink-girl-head.png',
+    trunk:  'images/char-pink-girl-trunk.png',
+  },
+  {
+    main: 'images/char-princess-girl.png',
+    head: 'images/char-princess-girl-head.png',
+    trunk:  'images/char-princess-girl-trunk.png',
+  },
+];
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
