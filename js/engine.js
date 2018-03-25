@@ -154,10 +154,18 @@ var Engine = (function(global) {
     enemies.forEach(function(enemy) {
       enemy.update(dt);
     });
+    checkEnemyCeollisions();
 
+    player.update();
+    player.checkCollisions(enemies);
+  }
+
+  // For each pair of different enemies checks if they collide
+  // If one is still ofscreen it is reset to random
+  // If both are onscreen they switch their velocities
+  function checkEnemyCeollisions() {
     for (let i = 0; i < enemies.length; i++) {
       for (let j = i+1; j < enemies.length; j++) {
-        if (enemies[i] === enemies[j]) break;
         const distance = Math.abs(enemies[i].x - enemies[j].x);
         if (enemies[i].row === enemies[j].row && distance < 95) {
           if (enemies[i].offScreen()) {
@@ -165,14 +173,11 @@ var Engine = (function(global) {
           } else if (enemies[j].offScreen()) {
             enemies[i].setToRandom();
           } else {
-            [enemies[i].v, enemies[j].v] = [enemies[j].v, enemy1.v];
+            [enemies[i].v, enemies[j].v] = [enemies[j].v, enemies[i].v];
           }
         }
       }
     }
-
-    player.update();
-    player.checkCollisions(enemies);
   }
 
   /* This function initially draws the "game level", it will then call
