@@ -20,13 +20,15 @@ Player.prototype.update = function(dt) {
     case 'hit':
       const FINAL_X = 101 * 2;
       const FINAL_Y = 83 * 5 - 40;
-      if (this.y < FINAL_Y) {
+      if (this.headY < FINAL_Y) {
         this.trunkX += dt * this.trunkVX;
         this.headX += dt * this.headVX;
-        this.y += dt * this.v;
+        this.headY += dt * this.v;
+        this.trunkY = this.headY;
         this.v += dt * this.a;
       } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0){
         this.trunkX += dt * this.trunkJumpV;
+        this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
       } else {
         this.state = 'alive';
         this.reset();
@@ -43,8 +45,8 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
       break;
     case 'hit':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.y, 101, 171);
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.y, 101, 171);
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
       break;
   }
 }
@@ -107,7 +109,8 @@ Player.prototype.checkCollisions = function(enemies) {
     // equation of uniformly accelerated motion
 
     // Initial position
-    this.y = 83 * this.row - 40;
+    this.headY = 83 * this.row - 40;
+    this.trunkY = this.headY;
 
     // Final position
     const FINAL_Y = 83 * 5 - 40;
@@ -116,7 +119,7 @@ Player.prototype.checkCollisions = function(enemies) {
     const HEIGHT = 50;
 
     // How low they will land below the initial position
-    const DEPTH = FINAL_Y - this.y;
+    const DEPTH = FINAL_Y - this.headY;
 
     // Vertical initial velocity
     this.v = -2 * HEIGHT * (1 + Math.sqrt(1 + DEPTH / HEIGHT)) / TIME;
@@ -128,6 +131,9 @@ Player.prototype.checkCollisions = function(enemies) {
 
     // Velocity
     this.trunkJumpV = (FINAL_HEAD_X - FINAL_TRUNK_X) / TIME;
+
+    // Initial horizontal jumping position
+    this.trunkJumpStartX = FINAL_TRUNK_X;
   }
 }
 
