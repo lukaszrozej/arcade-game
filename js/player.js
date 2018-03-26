@@ -18,12 +18,15 @@ Player.prototype.reset = function() {
 Player.prototype.update = function(dt) {
   switch (this.state) {
     case 'hit':
+      const FINAL_X = 101 * 2;
       const FINAL_Y = 83 * 5 - 40;
       if (this.y < FINAL_Y) {
         this.trunkX += dt * this.trunkVX;
         this.headX += dt * this.headVX;
         this.y += dt * this.v;
         this.v += dt * this.a;
+      } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0){
+        this.trunkX += dt * this.trunkJumpV;
       } else {
         this.state = 'alive';
         this.reset();
@@ -79,6 +82,8 @@ Player.prototype.checkCollisions = function(enemies) {
     this.lives--;
     this.state = 'hit';
 
+    // Trunk and head falling:
+
     // Time it takes the head and trunk to fly to the bottom
     const TIME = 1;
 
@@ -118,6 +123,11 @@ Player.prototype.checkCollisions = function(enemies) {
 
     // Vertical acceleration
     this.a = this.v * this.v / (2 * HEIGHT);
+
+    // Trunk jumping:
+
+    // Velocity
+    this.trunkJumpV = (FINAL_HEAD_X - FINAL_TRUNK_X) / TIME;
   }
 }
 
