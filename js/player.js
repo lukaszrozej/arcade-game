@@ -18,10 +18,19 @@ Player.prototype.reset = function() {
 Player.prototype.update = function(dt) {
   switch (this.state) {
     case 'hit':
-      this.trunkX += dt * this.trunkV;
-      this.headX += dt * this.headVX;
-      this.headY += dt * this.headVY;
-      this.headVY += dt * this.headA;
+      if (this.trunkX < 505 && this.trunkX > -101) {
+        this.trunkX += dt * this.trunkV;
+      }
+
+      const FINAL_Y = 83 * 5 - 40;
+      if (this.headY < FINAL_Y) {
+        this.headX += dt * this.headVX;
+        this.headY += dt * this.headVY;
+        this.headVY += dt * this.headA;
+      } else {
+        this.state = 'alive';
+        this.reset();
+      }
       break;
   }  
 }
