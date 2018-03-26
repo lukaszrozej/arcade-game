@@ -202,12 +202,13 @@ var Engine = (function(global) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
 
+    ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
     ctx.font = '24px sans-serif';
     ctx.fillStyle = 'white';
 
-    ctx.fillText(`Choose a character`, 253, 300);
-    ctx.fillText(`using left and right arrow keys`, 253, 340);
+    ctx.fillText(`Choose a character`, 253, 200);
+    ctx.fillText(`using left and right arrow keys`, 253, 240);
 
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
     characterImages.forEach((image, index) =>
@@ -219,14 +220,15 @@ var Engine = (function(global) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
 
+    ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
     ctx.fillStyle = 'white';
 
     ctx.font = '64px sans-serif';
-    ctx.fillText(`Game Over`, 253, 300);
+    ctx.fillText(`Game Over`, 253, 200);
 
     ctx.font = '24px sans-serif';
-    ctx.fillText(`Press any key to restart the game`, 253, 360);
+    ctx.fillText(`Press any key to restart the game`, 253, 300);
   }
 
   function renderTerrain() {
@@ -274,9 +276,10 @@ var Engine = (function(global) {
  
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
+    ctx.textBaseline = 'top';
     ctx.textAlign = 'start'
-    ctx.fillText(`Level: ${level}`, 4, 36);
-    ctx.fillText(`Score: ${player.score}`, 140, 36);
+    ctx.fillText(`Level: ${level}`, 4, 8);
+    ctx.fillText(`Score: ${player.score}`, 140, 8);
  
     for (let i = 1; i <= player.lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 10);
