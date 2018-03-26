@@ -178,6 +178,7 @@ Object.defineProperty(Player.prototype, 'dead', {
 Player.prototype.say = function(text) {
 
   // Speach bubble:
+  // adapted from: http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
   // Bubble dimensions
   const width = 290;
