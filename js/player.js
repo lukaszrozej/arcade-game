@@ -53,7 +53,7 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 
       if (this.talking) {
-        this.say('Ouch! That hurt!');
+        this.say('Ouch! \nThat hurt! \nA lot! \nIt still hurts!');
       }
       break;
     case 'hit':
@@ -114,7 +114,7 @@ Player.prototype.checkCollisions = function(enemies) {
     // Time it takes the head and trunk to fly to the bottom
     const TIME = 1;
 
-    // Horizontal motion has constant velocity
+    // Horizontalinetion has constant velocity
 
     // Initial position
     this.headX = 101 * this.col;
@@ -188,12 +188,26 @@ Object.defineProperty(Player.prototype, 'dead', {
 
 Player.prototype.say = function(text) {
 
+  // Split text into lines:
+  const textLines = text.split('\n');
+
+  // Get text width:
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'start';
+  ctx.font = '24px sans-serif';
+  ctx.fillStyle = 'black';
+
+  const textWidth = Math.max(...textLines.map(line => ctx.measureText(line).width));
+
   // Speach bubble:
   // adapted from: http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
+  // Corner radius
+  const radius = 25;
+
   // Bubble dimensions
-  const width = 290;
-  const height = 100;
+  const width = textWidth + radius;
+  const height = textLines.length * 30 + radius;
 
   // Coordinates of lower left corner
   const x = 202;
@@ -204,9 +218,6 @@ Player.prototype.say = function(text) {
   // Coordinates of tip
   const tipX = 2 * 101 + 100;
   const tipY = y + tailHeight;
-
-  // Corner radius
-  const radius = 25;
 
   ctx.beginPath();
   ctx.moveTo(tipX, tipY);
@@ -242,5 +253,7 @@ Player.prototype.say = function(text) {
   ctx.font = '24px sans-serif';
   ctx.fillStyle = 'black';
 
-  ctx.fillText(text, x + radius / 2, y - height + radius / 2);
+  textLines.forEach((line, index) => {
+    ctx.fillText(line, x + radius / 2, y - height + radius / 2 + index * 30);
+  });
 }
