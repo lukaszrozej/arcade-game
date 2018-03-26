@@ -211,7 +211,7 @@ var Engine = (function(global) {
 
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
     characterImages.forEach((image, index) =>
-      ctx.drawImage(Resources.get(image), index * 101, 5 * 83 - 40)
+      ctx.drawImage(Resources.get(image), 0, 0, 101, 171, index * 101, 5 * 83 - 40, 101, 171)
     );
   }
 
