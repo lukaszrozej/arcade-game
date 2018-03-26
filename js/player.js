@@ -18,14 +18,13 @@ Player.prototype.reset = function() {
 Player.prototype.update = function(dt) {
   switch (this.state) {
     case 'hit':
-      this.trunkX += dt * this.trunkV;
-
       const FINAL_Y = 83 * 5 - 40;
-      if (this.headY < FINAL_Y) {
+      if (this.y < FINAL_Y) {
+        this.trunkX += dt * this.trunkVX;
         this.headX += dt * this.headVX;
-        this.headY += dt * this.headVY;
-        this.headVY += dt * this.headA;
-      } else if (this.trunkX > 505 || this.trunkX < -101) {
+        this.y += dt * this.v;
+        this.v += dt * this.a;
+      } else {
         this.state = 'alive';
         this.reset();
       }
@@ -41,8 +40,8 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
       break;
     case 'hit':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.y, 101, 171);
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.y, 101, 171);
       break;
   }
 }
@@ -80,47 +79,45 @@ Player.prototype.checkCollisions = function(enemies) {
     this.lives--;
     this.state = 'hit';
 
-    // Head:
-
-    // initial position
-    this.headX = 101 * this.col;
-    this.headY = 83 * this.row - 40;
-
-    // final position
-    const FINAL_X = 101 * 2;
-    const FINAL_Y = 83 * 5 - 40;
-
-    // time it takes the head to fly to the bottom
+    // Time it takes the head and trunk to fly to the bottom
     const TIME = 1;
 
-    this.headVX = (FINAL_X - this.headX) / TIME;
+    // Horizontal motion has constant velocity
 
-    // how high the head will fly above it's initial position
-    const HEIGHT = 50;
+    // Initial position
+    this.headX = 101 * this.col;
+    this.trunkX = 101 * this.col;
 
-    // how low the head will land below it's initial position
-    const DEPTH = FINAL_Y - this.headY;
+    // Final position
+    const FINAL_HEAD_X = 101 * 2;
+    const FINAL_TRUNK_X = enemy.v > 0 ? 101 * 4 : 0;
 
-    // vertical acceleration and initial velocity formulas
-    // from conservation of energy and
+    // Horizontal velocities
+    this.headVX = (FINAL_HEAD_X - this.headX) / TIME;
+    this.trunkVX = (FINAL_TRUNK_X - this.trunkX) / TIME;
+
+    // Vertical motion of head and trunk is the same
+    // Vertical acceleration and initial velocity formulas
+    // derived from conservation of energy and
     // equation of uniformly accelerated motion
 
-    // vertical initial velocity
-    this.headVY = -2 * HEIGHT * (1 + Math.sqrt(1 + DEPTH / HEIGHT)) / TIME;
+    // Initial position
+    this.y = 83 * this.row - 40;
 
-    // vertical acceleration
-    this.headA = this.headVY * this.headVY / (2 * HEIGHT);
+    // Final position
+    const FINAL_Y = 83 * 5 - 40;
 
-    // Trunk:
+    // How high they will fly above the initial position
+    const HEIGHT = 50;
 
-    // initial position
-    this.trunkX = 101 * this.col;
-    this.trunkY = 83 * this.row - 40;
+    // How low they will land below the initial position
+    const DEPTH = FINAL_Y - this.y;
 
-    // velocities change according to conservation of momentum and energy
-    // assuming trunk weighs 0.25 the enemy
-    this.trunkV = 1.6 * enemy.v;
-    enemy.v *= 0.6;
+    // Vertical initial velocity
+    this.v = -2 * HEIGHT * (1 + Math.sqrt(1 + DEPTH / HEIGHT)) / TIME;
+
+    // Vertical acceleration
+    this.a = this.v * this.v / (2 * HEIGHT);
   }
 }
 
