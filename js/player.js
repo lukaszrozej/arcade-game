@@ -79,6 +79,7 @@ Player.prototype.checkCollisions = function(enemies) {
   const enemy = enemies.find(collision);
 
   if (enemy) {
+    this.lives--;
     this.state = 'hit';
 
     // Head:
