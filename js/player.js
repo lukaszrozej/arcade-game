@@ -31,7 +31,7 @@ Player.prototype.update = function(dt) {
 
         this.alpha += dt * this.omega;
 
-      } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0){
+      } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0) {
         // Trunk jumping phase
         this.trunkX += dt * this.trunkJumpV;
         this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
@@ -42,7 +42,7 @@ Player.prototype.update = function(dt) {
         this.reset();
       }
       break;
-  }  
+  }
 }
 
 Player.prototype.render = function() {
