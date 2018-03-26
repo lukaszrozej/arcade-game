@@ -61,7 +61,7 @@ Player.prototype.render = function() {
       ctx.restore();
       break;
   }
-this.say('');
+this.say('Hello!');
 
 }
 
@@ -177,6 +177,8 @@ Object.defineProperty(Player.prototype, 'dead', {
 
 Player.prototype.say = function(text) {
 
+  // Speach bubble:
+
   // Bubble dimensions
   const width = 290;
   const height = 100;
@@ -220,4 +222,13 @@ Player.prototype.say = function(text) {
   ctx.stroke();
   ctx.fillStyle = 'white';
   ctx.fill();
+
+  // Text:
+
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'start';
+  ctx.font = '24px sans-serif';
+  ctx.fillStyle = 'black';
+
+  ctx.fillText(text, x + radius / 2, y - height + radius / 2);
 }
