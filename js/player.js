@@ -22,6 +22,7 @@ Player.prototype.update = function(dt) {
       const FINAL_X = 101 * 2;
       const FINAL_Y = 83 * 5 - 40;
       if (this.headY < FINAL_Y) {
+        // Falling phase
         this.trunkX += dt * this.trunkVX;
         this.headX += dt * this.headVX;
         this.headY += dt * this.v;
@@ -31,9 +32,11 @@ Player.prototype.update = function(dt) {
         this.alpha += dt * this.omega;
 
       } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0){
+        // Trunk jumping phase
         this.trunkX += dt * this.trunkJumpV;
         this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
       } else {
+        // Coming back to life
         this.state = 'alive';
         this.talking = true;
         this.reset();
