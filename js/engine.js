@@ -171,7 +171,7 @@ var Engine = (function(global) {
           if (enemies[i].offScreen()) {
             enemies[i].setToRandom();
           } else if (enemies[j].offScreen()) {
-            enemies[i].setToRandom();
+            enemies[j].setToRandom();
           } else {
             [enemies[i].v, enemies[j].v] = [enemies[j].v, enemies[i].v];
           }
