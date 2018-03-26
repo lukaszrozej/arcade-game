@@ -26,6 +26,9 @@ Player.prototype.update = function(dt) {
         this.headY += dt * this.v;
         this.trunkY = this.headY;
         this.v += dt * this.a;
+
+        this.alpha += dt * this.omega;
+
       } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0){
         this.trunkX += dt * this.trunkJumpV;
         this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
@@ -45,8 +48,17 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
       break;
     case 'hit':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
+      ctx.save();
+      ctx.translate(this.trunkX + 50, this.trunkY + 130);
+      ctx.rotate(this.alpha);
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, -50, -130, 101, 171);
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(this.headX + 50, this.headY + 100);
+      ctx.rotate(-this.alpha);
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -50, -100, 101, 171);
+      ctx.restore();
       break;
   }
 }
@@ -127,9 +139,22 @@ Player.prototype.checkCollisions = function(enemies) {
     // Vertical acceleration
     this.a = this.v * this.v / (2 * HEIGHT);
 
+    // Head and trunk rotating
+
+    // Rotation of head and trunk is the same, but in oposite diractions
+
+    // Initial angle:
+    this.alpha = 0;
+
+    const NUMBER_OF_ROTATIONS = 2;
+    const DIRECTION = (enemy.v > 0 ? 1 : -1);
+
+    // Angular velocity:
+    this.omega = DIRECTION * 2 * Math.PI * NUMBER_OF_ROTATIONS / TIME;
+
     // Trunk jumping:
 
-    // Velocity
+    // Constant horizontal velocity
     this.trunkJumpV = (FINAL_HEAD_X - FINAL_TRUNK_X) / TIME;
 
     // Initial horizontal jumping position
