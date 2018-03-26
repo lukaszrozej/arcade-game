@@ -156,7 +156,7 @@ var Engine = (function(global) {
     });
     checkEnemyCeollisions();
 
-    player.update();
+    player.update(dt);
     player.checkCollisions(enemies);
   }
 
