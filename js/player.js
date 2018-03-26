@@ -48,7 +48,7 @@ Player.prototype.update = function(dt) {}
 Player.prototype.render = function() {
   const x = 101 * this.col;
   const y = 83 * this.row - 40;
-  ctx.drawImage(Resources.get(this.sprite), x, y);
+  ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 }
 
 Player.prototype.handleInput = function(input) {
