@@ -61,6 +61,8 @@ Player.prototype.render = function() {
       ctx.restore();
       break;
   }
+this.say('');
+
 }
 
 Player.prototype.handleInput = function(input) {
@@ -172,3 +174,50 @@ Object.defineProperty(Player.prototype, 'dead', {
     return this.lives === 0;
   }
 });
+
+Player.prototype.say = function(text) {
+
+  // Bubble dimensions
+  const width = 290;
+  const height = 100;
+
+  // Coordinates of lower left corner
+  const x = 202;
+  const y = 5 * 83;
+
+  const tailHeight = 50;
+
+  // Coordinates of tip
+  const tipX = 2 * 101 + 100;
+  const tipY = y + tailHeight;
+
+  // Corner radius
+  const radius = 25;
+
+  ctx.beginPath();
+  ctx.moveTo(tipX, tipY);
+  // tail left edge
+  ctx.quadraticCurveTo(tipX + tailHeight / 4, y + tailHeight / 2, tipX, y);
+  ctx.lineTo(x + radius, y);
+  // bottom left corner
+  ctx.quadraticCurveTo(x, y, x, y - radius);
+  ctx.lineTo(x, y - height + radius);
+  // upper left corner
+  ctx.quadraticCurveTo(x, y - height, x + radius, y - height);
+  ctx.lineTo(x + width - radius, y - height);
+  // upper right corner
+  ctx.quadraticCurveTo(x + width, y - height, x + width, y - height + radius);
+  ctx.lineTo(x + width, y - radius);
+  // bottom right corner
+  ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
+  ctx.lineTo(tipX + tailHeight / 2, y);
+  // tail right edge
+  ctx.quadraticCurveTo(tipX + tailHeight * 3 / 4, y + tailHeight / 2, tipX, tipY);
+  ctx.closePath();
+
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = 'black';
+  ctx.stroke();
+  ctx.fillStyle = 'white';
+  ctx.fill();
+}
