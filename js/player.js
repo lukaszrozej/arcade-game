@@ -6,6 +6,7 @@ const Player = function(sprite = 'images/char-boy.png') {
   this.lives = 3
   this.score = 0;
   this.state = 'alive';
+  this.talking = false;
   this.reset();
 }
 
@@ -34,6 +35,7 @@ Player.prototype.update = function(dt) {
         this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
       } else {
         this.state = 'alive';
+        this.talking = true;
         this.reset();
       }
       break;
@@ -46,6 +48,10 @@ Player.prototype.render = function() {
       const x = 101 * this.col;
       const y = 83 * this.row - 40;
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
+
+      if (this.talking) {
+        this.say('Ouch! That hurt!');
+      }
       break;
     case 'hit':
       ctx.save();
@@ -61,12 +67,14 @@ Player.prototype.render = function() {
       ctx.restore();
       break;
   }
-this.say('Hello!');
-
 }
 
 Player.prototype.handleInput = function(input) {
   if (this.dead) return;
+
+  // Don't talk when you walk :)
+  this.talking = false;
+
   switch (input) {
     case 'left':
       if (this.col > 0) this.col -= 1;
