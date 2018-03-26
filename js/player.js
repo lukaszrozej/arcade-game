@@ -39,6 +39,7 @@ Player.prototype.update = function(dt) {
         // Coming back to life
         this.state = 'alive';
         this.talking = true;
+        this.currentText = hitTexts[Math.floor(Math.random() * hitTexts.length)];
         this.reset();
       }
       break;
@@ -53,7 +54,7 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 
       if (this.talking) {
-        this.say('Ouch! \nThat hurt! \nA lot! \nIt still hurts!');
+        this.say(this.currentText);
       }
       break;
     case 'hit':
@@ -188,8 +189,8 @@ Object.defineProperty(Player.prototype, 'dead', {
 
 Player.prototype.say = function(text) {
 
-  // Split text into lines:
-  const textLines = text.split('\n');
+  // Split text into lines, omit unneccessary whitespace:
+  const textLines = text.replace(/ +/g, ' ').split('\n');
 
   // Get text width:
   ctx.textBaseline = 'top';
@@ -257,3 +258,13 @@ Player.prototype.say = function(text) {
     ctx.fillText(line, x + radius / 2, y - height + radius / 2 + index * 30);
   });
 }
+
+const hitTexts = [
+  `Ouch, that hurt!`,
+  `No wonder I got hit.
+  I'm walking backwards.`,
+  `Should I try again?
+  I feel dizzy.`,
+  `I get knocked down,
+  Then I get up again \u266B`
+];
