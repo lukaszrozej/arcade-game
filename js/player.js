@@ -200,19 +200,21 @@ Player.prototype.renderSpeech = function(text) {
   // Corner radius
   const radius = 25;
 
-  // Bubble dimensions
-  const width = textWidth + radius;
-  const height = textLines.length * 30 + radius;
+  const tailHeight = 50;
 
   // Coordinates of lower left corner
   const x = 202;
   const y = 5 * 83;
 
-  const tailHeight = 50;
-
   // Coordinates of tip
   const tipX = 2 * 101 + 100;
   const tipY = y + tailHeight;
+
+  // Bubble dimensions
+  const MIN_WIDTH = tipX - x + tailHeight / 2 + radius;
+  const width = textWidth + radius > MIN_WIDTH ? textWidth + radius : MIN_WIDTH;
+  const height = textLines.length * 30 + radius;
+
 
   ctx.beginPath();
   ctx.moveTo(tipX, tipY);
