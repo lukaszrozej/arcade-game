@@ -38,8 +38,7 @@ Player.prototype.update = function(dt) {
       } else {
         // Coming back to life
         this.state = 'alive';
-        this.talking = true;
-        this.currentText = hitTexts[Math.floor(Math.random() * hitTexts.length)];
+        this.say(hitTexts[Math.floor(Math.random() * hitTexts.length)]);
         this.reset();
       }
       break;
@@ -247,6 +246,11 @@ Player.prototype.renderSpeech = function(text) {
   textLines.forEach((line, index) => {
     ctx.fillText(line, x + radius / 2, y - height + radius / 2 + index * 30);
   });
+}
+
+Player.prototype.say = function(text) {
+  this.talking = true;
+  this.currentText = text;
 }
 
 const hitTexts = [
