@@ -75,7 +75,7 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(input) {
-  if (this.dead) return;
+  if (this.dead || this.frozen) return;
 
   // Don't talk when you walk :)
   this.talking = false;
