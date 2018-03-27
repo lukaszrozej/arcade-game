@@ -7,6 +7,8 @@ const Player = function(sprite = 'images/char-boy.png') {
   this.score = 0;
   this.state = 'alive';
   this.talking = false;
+  this.frozen = false;
+  this.finishedLevel = false;
   this.reset();
 }
 
@@ -92,9 +94,10 @@ Player.prototype.handleInput = function(input) {
       if (this.row < 5) this.row += 1;
       break;
   }
-  if (this.row === 0) {
+  if (this.row === 0 && this.col === 2) {
+    this.finishedLevel = true;
     this.score++;
-    this.reset();
+    // this.reset();
   }
 }
 
@@ -251,6 +254,14 @@ Player.prototype.renderSpeech = function(text) {
 Player.prototype.say = function(text) {
   this.talking = true;
   this.currentText = text;
+}
+
+Player.prototype.freeze = function() {
+  this.frozen = true;
+}
+
+Player.prototype.unfreeze = function() {
+  this.frozen = false;
 }
 
 const hitTexts = [

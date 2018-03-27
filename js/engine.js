@@ -30,6 +30,8 @@ var Engine = (function(global) {
   let enemies = [];
   let player = new Player();
 
+  let scrollProgress;
+
   const characterImages = [
     'images/char-boy.png',
     'images/char-cat-girl.png',
@@ -141,6 +143,15 @@ var Engine = (function(global) {
     if (player.dead) {
       state = 'game over';
     }
+    if (state === 'scroll') {
+      scrollProgress += dt * 83 * 5 / 2;
+    }
+    if (player.finishedLevel) {
+      player.finishedLevel = false;
+      player.freeze();
+      state = 'scroll';
+      scrollProgress = 0;
+    }
   }
 
   /* This is called by the update function and loops through all of the
@@ -187,10 +198,14 @@ var Engine = (function(global) {
    * they are just drawing the entire screen over and over.
    */
   function render() {
-    renderTerrain(0);
+
+    ctx.translate(0, scrollProgress);
+    renderTerrain(level);
+    renderEntities();
+    ctx.translate(0, -scrollProgress);
+
     renderScorePanel();
     renderBottomPanel();
-    renderEntities();
     if (state === 'game over') {
       renderGameOver();
     }
