@@ -155,7 +155,7 @@ Player.prototype.checkCollisions = function(enemies) {
 
     // Head and trunk rotating
 
-    // Rotation of head and trunk is the same, but in oposite diractions
+    // Rotation of head and trunk is the same, but in oposite directions
 
     // Initial angle:
     this.alpha = 0;
