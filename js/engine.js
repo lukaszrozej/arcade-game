@@ -81,7 +81,7 @@ var Engine = (function(global) {
    * game loop.
    */
   function init() {
-    // reset();
+    reset();
     addEventListeners();
     lastTime = Date.now();
     main();
@@ -93,8 +93,6 @@ var Engine = (function(global) {
     document.addEventListener('keyup', function(e) {
       if (state === 'game over') {
         reset();
-        state = 'choose character';
-        // enemies = [];
         return;
       }
       if (state === 'choose character') {
@@ -106,7 +104,7 @@ var Engine = (function(global) {
         }
         if (e.keyCode === 13) {
           player.sprite = characterImages[currentCharacter];
-          reset();
+          state = 'play';
         }
         currentCharacter %= 5;
         return;
@@ -334,7 +332,8 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     enemies = createEnemiesForLevel(0);
-    state = 'play';
+    player.lives = 3;
+    state = 'choose character';
   }
 
   function createEnemiesForLevel(level) {
