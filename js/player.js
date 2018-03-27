@@ -54,7 +54,7 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 
       if (this.talking) {
-        this.say(this.currentText);
+        this.renderSpeech(this.currentText);
       }
       break;
     case 'hit':
@@ -182,7 +182,7 @@ Object.defineProperty(Player.prototype, 'dead', {
   }
 });
 
-Player.prototype.say = function(text) {
+Player.prototype.renderSpeech = function(text) {
 
   // Split text into lines, omit unneccessary whitespace:
   const textLines = text.replace(/ +/g, ' ').split('\n');
@@ -191,7 +191,7 @@ Player.prototype.say = function(text) {
   ctx.font = '24px sans-serif';
   const textWidth = Math.max(...textLines.map(line => ctx.measureText(line).width));
 
-  // Speach bubble:
+  // Speech bubble:
   // adapted from: http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
   // Corner radius
