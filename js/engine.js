@@ -243,17 +243,17 @@ var Engine = (function(global) {
     renderScorePanel();
     renderBottomPanel();
     if (state === 'game over') {
-      renderGameOver();
+      renderMessage('Game over');
     }
     if (state === 'win') {
-      renderWin();
+      renderMessage('You win!');
     }
     if (state === 'choose character') {
       renderCharacterSelection();
     }
   }
 
-  function renderWin() {
+  function renderMessage(message) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
 
@@ -262,7 +262,7 @@ var Engine = (function(global) {
     ctx.fillStyle = 'white';
 
     ctx.font = '64px sans-serif';
-    ctx.fillText(`You won!`, 253, 200);
+    ctx.fillText(message, 253, 200);
 
     ctx.font = '24px sans-serif';
     ctx.fillText(`Press enter to restart the game`, 253, 300);
@@ -284,21 +284,6 @@ var Engine = (function(global) {
     characterImages.forEach((image, index) =>
       ctx.drawImage(Resources.get(image), 0, 0, 101, 171, index * 101, 5 * 83 - 40, 101, 171)
     );
-  }
-
-  function renderGameOver() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
-
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'center'
-    ctx.fillStyle = 'white';
-
-    ctx.font = '64px sans-serif';
-    ctx.fillText(`Game Over`, 253, 200);
-
-    ctx.font = '24px sans-serif';
-    ctx.fillText(`Press enter to restart the game`, 253, 300);
   }
 
   function renderTerrain(level) {
