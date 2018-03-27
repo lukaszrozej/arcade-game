@@ -122,13 +122,6 @@ var Engine = (function(global) {
     });
   }
 
-  // Checks if any of the enemies collides with the player
-  function collisionDetected() {
-    return enemies.some(enemy =>
-      enemy.row === player.row && Math.abs(enemy.x - 101 * player.col) < 60
-    );
-  }
-
   /* This function is called by main (our game loop) and itself calls all
    * of the functions which may need to update entity's data. Based on how
    * you implement your collision detection (when two entities occupy the
