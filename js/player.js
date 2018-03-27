@@ -193,11 +193,7 @@ Player.prototype.say = function(text) {
   const textLines = text.replace(/ +/g, ' ').split('\n');
 
   // Get text width:
-  ctx.textBaseline = 'top';
-  ctx.textAlign = 'start';
   ctx.font = '24px sans-serif';
-  ctx.fillStyle = 'black';
-
   const textWidth = Math.max(...textLines.map(line => ctx.measureText(line).width));
 
   // Speach bubble:
@@ -251,7 +247,6 @@ Player.prototype.say = function(text) {
 
   ctx.textBaseline = 'top';
   ctx.textAlign = 'start';
-  ctx.font = '24px sans-serif';
   ctx.fillStyle = 'black';
 
   textLines.forEach((line, index) => {
