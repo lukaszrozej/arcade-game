@@ -199,6 +199,12 @@ var Engine = (function(global) {
    */
   function render() {
 
+    if (state === 'scroll') {
+      ctx.translate(0, scrollProgress - 5 * 83);
+      renderTerrain(level + 1);
+      ctx.translate(0, -scrollProgress + 5 * 83);
+    }
+
     ctx.translate(0, scrollProgress);
     renderTerrain(level);
     renderEntities();
