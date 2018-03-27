@@ -27,7 +27,7 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
-  let enemies = [];
+  let enemies;
   let player = new Player();
 
   let scrollProgress;
