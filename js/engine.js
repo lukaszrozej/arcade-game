@@ -134,10 +134,12 @@ var Engine = (function(global) {
   function update(dt) {
     if (state === 'scroll') {
       if (scrollProgress > 83 * 5) {
+        // Scroll finished
         scrollProgress = 0;
         state = 'play';
         level++;
         player.row = 5;
+        enemies = newEnemies;
         player.unfreeze();
       } else {
         scrollProgress += dt * 83 * 5 / 2;
