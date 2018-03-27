@@ -147,6 +147,7 @@ var Engine = (function(global) {
         scrollProgress += dt * 83 * 5 / 2;
         newEnemies.forEach(enemy => {
           enemy.update(dt);
+        checkEnemyCollisions(newEnemies);
         });
       }
     }
