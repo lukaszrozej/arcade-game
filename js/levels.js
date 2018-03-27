@@ -1,6 +1,5 @@
 const levels = [{
     rowImages: [
-      'images/water-block.png',
       'images/stone-block.png',
       'images/stone-block.png',
       'images/stone-block.png',
