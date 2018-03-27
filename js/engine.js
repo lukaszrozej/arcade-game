@@ -173,7 +173,7 @@ var Engine = (function(global) {
     enemies.forEach(function(enemy) {
       enemy.update(dt);
     });
-    checkEnemyCeollisions();
+    checkEnemyCollisions();
 
     player.update(dt);
     player.checkCollisions(enemies);
@@ -182,7 +182,7 @@ var Engine = (function(global) {
   // For each pair of different enemies checks if they collide
   // If one is still ofscreen it is reset to random
   // If both are onscreen they switch their velocities
-  function checkEnemyCeollisions() {
+  function checkEnemyCollisions() {
     for (let i = 0; i < enemies.length; i++) {
       for (let j = i+1; j < enemies.length; j++) {
         const distance = Math.abs(enemies[i].x - enemies[j].x);
