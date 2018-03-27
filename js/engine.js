@@ -28,6 +28,7 @@ var Engine = (function(global) {
   let state = 'choose character';
 
   let enemies;
+  let newEnemies;
   let player = new Player();
 
   let scrollProgress;
@@ -159,6 +160,7 @@ var Engine = (function(global) {
       player.freeze();
       state = 'scroll';
       scrollProgress = 0;
+      newEnemies = createEnemiesForLevel(level + 1);
     }
   }
 
