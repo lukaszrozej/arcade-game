@@ -369,8 +369,8 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     enemies = createEnemiesForLevel(0);
-    player.lives = 3;
-    player.unfreeze();
+    // player.lives = 3;
+    // player.unfreeze();
     player.reset();
     state = 'choose character';
   }

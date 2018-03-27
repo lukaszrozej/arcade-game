@@ -3,17 +3,17 @@
 // a handleInput() method.
 const Player = function(sprite = 'images/char-horn-girl.png') {
   this.sprite = sprite;
-  this.lives = 3
-  this.score = 0;
-  this.state = 'alive';
-  this.talking = false;
-  this.frozen = false;
-  this.finishedLevel = false;
   this.reset();
 }
 
 // Resets the player's position to bottom center
 Player.prototype.reset = function() {
+  this.score = 0;
+  this.lives = 3
+  this.state = 'alive';
+  this.talking = false;
+  this.frozen = false;
+  this.finishedLevel = false;
   this.row = 5;
   this.col = 2;
 }
@@ -41,7 +41,9 @@ Player.prototype.update = function(dt) {
         // Coming back to life
         this.state = 'alive';
         this.say(hitTexts[Math.floor(Math.random() * hitTexts.length)]);
-        this.reset();
+        // this.reset();
+  this.row = 5;
+  this.col = 2;
       }
       break;
   }
