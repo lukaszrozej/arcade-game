@@ -20,7 +20,6 @@ const levels = [{
   },
   {
     rowImages: [
-      'images/water-block.png',
       'images/stone-block.png',
       'images/stone-block.png',
       'images/stone-block.png',
@@ -35,8 +34,7 @@ const levels = [{
       maxSpeed: 300,
       minSpeed: 100
     },
-    numberOfEnemies: 3,
-    message: `I'd better avoid
-              these bugs.`
+    numberOfEnemies: 6,
+    message: `Bugs again`
   },
 ]
