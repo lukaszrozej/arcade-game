@@ -4,7 +4,6 @@ const levels = [{
       'images/stone-block.png',
       'images/stone-block.png',
       'images/grass-block.png',
-      'images/grass-block.png'
     ],
     enemyOptions: {
       rows: [
@@ -26,7 +25,6 @@ const levels = [{
       'images/stone-block.png',
       'images/stone-block.png',
       'images/grass-block.png',
-      'images/grass-block.png'
     ],
     enemyOptions: {
       rows: [
