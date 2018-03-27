@@ -189,6 +189,7 @@ var Engine = (function(global) {
   function render() {
     renderTerrain();
     renderScorePanel();
+    renderBottomPanel();
     renderEntities();
     if (state === 'game over') {
       renderGameOver();
@@ -284,6 +285,11 @@ var Engine = (function(global) {
     for (let i = 1; i <= player.lives; i++) {
       ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 10);
     }
+  }
+
+  function renderBottomPanel() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 606 - 53, canvas.width, 53);
   }
 
   /* This function is called by the render function and is called on each game
