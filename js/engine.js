@@ -139,10 +139,6 @@ var Engine = (function(global) {
    * on the entities themselves within your app.js file).
    */
   function update(dt) {
-    updateEntities(dt);
-    if (player.dead) {
-      state = 'game over';
-    }
     if (state === 'scroll') {
       if (scrollProgress > 83 * 5) {
         scrollProgress = 0;
@@ -153,6 +149,10 @@ var Engine = (function(global) {
       } else {
         scrollProgress += dt * 83 * 5 / 2;
       }
+    }
+    updateEntities(dt);
+    if (player.dead) {
+      state = 'game over';
     }
     if (player.finishedLevel) {
       player.finishedLevel = false;
