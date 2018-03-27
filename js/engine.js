@@ -187,7 +187,7 @@ var Engine = (function(global) {
    * they are just drawing the entire screen over and over.
    */
   function render() {
-    renderTerrain();
+    renderTerrain(0);
     renderScorePanel();
     renderBottomPanel();
     renderEntities();
@@ -232,41 +232,28 @@ var Engine = (function(global) {
     ctx.fillText(`Press any key to restart the game`, 253, 300);
   }
 
-  function renderTerrain() {
-    /* This array holds the relative URL to the image used
-     * for that particular row of the game level.
-     */
-    var rowImages = [
-        'images/water-block.png', // Top row is water
-        'images/stone-block.png', // Row 1 of 3 of stone
-        'images/stone-block.png', // Row 2 of 3 of stone
-        'images/stone-block.png', // Row 3 of 3 of stone
-        'images/grass-block.png', // Row 1 of 2 of grass
-        'images/grass-block.png' // Row 2 of 2 of grass
-      ],
-      numRows = 6,
-      numCols = 5,
-      row, col;
+  function renderTerrain(level) {
+    const NUM_COLS = 6;
+    const NUM_ROWS = 4;
 
-    // Before drawing, clear existing canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    const rowImages = levels[level].rowImages;
 
-    /* Loop through the number of rows and columns we've defined above
-     * and, using the rowImages array, draw the correct image for that
-     * portion of the "grid"
-     */
-    for (row = 0; row < numRows; row++) {
-      for (col = 0; col < numCols; col++) {
-        /* The drawImage function of the canvas' context element
-         * requires 3 parameters: the image to draw, the x coordinate
-         * to start drawing and the y coordinate to start drawing.
-         * We're using our Resources helpers to refer to our images
-         * so that we get the benefits of caching these images, since
-         * we're using them over and over.
-         */
-        ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+    let row, col;
+
+    for (col = 0; col < NUM_COLS; col++) {
+      ctx.drawImage(Resources.get('images/grass-block.png'), col * 101, 0);
+    }
+
+    for (row = 0; row < NUM_ROWS; row++) {
+      for (col = 0; col < NUM_COLS; col++) {
+        ctx.drawImage(Resources.get(rowImages[row]), col * 101, (row + 1) * 83);
       }
     }
+
+    for (col = 0; col < NUM_COLS; col++) {
+      ctx.drawImage(Resources.get('images/grass-block.png'), col * 101, 83 * 5);
+    }
+
   }
 
   // Displays score panel at the top of the screen

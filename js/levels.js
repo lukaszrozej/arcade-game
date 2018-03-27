@@ -35,7 +35,7 @@ const levels = [{
       maxSpeed: 300,
       minSpeed: 100
     },
-    numberOfEnemies: 3
+    numberOfEnemies: 3,
     message: `I'd better avoid
               these bugs.`
   },
