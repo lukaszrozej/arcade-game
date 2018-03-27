@@ -144,7 +144,15 @@ var Engine = (function(global) {
       state = 'game over';
     }
     if (state === 'scroll') {
-      scrollProgress += dt * 83 * 5 / 2;
+      if (scrollProgress > 83 * 5) {
+        scrollProgress = 0;
+        state = 'play';
+        level++;
+        player.row = 5;
+        player.unfreeze();
+      } else {
+        scrollProgress += dt * 83 * 5 / 2;
+      }
     }
     if (player.finishedLevel) {
       player.finishedLevel = false;
