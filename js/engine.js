@@ -105,6 +105,7 @@ var Engine = (function(global) {
         }
         if (e.keyCode === 13) {
           player.sprite = characterImages[currentCharacter];
+          player.say(levels[level].message);
           state = 'play';
         }
         currentCharacter %= 5;
@@ -141,6 +142,7 @@ var Engine = (function(global) {
         player.row = 5;
         enemies = newEnemies;
         player.unfreeze();
+        player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
         newEnemies.forEach(enemy => {
