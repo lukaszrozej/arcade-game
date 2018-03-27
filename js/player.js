@@ -41,9 +41,8 @@ Player.prototype.update = function(dt) {
         // Coming back to life
         this.state = 'alive';
         this.say(hitTexts[Math.floor(Math.random() * hitTexts.length)]);
-        // this.reset();
-  this.row = 5;
-  this.col = 2;
+        this.row = 5;
+        this.col = 2;
       }
       break;
   }

@@ -92,7 +92,7 @@ var Engine = (function(global) {
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
     document.addEventListener('keyup', function(e) {
-      if (state === 'game over' || state === 'win') {
+      if ((state === 'game over' || state === 'win') && e.keyCode === 13){
         reset();
         return;
       }
@@ -262,7 +262,7 @@ var Engine = (function(global) {
     ctx.fillText(`You won!`, 253, 200);
 
     ctx.font = '24px sans-serif';
-    ctx.fillText(`Press any key to restart the game`, 253, 300);
+    ctx.fillText(`Press enter to restart the game`, 253, 300);
   }
 
   function renderCharacterSelection() {
@@ -295,7 +295,7 @@ var Engine = (function(global) {
     ctx.fillText(`Game Over`, 253, 200);
 
     ctx.font = '24px sans-serif';
-    ctx.fillText(`Press any key to restart the game`, 253, 300);
+    ctx.fillText(`Press enter to restart the game`, 253, 300);
   }
 
   function renderTerrain(level) {
@@ -369,8 +369,6 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     enemies = createEnemiesForLevel(0);
-    // player.lives = 3;
-    // player.unfreeze();
     player.reset();
     state = 'choose character';
   }
