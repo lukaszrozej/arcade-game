@@ -94,7 +94,7 @@ var Engine = (function(global) {
       if (state === 'game over') {
         reset();
         state = 'choose character';
-        enemies = [];
+        // enemies = [];
         return;
       }
       if (state === 'choose character') {
