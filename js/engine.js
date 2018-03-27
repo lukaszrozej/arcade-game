@@ -92,7 +92,7 @@ var Engine = (function(global) {
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
     document.addEventListener('keyup', function(e) {
-      if (state === 'game over') {
+      if (state === 'game over' || state === 'win') {
         reset();
         return;
       }
@@ -163,9 +163,13 @@ var Engine = (function(global) {
     if (player.finishedLevel) {
       player.finishedLevel = false;
       player.freeze();
-      state = 'scroll';
-      scrollProgress = 0;
-      newEnemies = createEnemiesForLevel(level + 1);
+      if (level === levels.length - 1) {
+        state = 'win';
+      } else {
+        state = 'scroll';
+        scrollProgress = 0;
+        newEnemies = createEnemiesForLevel(level + 1);
+      }
     }
   }
 
@@ -238,9 +242,27 @@ var Engine = (function(global) {
     if (state === 'game over') {
       renderGameOver();
     }
+    if (state === 'win') {
+      renderWin();
+    }
     if (state === 'choose character') {
       renderCharacterSelection();
     }
+  }
+
+  function renderWin() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
+
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'center'
+    ctx.fillStyle = 'white';
+
+    ctx.font = '64px sans-serif';
+    ctx.fillText(`You won!`, 253, 200);
+
+    ctx.font = '24px sans-serif';
+    ctx.fillText(`Press any key to restart the game`, 253, 300);
   }
 
   function renderCharacterSelection() {
@@ -348,6 +370,8 @@ var Engine = (function(global) {
     level = 0;
     enemies = createEnemiesForLevel(0);
     player.lives = 3;
+    player.unfreeze();
+    player.reset();
     state = 'choose character';
   }
 
