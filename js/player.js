@@ -176,11 +176,6 @@ Player.prototype.checkCollisions = function(enemies) {
   }
 }
 
-Player.prototype.loseLife = function() {
-  this.lives--;
-  this.reset();
-}
-
 Object.defineProperty(Player.prototype, 'dead', {
   get() {
     return this.lives === 0;
