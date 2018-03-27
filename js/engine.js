@@ -150,7 +150,15 @@ var Engine = (function(global) {
         scrollProgress += dt * 83 * 5 / 2;
       }
     }
-    updateEntities(dt);
+    // updateEntities(dt);
+    enemies.forEach(enemy => {
+      enemy.update(dt);
+    });
+    checkEnemyCollisions(enemies);
+
+    player.update(dt);
+    player.checkCollisions(enemies);
+
     if (player.dead) {
       state = 'game over';
     }
