@@ -337,14 +337,19 @@ var Engine = (function(global) {
    */
   function reset() {
     level = 0;
+    enemies = createEnemiesForLevel(0);
+    player = new Player(characterImages[currentCharacter]);
+    state = 'play';
+  }
+
+  function createEnemiesForLevel(level) {
     const options = levels[level].enemyOptions;
     const numberOfEnemies = levels[level].numberOfEnemies;
+    const enemies = [];
     for(let i = 0; i < numberOfEnemies; i++) {
       enemies.push(new Enemy(options));
     }
-
-    player = new Player(characterImages[currentCharacter]);
-    state = 'play';
+    return enemies;
   }
 
   /* Go ahead and load all of the images we know we're going to need to
