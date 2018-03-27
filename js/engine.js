@@ -336,16 +336,17 @@ var Engine = (function(global) {
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    // Enemy.prototype.options = {
-    const options = {
-      rows: [
-        { row: 1, direction: 1 },
-        { row: 2, direction: -1 },
-        { row: 3, direction: 1 },
-      ],
-      maxSpeed: 300,
-      minSpeed: 100
-    };
+    // const options = {
+    //   rows: [
+    //     { row: 1, direction: 1 },
+    //     { row: 2, direction: -1 },
+    //     { row: 3, direction: 1 },
+    //   ],
+    //   maxSpeed: 300,
+    //   minSpeed: 100
+    // };
+    level = 0;
+    const options = levels[level].enemyOptions;
     enemies = [
       new Enemy(options),
       new Enemy(options),
