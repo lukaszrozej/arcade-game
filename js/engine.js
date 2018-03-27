@@ -143,6 +143,9 @@ var Engine = (function(global) {
         player.unfreeze();
       } else {
         scrollProgress += dt * 83 * 5 / 2;
+        newEnemies.forEach(enemy => {
+          enemy.update(dt);
+        });
       }
     }
     // updateEntities(dt);
@@ -214,12 +217,20 @@ var Engine = (function(global) {
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
       renderTerrain(level + 1);
+      newEnemies.forEach(function(enemy) {
+        enemy.render();
+      });
       ctx.translate(0, -scrollProgress + 5 * 83);
     }
 
     ctx.translate(0, scrollProgress);
     renderTerrain(level);
-    renderEntities();
+    enemies.forEach(function(enemy) {
+      enemy.render();
+    });
+    if (state !== 'choose character') {
+      player.render();
+    }
     ctx.translate(0, -scrollProgress);
 
     renderScorePanel();
