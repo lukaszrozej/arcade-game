@@ -1,7 +1,7 @@
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-const Player = function(sprite = 'images/char-boy.png') {
+const Player = function(sprite = 'images/char-horn-girl.png') {
   this.sprite = sprite;
   this.lives = 3
   this.score = 0;
