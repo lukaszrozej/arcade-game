@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(options) {
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
 
@@ -7,6 +7,8 @@ var Enemy = function() {
   // a helper we've provided to easily load images
   this.spriteRight = 'images/bug-right.png';
   this.spriteLeft = 'images/bug-left.png';
+
+  this.options = options;
 
   this.setToRandom();
 };
@@ -17,15 +19,15 @@ var Enemy = function() {
 //    direction - drection of movement on that row
 // The enemy's speed will be  random value
 // taken uniformly from the interval: [minSpeed, maxSpeed)
-Enemy.prototype.options = {
-  rows: [
-    { row: 1, direction: 1 },
-    { row: 2, direction: 1 },
-    { row: 3, direction: 1 },
-  ],
-  maxSpeed: 300,
-  minSpeed: 100
-};
+// Enemy.prototype.options = {
+//   rows: [
+//     { row: 1, direction: 1 },
+//     { row: 2, direction: 1 },
+//     { row: 3, direction: 1 },
+//   ],
+//   maxSpeed: 300,
+//   minSpeed: 100
+// };
 
 // Set the enmies position and velocity to random values
 // according to options
