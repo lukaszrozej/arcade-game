@@ -188,7 +188,7 @@ Object.defineProperty(Player.prototype, 'dead', {
 Player.prototype.renderSpeech = function(text) {
 
   // Split text into lines, omit unneccessary whitespace:
-  const textLines = text.replace(/ +/g, ' ').split('\n');
+  const textLines = text.replace(/\n +/g, '\n').split('\n');
 
   // Get text width:
   ctx.font = '24px sans-serif';
