@@ -105,8 +105,7 @@ var Engine = (function(global) {
           currentCharacter += 1;
         }
         if (e.keyCode === 13) {
-    player = new Player(characterImages[currentCharacter]);
-          
+          player.sprite = characterImages[currentCharacter];
           reset();
         }
         currentCharacter %= 5;
@@ -335,7 +334,6 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     enemies = createEnemiesForLevel(0);
-    // player = new Player(characterImages[currentCharacter]);
     state = 'play';
   }
 
