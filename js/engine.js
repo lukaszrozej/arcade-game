@@ -29,7 +29,7 @@ var Engine = (function(global) {
 
   let bugs, newBugs;
 
-  let player = new Pbugs;
+  let player = new Player();
 
   let scrollProgress;
 
@@ -48,6 +48,7 @@ var Engine = (function(global) {
   doc.body.appendChild(canvas);
 
   /* This function serves as the kickoff point for the game loop itself
+   * and handles properly calling the update and render methods.
    */
   function main() {
     /* Get our time delta information which is required if your game
@@ -195,6 +196,7 @@ var Engine = (function(global) {
     }
   }
 
+
   /* This function initially draws the "game level", it will then call
    * the renderEntities function. Remember, this function is called every
    * game tick (or loop of the game engine) because that's how games work -
@@ -314,23 +316,6 @@ var Engine = (function(global) {
   function renderBottomPanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 606 - 53, canvas.width, 53);
-  }
-
-  /* This function is called by the render function and is called on each game
-   * tick. Its purpose is to then call the render functions you have defined
-   * on your enemy and player entities within app.js
-   */
-  function renderEntities() {
-    /* Loop through all of the objects within the enemies array and call
-     * the render function you have defined.
-     */
-    enemies.forEach(function(enemy) {
-      enemy.render();
-    });
-
-    if (state !== 'choose character') {
-      player.render();
-    }
   }
 
   /* This function does nothing but it could have been a good place to
