@@ -13,22 +13,6 @@ var Enemy = function(options) {
   this.setToRandom();
 };
 
-// Default options for enemies
-//  rows - array of object each with 2 properties:
-//    row - unmber of a row where enemy can be
-//    direction - drection of movement on that row
-// The enemy's speed will be  random value
-// taken uniformly from the interval: [minSpeed, maxSpeed)
-// Enemy.prototype.options = {
-//   rows: [
-//     { row: 1, direction: 1 },
-//     { row: 2, direction: 1 },
-//     { row: 3, direction: 1 },
-//   ],
-//   maxSpeed: 300,
-//   minSpeed: 100
-// };
-
 // Set the enmies position and velocity to random values
 // according to options
 Enemy.prototype.setToRandom = function() {
