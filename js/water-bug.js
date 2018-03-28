@@ -39,10 +39,10 @@ WaterBug.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 WaterBug.prototype.render = function() {
   const y = this.row * 83 - 23;
-  const spriteY = this.v > 0 ? 101 : 0;
+  const spriteY = this.v > 0 ? 0 : 171;
   const frameNumber = Math.floor(NUM_SPRITES * this.time / ANIMATION_TIME);
   const spriteX = frameNumber * 101;
-  ctx.drawImage(Resources.get(this.sprite), spriteX, spriteY, 101, 171, x, y, 101, 171);
+  ctx.drawImage(Resources.get(this.sprites), spriteX, spriteY, 101, 171, this.x, y, 101, 171);
 };
 
 WaterBug.prototype.offScreen = function() {

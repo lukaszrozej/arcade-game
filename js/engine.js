@@ -27,6 +27,9 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
+  let waterBugs;
+  let newWaterBugs;
+
   let enemies;
   let newEnemies;
   let player = new Player();
@@ -141,13 +144,17 @@ var Engine = (function(global) {
         level++;
         player.row = 5;
         enemies = newEnemies;
+        waterBugs = newWaterBugs;
         player.unfreeze();
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
         newEnemies.forEach(enemy => {
           enemy.update(dt);
+        });
         checkEnemyCollisions(newEnemies);
+        newWaterBugs.forEach(bug => {
+          bug.update(dt);
         });
       }
     }
@@ -156,6 +163,11 @@ var Engine = (function(global) {
       enemy.update(dt);
     });
     checkEnemyCollisions(enemies);
+
+    waterBugs.forEach(bug => {
+      bug.update(dt);
+    });
+
 
     player.update(dt);
     player.checkCollisions(enemies);
@@ -172,6 +184,7 @@ var Engine = (function(global) {
         state = 'scroll';
         scrollProgress = 0;
         newEnemies = createEnemiesForLevel(level + 1);
+        newWaterBugs = createWaterBugsForLevel(level + 1);
       }
     }
   }
@@ -227,6 +240,9 @@ var Engine = (function(global) {
       newEnemies.forEach(function(enemy) {
         enemy.render();
       });
+      newWaterBugs.forEach(function(bug) {
+        bug.render();
+      });
       ctx.translate(0, -scrollProgress + 5 * 83);
     }
 
@@ -234,6 +250,9 @@ var Engine = (function(global) {
     renderTerrain(level);
     enemies.forEach(function(enemy) {
       enemy.render();
+    });
+    waterBugs.forEach(function(bug) {
+      bug.render();
     });
     if (state !== 'choose character') {
       player.render();
@@ -357,6 +376,7 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     enemies = createEnemiesForLevel(0);
+    waterBugs = createWaterBugsForLevel(0);
     player.reset();
     state = 'choose character';
   }
@@ -370,6 +390,17 @@ var Engine = (function(global) {
     }
     return enemies;
   }
+
+  function createWaterBugsForLevel(level) {
+    const options = levels[level].waterBugOptions;
+    const numberOfWaterBugs = levels[level].numberOfWaterBugs;
+    const waterBugs = [];
+    for(let i = 0; i < numberOfWaterBugs; i++) {
+      waterBugs.push(new WaterBug(options));
+    }
+    return waterBugs;
+  }
+
 
   /* Go ahead and load all of the images we know we're going to need to
    * draw our game level. Then set init as the callback method, so that when
