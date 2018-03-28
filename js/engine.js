@@ -27,12 +27,9 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
-  let waterBugs;
-  let newWaterBugs;
+  let bugs, newBugs;
 
-  let enemies;
-  let newEnemies;
-  let player = new Player();
+  let player = new Pbugs;
 
   let scrollProgress;
 
@@ -51,7 +48,6 @@ var Engine = (function(global) {
   doc.body.appendChild(canvas);
 
   /* This function serves as the kickoff point for the game loop itself
-   * and handles properly calling the update and render methods.
    */
   function main() {
     /* Get our time delta information which is required if your game
@@ -143,34 +139,25 @@ var Engine = (function(global) {
         state = 'play';
         level++;
         player.row = 5;
-        enemies = newEnemies;
-        waterBugs = newWaterBugs;
+        bugs = newBugs;
         player.unfreeze();
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
-        newEnemies.forEach(enemy => {
-          enemy.update(dt);
-        });
-        checkEnemyCollisions(newEnemies);
-        newWaterBugs.forEach(bug => {
+        newBugs.forEach(bug => {
           bug.update(dt);
         });
+        checkBugCollisions(newBugs);
       }
     }
-    // updateEntities(dt);
-    enemies.forEach(enemy => {
-      enemy.update(dt);
-    });
-    checkEnemyCollisions(enemies);
 
-    waterBugs.forEach(bug => {
+    bugs.forEach(bug => {
       bug.update(dt);
     });
-
+    checkBugCollisions(bugs);
 
     player.update(dt);
-    player.checkCollisions(enemies);
+    player.checkCollisions(bugs);
 
     if (player.dead) {
       state = 'game over';
@@ -183,43 +170,25 @@ var Engine = (function(global) {
       } else {
         state = 'scroll';
         scrollProgress = 0;
-        newEnemies = createEnemiesForLevel(level + 1);
-        newWaterBugs = createWaterBugsForLevel(level + 1);
+        newBugs = createBugsForLevel(level + 1);
       }
     }
   }
 
-  /* This is called by the update function and loops through all of the
-   * objects within your enemies array as defined in app.js and calls
-   * their update() methods. It will then call the update function for your
-   * player object. These update methods should focus purely on updating
-   * the data/properties related to the object. Do your drawing in your
-   * render methods.
-   */
-  function updateEntities(dt) {
-    enemies.forEach(function(enemy) {
-      enemy.update(dt);
-    });
-    checkEnemyCollisions(enemies);
-
-    player.update(dt);
-    player.checkCollisions(enemies);
-  }
-
-  // For each pair of different enemies checks if they collide
+  // For each pair of different bugs checks if they collide
   // If one is still ofscreen it is reset to random
   // If both are onscreen they switch their velocities
-  function checkEnemyCollisions(enemies) {
-    for (let i = 0; i < enemies.length; i++) {
-      for (let j = i+1; j < enemies.length; j++) {
-        const distance = Math.abs(enemies[i].x - enemies[j].x);
-        if (enemies[i].row === enemies[j].row && distance < 95) {
-          if (enemies[i].offScreen()) {
-            enemies[i].setToRandom();
-          } else if (enemies[j].offScreen()) {
-            enemies[j].setToRandom();
+  function checkBugCollisions(bugs) {
+    for (let i = 0; i < bugs.length; i++) {
+      for (let j = i+1; j < bugs.length; j++) {
+        const distance = Math.abs(bugs[i].x - bugs[j].x);
+        if (bugs[i].row === bugs[j].row && distance < 95) {
+          if (bugs[i].offScreen()) {
+            bugs[i].setToRandom();
+          } else if (bugs[j].offScreen()) {
+            bugs[j].setToRandom();
           } else {
-            [enemies[i].v, enemies[j].v] = [enemies[j].v, enemies[i].v];
+            [bugs[i].v, bugs[j].v] = [bugs[j].v, bugs[i].v];
           }
         }
       }
@@ -237,10 +206,7 @@ var Engine = (function(global) {
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
       renderTerrain(level + 1);
-      newEnemies.forEach(function(enemy) {
-        enemy.render();
-      });
-      newWaterBugs.forEach(function(bug) {
+      newBugs.forEach(function(bug) {
         bug.render();
       });
       ctx.translate(0, -scrollProgress + 5 * 83);
@@ -248,12 +214,10 @@ var Engine = (function(global) {
 
     ctx.translate(0, scrollProgress);
     renderTerrain(level);
-    enemies.forEach(function(enemy) {
-      enemy.render();
-    });
-    waterBugs.forEach(function(bug) {
+    bugs.forEach(function(bug) {
       bug.render();
     });
+
     if (state !== 'choose character') {
       player.render();
     }
@@ -375,32 +339,21 @@ var Engine = (function(global) {
    */
   function reset() {
     level = 0;
-    enemies = createEnemiesForLevel(0);
-    waterBugs = createWaterBugsForLevel(0);
+    bugs = createBugsForLevel(0);
     player.reset();
     state = 'choose character';
   }
 
-  function createEnemiesForLevel(level) {
-    const options = levels[level].enemyOptions;
-    const numberOfEnemies = levels[level].numberOfEnemies;
-    const enemies = [];
-    for(let i = 0; i < numberOfEnemies; i++) {
-      enemies.push(new Enemy(options));
+  function createBugsForLevel(level) {
+    const bugs = [];
+    for(let i = 0; i < levels[level].numberOfEnemies; i++) {
+      bugs.push(new Enemy(levels[level].enemyOptions));
     }
-    return enemies;
-  }
-
-  function createWaterBugsForLevel(level) {
-    const options = levels[level].waterBugOptions;
-    const numberOfWaterBugs = levels[level].numberOfWaterBugs;
-    const waterBugs = [];
-    for(let i = 0; i < numberOfWaterBugs; i++) {
-      waterBugs.push(new WaterBug(options));
+    for(let i = 0; i < levels[level].numberOfWaterBugs; i++) {
+      bugs.push(new WaterBug(levels[level].waterBugOptions));
     }
-    return waterBugs;
+    return bugs;
   }
-
 
   /* Go ahead and load all of the images we know we're going to need to
    * draw our game level. Then set init as the callback method, so that when
