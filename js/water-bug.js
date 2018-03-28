@@ -1,7 +1,13 @@
+const ANIMATION_TIME = 0.5;
+const NUM_SPRITES = 4;
+
 var WaterBug = function(options) {
   this.sprites = 'images/water-bug.png';
 
   this.options = options;
+
+  // Used to decide which animation frame to display
+  this.time = 0;
 
   this.setToRandom();
 };
@@ -21,20 +27,22 @@ WaterBug.prototype.setToRandom = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 WaterBug.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
   this.x += this.v * dt;
   if (this.x > 606 || this.x < -202) {
     this.setToRandom();
   }
+
+  this.time += dt;
+  this.time %= ANIMATION_TIME;
 };
 
 // Draw the enemy on the screen, required method for game
 WaterBug.prototype.render = function() {
   const y = this.row * 83 - 23;
-  const sprite = this.v > 0 ? this.spriteRight : this.spriteLeft;
-  ctx.drawImage(Resources.get(sprite), this.x, y);
+  const spriteY = this.v > 0 ? 101 : 0;
+  const frameNumber = Math.floor(NUM_SPRITES * this.time / ANIMATION_TIME);
+  const spriteX = frameNumber * 101;
+  ctx.drawImage(Resources.get(this.sprite), spriteX, spriteY, 101, 171, x, y, 101, 171);
 };
 
 WaterBug.prototype.offScreen = function() {
