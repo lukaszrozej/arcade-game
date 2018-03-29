@@ -1,12 +1,7 @@
 // Enemies our player must avoid
 var Enemy = function(options) {
-  // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
 
-  // The image/sprite for our enemies, this uses
-  // a helper we've provided to easily load images
-  this.spriteRight = 'images/bug-right.png';
-  this.spriteLeft = 'images/bug-left.png';
+  this.sprites = 'images/land-bug.png';
 
   this.options = options;
 
@@ -40,8 +35,8 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   const y = this.row * 83 - 23;
-  const sprite = this.v > 0 ? this.spriteRight : this.spriteLeft;
-  ctx.drawImage(Resources.get(sprite), this.x, y);
+  const spriteY = this.v > 0 ? 0 : 171;
+  ctx.drawImage(Resources.get(this.sprites), 0, spriteY, 101, 171, this.x, y, 101, 171);
 };
 
 Enemy.prototype.offScreen = function() {
