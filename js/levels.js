@@ -6,10 +6,10 @@ const levels = [{
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
-      'images/stone-block.png',
-      'images/stone-block.png',
-      'images/stone-block.png',
-      'images/grass-block.png',
+      'images/stone.png',
+      'images/stone.png',
+      'images/stone.png',
+      'images/grass.png',
     ],
     enemyOptions: {
       rows: [
@@ -32,10 +32,10 @@ const levels = [{
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
-      'images/water-block.png',
-      'images/water-block.png',
-      'images/water-block.png',
-      'images/grass-block.png',
+      'images/water.png',
+      'images/water.png',
+      'images/water.png',
+      'images/grass.png',
     ],
     waterBugOptions: {
       rows: [
@@ -60,10 +60,10 @@ const levels = [{
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
-      'images/stone-block.png',
-      'images/stone-block.png',
-      'images/stone-block.png',
-      'images/grass-block.png',
+      'images/stone.png',
+      'images/stone.png',
+      'images/stone.png',
+      'images/grass.png',
     ],
     enemyOptions: {
       rows: [

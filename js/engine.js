@@ -280,7 +280,7 @@ var Engine = (function(global) {
     let row, col;
 
     for (col = 0; col < NUM_COLS; col++) {
-      ctx.drawImage(Resources.get('images/grass-block.png'), col * 101, 0);
+      ctx.drawImage(Resources.get('images/grass.png'), col * 101, 0);
     }
 
     for (row = 0; row < NUM_ROWS; row++) {
@@ -290,7 +290,7 @@ var Engine = (function(global) {
     }
 
     for (col = 0; col < NUM_COLS; col++) {
-      ctx.drawImage(Resources.get('images/grass-block.png'), col * 101, 83 * 5);
+      ctx.drawImage(Resources.get('images/grass.png'), col * 101, 83 * 5);
     }
 
   }
@@ -345,9 +345,9 @@ var Engine = (function(global) {
    * all of these images are properly loaded our game will start.
    */
   Resources.load([
-    'images/stone-block.png',
-    'images/water-block.png',
-    'images/grass-block.png',
+    'images/stone.png',
+    'images/water.png',
+    'images/grass.png',
     'images/land-bug.png',
     'images/water-bug.png',
     'images/char-boy.png',
