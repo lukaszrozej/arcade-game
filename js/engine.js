@@ -282,27 +282,13 @@ var Engine = (function(global) {
   }
 
   function renderTerrain(level) {
-    const NUM_COLS = 6;
-    const NUM_ROWS = 4;
-
-    const rowImages = levels[level].rowImages;
-
-    let row, col;
-
-    for (col = 0; col < NUM_COLS; col++) {
-      ctx.drawImage(Resources.get('images/grass.png'), col * 101, 0);
-    }
-
-    for (row = 0; row < NUM_ROWS; row++) {
-      for (col = 0; col < NUM_COLS; col++) {
-        ctx.drawImage(Resources.get(rowImages[row]), col * 101, (row + 1) * 83);
-      }
-    }
-
-    for (col = 0; col < NUM_COLS; col++) {
-      ctx.drawImage(Resources.get('images/grass.png'), col * 101, 83 * 5);
-    }
-
+    levels[level].terrain
+      .forEach((row, i) => {
+        row.forEach((img, j) => {
+          const path = `images/${img}.png`;
+          ctx.drawImage(Resources.get(path), j * 101, i * 83);
+        })
+      });
   }
 
   // Displays score panel at the top of the screen

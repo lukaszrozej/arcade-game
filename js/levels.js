@@ -1,8 +1,10 @@
 const levels = [{
     terrain: [
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
@@ -26,9 +28,11 @@ const levels = [{
   },
   {
     terrain: [
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['water', 'water', 'water', 'water', 'water', ],
       ['water', 'water', 'water', 'water', 'water', ],
       ['water', 'water', 'water', 'water', 'water', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
@@ -54,9 +58,11 @@ const levels = [{
   },
   {
     terrain: [
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     rowImages: [
