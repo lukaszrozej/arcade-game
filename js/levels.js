@@ -50,7 +50,7 @@ const levels = [{
       maxSpeed: 300,
       minSpeed: 100
     },
-    numberOfWaterBugs: 6,
+    numberOfWaterBugs: 3,
     numberOfEnemies: 0,
     message: `I can't swim.
               Maybe I can jump

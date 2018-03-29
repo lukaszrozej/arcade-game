@@ -45,14 +45,21 @@ Player.prototype.update = function(dt) {
         this.col = 2;
       }
       break;
+    case 'drowned':
+      this.depth += dt * this.v;
+      if (this.depth > 70) {
+        this.state = 'alive';
+        this.row = 5;
+        this.col = 2;
+      }
   }
 }
 
 Player.prototype.render = function() {
+  const x = 101 * this.col;
+  const y = 83 * this.row - 40;
   switch (this.state) {
     case 'alive':
-      const x = 101 * this.col;
-      const y = 83 * this.row - 40;
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 
       if (this.talking) {
@@ -71,6 +78,9 @@ Player.prototype.render = function() {
       ctx.rotate(-this.alpha);
       ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -50, -100, 101, 171);
       ctx.restore();
+      break;
+    case 'drowned':
+      ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171 - this.depth - 34, x, y + this.depth, 101, 171 - this.depth - 34);
       break;
   }
 }
@@ -180,8 +190,12 @@ Player.prototype.handleCollisions = function(bugs) {
 }
 
 Player.prototype.handleTerrain = function(terrain) {
+  if (this.state !== 'alive') return;
   if (terrain[this.row][this.col] === 'water') {
-    console.log('drowning');
+    this.lives--;
+    this.state = 'drowned';
+    this.depth = 0;
+    this.v = 200;
   }
 }
 
