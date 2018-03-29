@@ -33,6 +33,15 @@ var Engine = (function(global) {
 
   let scrollProgress;
 
+  let terrain = [
+    ['grass', 'grass', 'grass', 'grass', 'grass', ],
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    ['grass', 'grass', 'grass', 'grass', 'grass', ],
+  ];
+
   const characterImages = [
     'images/char-boy.png',
     'images/char-cat-girl.png',
