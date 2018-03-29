@@ -102,7 +102,7 @@ Player.prototype.handleInput = function(input) {
   }
 }
 
-Player.prototype.checkCollisions = function(bugs) {
+Player.prototype.handleCollisions = function(bugs) {
   if (this.state !== 'alive') return;
 
   const collision = bug =>

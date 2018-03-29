@@ -158,7 +158,7 @@ var Engine = (function(global) {
     checkBugCollisions(bugs);
 
     player.update(dt);
-    player.checkCollisions(bugs);
+    player.handleCollisions(bugs);
 
     if (player.dead) {
       state = 'game over';
