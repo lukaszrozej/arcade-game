@@ -1,4 +1,10 @@
 const levels = [{
+    terrain: [
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+    ],
     rowImages: [
       'images/stone-block.png',
       'images/stone-block.png',
@@ -19,6 +25,12 @@ const levels = [{
               these bugs.`
   },
   {
+    terrain: [
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+    ],
     rowImages: [
       'images/water-block.png',
       'images/water-block.png',
@@ -41,6 +53,12 @@ const levels = [{
               on those bugs`
   },
   {
+    terrain: [
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+    ],
     rowImages: [
       'images/stone-block.png',
       'images/stone-block.png',
