@@ -33,15 +33,6 @@ var Engine = (function(global) {
 
   let scrollProgress;
 
-  let terrain = [
-    ['grass', 'grass', 'grass', 'grass', 'grass', ],
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    ['grass', 'grass', 'grass', 'grass', 'grass', ],
-  ];
-
   const characterImages = [
     'images/char-boy.png',
     'images/char-cat-girl.png',
@@ -148,7 +139,6 @@ var Engine = (function(global) {
         scrollProgress = 0;
         state = 'play';
         level++;
-        terrain.splice(1, 4, ...levels[level].terrain);
         player.row = 5;
         bugs = newBugs;
         player.unfreeze();
@@ -320,7 +310,6 @@ var Engine = (function(global) {
    */
   function reset() {
     level = 0;
-    terrain.splice(1, 4, ...levels[level].terrain);
     bugs = createBugsForLevel(0);
     player.reset();
     state = 'choose character';
