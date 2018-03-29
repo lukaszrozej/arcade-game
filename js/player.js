@@ -102,14 +102,14 @@ Player.prototype.handleInput = function(input) {
   }
 }
 
-Player.prototype.checkCollisions = function(enemies) {
+Player.prototype.checkCollisions = function(bugs) {
   if (this.state !== 'alive') return;
 
-  const collision = enemy =>
-    enemy.row === this.row && Math.abs(enemy.x - 101 * this.col) < 60;
-  const enemy = enemies.find(collision);
+  const collision = bug =>
+    bug.row === this.row && Math.abs(bug.x - 101 * this.col) < 60;
+  const bug = bugs.find(collision);
 
-  if (enemy) {
+  if (bug) {
     this.lives--;
     this.state = 'hit';
 
@@ -126,7 +126,7 @@ Player.prototype.checkCollisions = function(enemies) {
 
     // Final position
     const FINAL_HEAD_X = 101 * 2;
-    const FINAL_TRUNK_X = enemy.v > 0 ? 101 * 4 : 0;
+    const FINAL_TRUNK_X = bug.v > 0 ? 101 * 4 : 0;
 
     // Horizontal velocities
     this.headVX = (FINAL_HEAD_X - this.headX) / TIME;
@@ -164,7 +164,7 @@ Player.prototype.checkCollisions = function(enemies) {
     this.alpha = 0;
 
     const NUMBER_OF_ROTATIONS = 2;
-    const DIRECTION = (enemy.v > 0 ? 1 : -1);
+    const DIRECTION = (bug.v > 0 ? 1 : -1);
 
     // Angular velocity:
     this.omega = DIRECTION * 2 * Math.PI * NUMBER_OF_ROTATIONS / TIME;
