@@ -179,6 +179,12 @@ Player.prototype.handleCollisions = function(bugs) {
   }
 }
 
+Player.prototype.handleTerrain = function(terrain) {
+  if (terrain[this.row][this.col] === 'water') {
+    console.log('drowning');
+  }
+}
+
 Object.defineProperty(Player.prototype, 'dead', {
   get() {
     return this.lives === 0;
