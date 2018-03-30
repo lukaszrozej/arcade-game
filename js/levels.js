@@ -4,7 +4,7 @@ const levels = [{
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['water', 'water', 'water', 'water', 'water', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     enemyOptions: {

@@ -19,10 +19,10 @@ Player.prototype.reset = function() {
 }
 
 Player.prototype.update = function(dt) {
+  const FINAL_X = 101 * 2;
+  const FINAL_Y = 83 * 5 - 40;
   switch (this.state) {
     case 'hit':
-      const FINAL_X = 101 * 2;
-      const FINAL_Y = 83 * 5 - 40;
       if (this.headY < FINAL_Y) {
         // Falling phase
         this.trunkX += dt * this.trunkVX;
@@ -49,12 +49,40 @@ Player.prototype.update = function(dt) {
       this.depth += dt * this.v;
       this.frame += dt * this.frameRate;
       if (this.frame >= 8) {
+        this.state = 'emerge';
+        this.depth = 30;
+        this.v = 20;
+        this.trunkY = this.row * 83 - 10 + 30;
+        this.trunkX = this.col * 101;
+
+        // this.headX = 4 * 101;
+        // this.headY = this.row * 83 + 40;
+
+      }
+      break;
+    case 'emerge':
+      this.depth -= dt * this.v;
+      this.trunkY -= dt * this.v;
+      if (this.depth <= 0) {
+        this.state = 'jump';
+        const trunkTime = 1;
+        this.trunkJumpStartY = this.trunkY;
+        this.distanceY = (FINAL_Y - this.trunkY);
+        this.trunkVX = (FINAL_X - this.trunkX) / trunkTime;
+        this.trunkVY = (FINAL_Y - this.trunkY) / trunkTime;
+        this.yOffset = 0;
+      }
+      break;
+    case 'jump':
+      this.trunkX += dt * this.trunkVX;
+      this.trunkY += dt * this.trunkVY;
+      this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
+      if (this.trunkY > FINAL_Y) {
         this.state = 'alive';
         this.row = 5;
         this.col = 2;
       }
       break;
-
   }
 }
 
@@ -89,8 +117,18 @@ Player.prototype.render = function() {
       const xOffset = Math.floor(this.frame) * 101;
       ctx.drawImage(Resources.get('images/splash.png'), xOffset, 0, 101, 171, x, y + 30, 101, 171);
       break;
+    case 'emerge':
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171 - this.depth - 30, this.trunkX, this.trunkY, 101, 171 - this.depth - 30);
 
+      // ctx.beginPath();
+      // ctx.moveTo(0, this.row)
 
+      // ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
+
+      break;
+    case 'jump':
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
+      break;
   }
 }
 
@@ -205,10 +243,16 @@ Player.prototype.handleTerrain = function(terrain) {
     this.state = 'drown';
 
     this.frame = 0;
-    this.frameRate = 2;
+    this.frameRate = 8;
 
     this.depth = 0;
-    this.v = 100;
+    this.v = 400;
+
+    // Find lowest water row:
+    this.emergeRow = this.row;
+    while (terrain[this.emergeRow + 1][this.col] === 'water') {
+      this.emergeRow++;
+    }
   }
 }
 
