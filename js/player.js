@@ -91,11 +91,11 @@ Player.prototype.update = function(dt) {
       this.alpha += dt * this.omega;
       if (this.alpha >= Math.PI) {
         this.state = 'roll head';
-        this.headX -= 45;
+        this.headX += this.col > 2 ? -45 : 45;
         this.headY -= 23;
+        this.alpha = - Math.PI / 2;
         this.rotationXOffset = 50;
         this.rotationYOffset = 95;
-        this.alpha = - Math.PI / 2;
       }
       break;
     case 'roll head':
@@ -160,8 +160,8 @@ Player.prototype.render = function() {
       ctx.save();
       ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
 
-      const beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
-      ctx.rotate(beta);
+      this.beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
+      ctx.rotate(this.beta);
 
       ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
       ctx.restore();
@@ -174,7 +174,8 @@ Player.prototype.render = function() {
       ctx.save();
       ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
 
-      ctx.rotate(this.alpha);
+      this.beta = this.col > 2 ? this.alpha : -this.alpha;
+      ctx.rotate(this.beta);
 
       ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
       ctx.restore();
