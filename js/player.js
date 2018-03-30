@@ -90,10 +90,18 @@ Player.prototype.update = function(dt) {
     case 'emerge head':
       this.alpha += dt * this.omega;
       if (this.alpha >= Math.PI) {
-        this.state = 'alive';
-        this.row = 5;
-        this.col = 2;
+        this.state = 'roll head';
+        this.headX -= 45;
+        this.headY -= 23;
+        this.rotationXOffset = 50;
+        this.rotationYOffset = 95;
+        this.alpha = - Math.PI / 2;
       }
+      break;
+    case 'roll head':
+        // this.state = 'alive';
+        // this.row = 5;
+        // this.col = 2;
       break;
   }
 }
@@ -160,6 +168,22 @@ Player.prototype.render = function() {
 
 
       ctx.restore();
+      break;
+    case 'roll head':
+
+      ctx.save();
+      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
+
+      ctx.rotate(this.alpha);
+
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
+      ctx.restore();
+
+      ctx.fillStyle = 'green';
+      ctx.fillRect(this.headX, this.headY, 3, 3);
+      ctx.fillStyle = 'red';
+      ctx.fillRect(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset, 3, 3);
+
       break;
   }
 }
