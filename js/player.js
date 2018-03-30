@@ -49,22 +49,18 @@ Player.prototype.update = function(dt) {
       this.depth += dt * this.v;
       this.frame += dt * this.frameRate;
       if (this.frame >= 8) {
-        this.state = 'emerge';
+        this.state = 'emerge trunk';
         this.depth = 30;
         this.v = 20;
         this.trunkY = this.row * 83 - 10 + 30;
         this.trunkX = this.col * 101;
-
-        // this.headX = 4 * 101;
-        // this.headY = this.row * 83 + 40;
-
       }
       break;
-    case 'emerge':
+    case 'emerge trunk':
       this.depth -= dt * this.v;
       this.trunkY -= dt * this.v;
       if (this.depth <= 0) {
-        this.state = 'jump';
+        this.state = 'jump trunk';
         const trunkTime = 1;
         this.trunkJumpStartY = this.trunkY;
         this.distanceY = (FINAL_Y - this.trunkY);
@@ -73,15 +69,22 @@ Player.prototype.update = function(dt) {
         this.yOffset = 0;
       }
       break;
-    case 'jump':
+    case 'jump trunk':
       this.trunkX += dt * this.trunkVX;
       this.trunkY += dt * this.trunkVY;
       this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
       if (this.trunkY > FINAL_Y) {
-        this.state = 'alive';
-        this.row = 5;
-        this.col = 2;
+        this.state = 'emerge head';
+        this.headX = this.col * 101;
+        this.headY = this.row * 83 + 30;
       }
+      break;
+    case 'emerge head':
+
+        // this.state = 'alive';
+        // this.row = 5;
+        // this.col = 2;
+
       break;
   }
 }
@@ -117,17 +120,17 @@ Player.prototype.render = function() {
       const xOffset = Math.floor(this.frame) * 101;
       ctx.drawImage(Resources.get('images/splash.png'), xOffset, 0, 101, 171, x, y + 30, 101, 171);
       break;
-    case 'emerge':
+    case 'emerge trunk':
       ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171 - this.depth - 30, this.trunkX, this.trunkY, 101, 171 - this.depth - 30);
-
+      break;
+    case 'jump trunk':
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
+      break;
+    case 'emerge head':
       // ctx.beginPath();
       // ctx.moveTo(0, this.row)
 
-      // ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
-
-      break;
-    case 'jump':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
       break;
   }
 }
