@@ -77,6 +77,7 @@ Player.prototype.update = function(dt) {
         this.state = 'emerge head';
         this.headX = this.col * 101;
         this.headY = this.row * 83 + 30;
+
       }
       break;
     case 'emerge head':
@@ -127,10 +128,21 @@ Player.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
       break;
     case 'emerge head':
-      // ctx.beginPath();
-      // ctx.moveTo(0, this.row)
+
+      ctx.save()
+      const clipY = this.row * 83 + 130;
+      ctx.beginPath();
+      ctx.moveTo(0, clipY);
+      ctx.lineTo(5 * 101, clipY);
+      ctx.lineTo(5 * 101, clipY - 100);
+      ctx.lineTo(0, clipY - 100);
+      ctx.lineTo(0, clipY);
+      ctx.closePath();
+
+      ctx.clip();
 
       ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
+      ctx.restore();
       break;
   }
 }
@@ -252,9 +264,8 @@ Player.prototype.handleTerrain = function(terrain) {
     this.v = 400;
 
     // Find lowest water row:
-    this.emergeRow = this.row;
-    while (terrain[this.emergeRow + 1][this.col] === 'water') {
-      this.emergeRow++;
+    while (terrain[this.row + 1][this.col] === 'water') {
+      this.row++;
     }
   }
 }
