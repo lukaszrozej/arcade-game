@@ -77,15 +77,23 @@ Player.prototype.update = function(dt) {
         this.state = 'emerge head';
         this.headX = this.col * 101;
         this.headY = this.row * 83 + 30;
+        
+        this.alpha = 0;
+        this.omega = Math.PI / 2;
+
+        this.rotationXOffset = this.col > 2 ? 17 : 101 - 17; 
+        this.rotationYOffset = 105;
+        
 
       }
       break;
     case 'emerge head':
-
-        // this.state = 'alive';
-        // this.row = 5;
-        // this.col = 2;
-
+      this.alpha += dt * this.omega;
+      if (this.alpha >= Math.PI) {
+        this.state = 'alive';
+        this.row = 5;
+        this.col = 2;
+      }
       break;
   }
 }
@@ -130,7 +138,8 @@ Player.prototype.render = function() {
     case 'emerge head':
 
       ctx.save()
-      const clipY = this.row * 83 + 130;
+
+      const clipY = this.row * 83 + 134;
       ctx.beginPath();
       ctx.moveTo(0, clipY);
       ctx.lineTo(5 * 101, clipY);
@@ -138,10 +147,18 @@ Player.prototype.render = function() {
       ctx.lineTo(0, clipY - 100);
       ctx.lineTo(0, clipY);
       ctx.closePath();
-
       ctx.clip();
 
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, this.headX, this.headY, 101, 171);
+      ctx.save();
+      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
+
+      const beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
+      ctx.rotate(beta);
+
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
+      ctx.restore();
+
+
       ctx.restore();
       break;
   }
