@@ -155,6 +155,9 @@ Player.prototype.render = function() {
       break;
     case 'emerge head':
 
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
+
+
       ctx.save()
 
       const clipY = this.row * 83 + 134;
@@ -180,6 +183,8 @@ Player.prototype.render = function() {
       ctx.restore();
       break;
     case 'roll head':
+
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
 
       ctx.save();
       ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
