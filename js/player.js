@@ -93,15 +93,25 @@ Player.prototype.update = function(dt) {
         this.state = 'roll head';
         this.headX += this.col > 2 ? -45 : 45;
         this.headY -= 23;
-        this.alpha = - Math.PI / 2;
+        this.alpha = Math.PI / 2;
         this.rotationXOffset = 50;
         this.rotationYOffset = 95;
+
+        this.headVX = (FINAL_X - this.headX) / 1;
+        this.headVY = (FINAL_Y - this.headY) / 1;
+
+        this.omega = 3 * Math.PI / 2 / 1;
       }
       break;
     case 'roll head':
-        // this.state = 'alive';
-        // this.row = 5;
-        // this.col = 2;
+      this.headX += dt * this.headVX;
+      this.headY += dt * this.headVY;
+      this.alpha += dt * this.omega;
+      if (this.alpha >= 2 * Math.PI) {
+        this.state = 'alive';
+        this.row = 5;
+        this.col = 2;
+      }
       break;
   }
 }
@@ -174,7 +184,7 @@ Player.prototype.render = function() {
       ctx.save();
       ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
 
-      this.beta = this.col > 2 ? this.alpha : -this.alpha;
+      this.beta = this.col > 2 ? - this.alpha : this.alpha;
       ctx.rotate(this.beta);
 
       ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
