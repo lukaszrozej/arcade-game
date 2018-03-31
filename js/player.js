@@ -75,6 +75,10 @@ Player.prototype.update = function(dt) {
       this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
       if (this.trunkY > FINAL_Y) {
         this.state = 'emerge head';
+
+        this.col = this.headEmergeCol;
+
+
         this.headX = this.col * 101;
         this.headY = this.row * 83 + 30;
         
@@ -324,6 +328,13 @@ Player.prototype.handleTerrain = function(terrain) {
     while (terrain[this.row + 1][this.col] === 'water') {
       this.row++;
     }
+    // Find leftmost water cell:
+    this.headEmergeCol = this.col;
+    while (this.headEmergeCol > 0 && terrain[this.row][this.headEmergeCol] === 'water') {
+      this.headEmergeCol--;
+    }
+    console.log(this.headEmergeCol);
+
   }
 }
 
