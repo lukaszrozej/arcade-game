@@ -50,6 +50,9 @@ Player.prototype.update = function(dt) {
       this.frame += dt * this.frameRate;
       if (this.frame >= 8) {
         this.state = 'emerge trunk';
+
+        this.col = this.trunkEmergeCol;
+
         this.depth = 30;
         this.v = 20;
         this.trunkY = this.row * 83 - 10 + 30;
@@ -333,7 +336,11 @@ Player.prototype.handleTerrain = function(terrain) {
     while (this.headEmergeCol > 0 && terrain[this.row][this.headEmergeCol] === 'water') {
       this.headEmergeCol--;
     }
-    console.log(this.headEmergeCol);
+    // Find rightmost water cell:
+    this.trunkEmergeCol = this.col;
+    while (this.trunkEmergeCol < 4 && terrain[this.row][this.trunkEmergeCol] === 'water') {
+      this.trunkEmergeCol++;
+    }
 
   }
 }
