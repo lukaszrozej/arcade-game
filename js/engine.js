@@ -139,6 +139,7 @@ var Engine = (function(global) {
         scrollProgress = 0;
         state = 'play';
         level++;
+        player.terrain = levels[level].terrain;
         player.row = 5;
         bugs = newBugs;
         player.unfreeze();
@@ -313,6 +314,7 @@ var Engine = (function(global) {
     level = 0;
     bugs = createBugsForLevel(0);
     player.reset();
+    player.terrain = levels[0].terrain;
     state = 'choose character';
   }
 

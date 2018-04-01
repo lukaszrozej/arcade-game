@@ -46,75 +46,8 @@ Player.prototype.update = function(dt) {
       }
       break;
     case 'drown':
-      this.depth += dt * this.v;
-      this.frame += dt * this.frameRate;
-      if (this.frame >= 8) {
-        this.state = 'emerge trunk';
-
-        this.col = this.trunkEmergeCol;
-
-        this.depth = 30;
-        this.v = 20;
-        this.trunkY = this.row * 83 - 10 + 30;
-        this.trunkX = this.col * 101;
-      }
-      break;
-    case 'emerge trunk':
-      this.depth -= dt * this.v;
-      this.trunkY -= dt * this.v;
-      if (this.depth <= 0) {
-        this.state = 'jump trunk';
-        const trunkTime = 1;
-        this.trunkJumpStartY = this.trunkY;
-        this.distanceY = (FINAL_Y - this.trunkY);
-        this.trunkVX = (FINAL_X - this.trunkX) / trunkTime;
-        this.trunkVY = (FINAL_Y - this.trunkY) / trunkTime;
-        this.yOffset = 0;
-      }
-      break;
-    case 'jump trunk':
-      this.trunkX += dt * this.trunkVX;
-      this.trunkY += dt * this.trunkVY;
-      this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
-      if (this.trunkY > FINAL_Y) {
-        this.state = 'emerge head';
-
-        this.col = this.headEmergeCol;
-
-
-        this.headX = this.col * 101;
-        this.headY = this.row * 83 + 30;
-        
-        this.alpha = 0;
-        this.omega = Math.PI / 2;
-
-        this.rotationXOffset = this.col > 2 ? 17 : 101 - 17; 
-        this.rotationYOffset = 105;
-        
-
-      }
-      break;
-    case 'emerge head':
-      this.alpha += dt * this.omega;
-      if (this.alpha >= Math.PI) {
-        this.state = 'roll head';
-        this.headX += this.col > 2 ? -45 : 45;
-        this.headY -= 23;
-        this.alpha = Math.PI / 2;
-        this.rotationXOffset = 50;
-        this.rotationYOffset = 95;
-
-        this.headVX = (FINAL_X - this.headX) / 1;
-        this.headVY = (FINAL_Y - this.headY) / 1;
-
-        this.omega = 3 * Math.PI / 2 / 1;
-      }
-      break;
-    case 'roll head':
-      this.headX += dt * this.headVX;
-      this.headY += dt * this.headVY;
-      this.alpha += dt * this.omega;
-      if (this.alpha >= 2 * Math.PI) {
+      this.updateDrownedAnimation(dt);
+      if (this.animationState === 'finished') {
         this.state = 'alive';
         this.row = 5;
         this.col = 2;
@@ -148,71 +81,13 @@ Player.prototype.render = function() {
       ctx.restore();
       break;
     case 'drown':
-      ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171 - this.depth - 34, x, y + this.depth, 101, 171 - this.depth - 34);
-    // Splash sprites from here:
-    // https://daveriskit.wordpress.com/2015/02/07/animated-gif-maker/
-      const xOffset = Math.floor(this.frame) * 101;
-      ctx.drawImage(Resources.get('images/splash.png'), xOffset, 0, 101, 171, x, y + 30, 101, 171);
-      break;
-    case 'emerge trunk':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171 - this.depth - 30, this.trunkX, this.trunkY, 101, 171 - this.depth - 30);
-      break;
-    case 'jump trunk':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
-      break;
-    case 'emerge head':
-
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
-
-
-      ctx.save()
-
-      const clipY = this.row * 83 + 134;
-      ctx.beginPath();
-      ctx.moveTo(0, clipY);
-      ctx.lineTo(5 * 101, clipY);
-      ctx.lineTo(5 * 101, clipY - 100);
-      ctx.lineTo(0, clipY - 100);
-      ctx.lineTo(0, clipY);
-      ctx.closePath();
-      ctx.clip();
-
-      ctx.save();
-      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
-
-      this.beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
-      ctx.rotate(this.beta);
-
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
-      ctx.restore();
-
-
-      ctx.restore();
-      break;
-    case 'roll head':
-
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
-
-      ctx.save();
-      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
-
-      this.beta = this.col > 2 ? - this.alpha : this.alpha;
-      ctx.rotate(this.beta);
-
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
-      ctx.restore();
-
-      ctx.fillStyle = 'green';
-      ctx.fillRect(this.headX, this.headY, 3, 3);
-      ctx.fillStyle = 'red';
-      ctx.fillRect(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset, 3, 3);
-
-      break;
+      this.renderDrownedAnimation();
   }
 }
 
 Player.prototype.handleInput = function(input) {
   if (this.dead || this.frozen) return;
+  if (this.state !== 'alive') return;
 
   // Don't talk when you walk :)
   this.talking = false;
@@ -320,28 +195,7 @@ Player.prototype.handleTerrain = function(terrain) {
   if (terrain[this.row][this.col] === 'water') {
     this.lives--;
     this.state = 'drown';
-
-    this.frame = 0;
-    this.frameRate = 8;
-
-    this.depth = 0;
-    this.v = 400;
-
-    // Find lowest water row:
-    while (terrain[this.row + 1][this.col] === 'water') {
-      this.row++;
-    }
-    // Find leftmost water cell:
-    this.headEmergeCol = this.col;
-    while (this.headEmergeCol > 0 && terrain[this.row][this.headEmergeCol] === 'water') {
-      this.headEmergeCol--;
-    }
-    // Find rightmost water cell:
-    this.trunkEmergeCol = this.col;
-    while (this.trunkEmergeCol < 4 && terrain[this.row][this.trunkEmergeCol] === 'water') {
-      this.trunkEmergeCol++;
-    }
-
+    this.startDrownedAnimation();
   }
 }
 
@@ -431,6 +285,195 @@ Player.prototype.freeze = function() {
 
 Player.prototype.unfreeze = function() {
   this.frozen = false;
+}
+
+Player.prototype.startDrownedAnimation = function() {
+  this.frame = 0;
+  this.frameRate = 8;
+
+  this.depth = 0;
+  this.v = 400;
+
+  // Find lowest water row:
+  while (this.terrain[this.row + 1][this.col] === 'water') {
+    this.row++;
+  }
+
+  this.animationState = 'drown';
+}
+
+Player.prototype.updateDrownedAnimation = function(dt) {
+  const FINAL_X = 101 * 2;
+  const FINAL_Y = 83 * 5 - 40;
+  switch (this.animationState) {
+
+    case 'drown':
+      this.depth += dt * this.v;
+      this.frame += dt * this.frameRate;
+
+      if (this.frame >= 8) {
+        this.animationState = 'emerge trunk';
+
+        // Find rightmost water cell:
+        while (this.col < 4 && this.terrain[this.row][this.col] === 'water') {
+          this.col++;
+        }
+
+        this.depth = 30;
+        this.v = 20;
+        this.trunkY = this.row * 83 - 10 + 30;
+        this.trunkX = this.col * 101;
+
+      }
+      break;
+
+    case 'emerge trunk':
+      this.depth -= dt * this.v;
+      this.trunkY -= dt * this.v;
+
+      if (this.depth <= 0) {
+        this.animationState = 'jump trunk';
+        const trunkTime = 1;
+        this.trunkJumpStartY = this.trunkY;
+        this.distanceY = (FINAL_Y - this.trunkY);
+        this.trunkVX = (FINAL_X - this.trunkX) / trunkTime;
+        this.trunkVY = (FINAL_Y - this.trunkY) / trunkTime;
+        this.yOffset = 0;
+      }
+      break;
+
+    case 'jump trunk':
+      this.trunkX += dt * this.trunkVX;
+      this.trunkY += dt * this.trunkVY;
+      this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
+
+      if (this.trunkY > FINAL_Y) {
+        this.animationState = 'emerge head';
+
+        const HEAD_EMERGE_TIME = 1;
+
+        // Find leftmost water cell:
+        while (this.col > 0 && this.terrain[this.row][this.col] === 'water') {
+          this.col--;
+        }
+        // Initial position
+        this.headX = this.col * 101;
+        this.headY = this.row * 83 + 30;
+        // Initial angle
+        this.alpha = 0;
+        // Angular velocity
+        this.omega = Math.PI / HEAD_EMERGE_TIME;
+        // Rotation axis offset
+        this.rotationXOffset = this.col > 2 ? 17 : 101 - 17; 
+        this.rotationYOffset = 105;
+      }
+      break;
+
+    case 'emerge head':
+      this.alpha += dt * this.omega;
+
+      if (this.alpha >= Math.PI) {
+        this.animationState = 'roll head';
+
+        const HEAD_ROLL_TIME = 1;
+        const HEAD_ROLL_TOTAL_ANGLE = 3 * Math.PI / 2;
+
+        // Initial position
+        this.headX += this.col > 2 ? -45 : 45;
+        this.headY -= 23;
+        // Velocities
+        this.headVX = (FINAL_X - this.headX) / 1;
+        this.headVY = (FINAL_Y - this.headY) / 1;
+        // Initial angle
+        this.alpha = Math.PI / 2;
+        // Angular velocity
+        this.omega = 3 * Math.PI / 2 / 1;
+        // Rotation axis offset
+        this.rotationXOffset = 50;
+        this.rotationYOffset = 95;
+      }
+      break;
+
+    case 'roll head':
+      this.headX += dt * this.headVX;
+      this.headY += dt * this.headVY;
+      this.alpha += dt * this.omega;
+
+      if (this.alpha >= 2 * Math.PI) {
+        this.animationState = 'finished';
+        this.row = 5;
+        this.col = 2;
+      }
+      break;
+  }
+}
+
+Player.prototype.renderDrownedAnimation = function() {
+  const x = 101 * this.col;
+  const y = 83 * this.row - 40;
+  switch (this.animationState) {
+    case 'drown':
+      ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171 - this.depth - 34, x, y + this.depth, 101, 171 - this.depth - 34);
+    // Splash sprites from here:
+    // https://daveriskit.wordpress.com/2015/02/07/animated-gif-maker/
+      const xOffset = Math.floor(this.frame) * 101;
+      ctx.drawImage(Resources.get('images/splash.png'), xOffset, 0, 101, 171, x, y + 30, 101, 171);
+      break;
+    case 'emerge trunk':
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171 - this.depth - 30, this.trunkX, this.trunkY, 101, 171 - this.depth - 30);
+      break;
+    case 'jump trunk':
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
+      break;
+    case 'emerge head':
+
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
+
+
+      ctx.save()
+
+      const clipY = this.row * 83 + 134;
+      ctx.beginPath();
+      ctx.moveTo(0, clipY);
+      ctx.lineTo(5 * 101, clipY);
+      ctx.lineTo(5 * 101, clipY - 100);
+      ctx.lineTo(0, clipY - 100);
+      ctx.lineTo(0, clipY);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.save();
+      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
+
+      this.beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
+      ctx.rotate(this.beta);
+
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
+      ctx.restore();
+
+
+      ctx.restore();
+      break;
+    case 'roll head':
+
+      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
+
+      ctx.save();
+      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
+
+      this.beta = this.col > 2 ? - this.alpha : this.alpha;
+      ctx.rotate(this.beta);
+
+      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
+      ctx.restore();
+
+      ctx.fillStyle = 'green';
+      ctx.fillRect(this.headX, this.headY, 3, 3);
+      ctx.fillStyle = 'red';
+      ctx.fillRect(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset, 3, 3);
+
+      break;
+  }
 }
 
 const hitTexts = [
