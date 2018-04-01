@@ -13,6 +13,21 @@
  * writing app.js a little simpler to work with.
  */
 
+head = new Head();
+head.startRollAnimation({
+  from: {
+    x: 100,
+    y: 200,
+    angle: Math.PI/4,
+  },
+  to: {
+    x: 400,
+    y: 200,
+    angle: 9 * Math.PI / 4,
+  },
+  duration: 2,
+});
+
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
    * create the canvas element, grab the 2D context for that canvas
@@ -176,6 +191,7 @@ var Engine = (function(global) {
         newBugs = createBugsForLevel(level + 1);
       }
     }
+    head.updateRollAnimation(dt);
   }
 
   // For each pair of different bugs checks if they collide
@@ -238,6 +254,9 @@ var Engine = (function(global) {
     if (state === 'choose character') {
       renderCharacterSelection();
     }
+
+    head.renderRollAnimation();
+
   }
 
   function renderMessage(message) {
