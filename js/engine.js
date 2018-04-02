@@ -13,6 +13,19 @@
  * writing app.js a little simpler to work with.
  */
 
+const trunk = {
+  sprite: {
+    url:  'images/char-boy.png',
+    offset: { x: 202, y: 0 },
+    center: { x: 50,  y: 125 },
+  },
+  position: {
+    x: 4 * 101,
+    y: 83 - 40,
+    angle: 0,
+  }
+}
+
 const head = {
   sprite: {
     url:  'images/char-boy.png',
@@ -20,60 +33,117 @@ const head = {
     center: { x: 50,  y: 95 },
   },
   position: {
-    x: 100,
-    y: 100,
-    angle: 0 * Math.PI / 3,
+    x: 4 * 101,
+    y: 83 - 40,
+    angle: 0,
   }
 }
 
-animation = new Jump({
-  object: head,
-  from: {
-    x: 400,
-    y: 5 * 83 - 40,
-    // angle: 0*Math.PI/4,
-  },
-  to: {
-    x: 2 * 101,
-    y: 5 * 83 - 40,
-    // angle: 16 * Math.PI / 4,
-  },
-  height: 30,
-  duration: 1,
-  numberOfJumps: 4,
-});
+const hit = new Parallel([
+  new Sequence([
+    new Throw({
+      object: trunk,
+      to: {
+        x: 0,
+        y: 5 * 83 - 40,
+        angle: 2 * Math.PI,
+      },
+      height: 50,
+      duration: 1,
+    }),
+    new Jump({
+      object: trunk,
+      to: {
+        x: 2 * 101,
+        y: 5 * 83 - 40,
+      },
+      height: 30,
+      numberOfJumps: 4,
+      duration: 1,
+    })
+  ]),
+  new Throw({
+    object: head,
+    to: {
+      x: 2 * 101,
+      y: 5 * 83 - 40,
+      angle: 2 * Math.PI,
+    },
+    height: 50,
+    duration: 1,
+  }),
+]);
 
-animation = new Throw({
-  object: head,
-  from: {
-    x: 4 * 101,
-    y: 1 * 83 - 40,
-    angle: 0*Math.PI/4,
-  },
-  to: {
-    x: 0 * 101,
-    y: 5 * 83 - 40,
-    angle: 16 * Math.PI / 4,
-  },
-  height: 30,
-  duration: 1,
-});
+const drown1 = 
+  new Sequence([
+    new Emerge({
+      object: trunk,
+      from: {
+        x: 4 * 101,
+        y: 3 * 83 + 10,
+        angle: 0,
+      },
+      to: {
+        x: 4 * 101,
+        y: 3 * 83 - 10,
+        angle: 0,
+      },
+      duration: 0.5,
+      clipY: 4 * 83 + 45,
+    }),
+    new Jump({
+      object: trunk,
+      to: {
+        x: 2 * 101,
+        y: 5 * 83 - 40,
+      },
+      height: 30,
+      numberOfJumps: 4,
+      duration: 1,
+    })
+  ]);
 
-animation = new Roll({
-  object: head,
-  from: {
-    x: 4 * 101,
-    y: 1 * 83 - 40,
-    angle: 0*Math.PI/4,
-  },
-  to: {
-    x: 0 * 101,
-    y: 1 * 83 - 40,
-    angle: -16 * Math.PI / 4,
-  },
-  duration: 1,
-});
+const drown2 = 
+  new Sequence([
+    new Emerge({
+      object: head,
+      from: {
+        x: -20,
+        y: 3 * 83 + 60,
+        angle: -Math.PI / 2,
+      },
+      to: {
+        x: 20,
+        y: 3 * 83,
+        angle: Math.PI / 2,
+      },
+      duration: 0.5,
+      clipY: 4 * 83 + 45,
+    }),
+    new Throw({
+      object: head,
+      to: {
+        x: 2 * 101,
+        y: 5 * 83 - 40,
+        angle: 4 * Math.PI,
+      },
+      height: 50,
+      duration: 1,
+    })
+  ]);
 
+const animation = new Sequence([
+  new Splash({
+    sprites: 'splash',
+    position: {
+      x: 202,
+      y: 2 * 83,
+    },
+    duration: 1,
+    numberOfFrames: 9,
+  }),
+  new Parallel([drown1, drown2]),
+]);
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
