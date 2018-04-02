@@ -22,24 +22,58 @@ const head = {
   position: {
     x: 100,
     y: 100,
-    angle: Math.PI / 3,
+    angle: 0 * Math.PI / 3,
   }
 }
 
+animation = new Jump({
+  object: head,
+  from: {
+    x: 400,
+    y: 5 * 83 - 40,
+    // angle: 0*Math.PI/4,
+  },
+  to: {
+    x: 2 * 101,
+    y: 5 * 83 - 40,
+    // angle: 16 * Math.PI / 4,
+  },
+  height: 30,
+  duration: 1,
+  numberOfJumps: 4,
+});
+
+animation = new Throw({
+  object: head,
+  from: {
+    x: 4 * 101,
+    y: 1 * 83 - 40,
+    angle: 0*Math.PI/4,
+  },
+  to: {
+    x: 0 * 101,
+    y: 5 * 83 - 40,
+    angle: 16 * Math.PI / 4,
+  },
+  height: 30,
+  duration: 1,
+});
+
 animation = new Roll({
   object: head,
-  // from: {
-  //   x: 200,
-  //   y: 400,
-  //   angle: Math.PI/4,
-  // },
-  to: {
-    x: 400,
-    y: 100,
-    angle: 9 * Math.PI / 4,
+  from: {
+    x: 4 * 101,
+    y: 1 * 83 - 40,
+    angle: 0*Math.PI/4,
   },
-  duration: 2,
+  to: {
+    x: 0 * 101,
+    y: 1 * 83 - 40,
+    angle: -16 * Math.PI / 4,
+  },
+  duration: 1,
 });
+
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
