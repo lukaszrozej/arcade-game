@@ -1,37 +1,25 @@
-class Head {
-  constructor(){
-    this.v = {};
-    this.center = {x: 50, y: 95};
-    this.sprite = 'images/char-horn-girl.png';
-  }
-
-  update() {
-
-  }
-
-  render() {
-
-  }
-
-  startRollAnimation(props) {
+class Roll {
+  constructor(props) {
+    this.object = props.object;
     if (props.from) {
-      this.pos = props.from;
+      this.object.position = props.from;
     }
-    this.to = props.to;
-    this.v.x = (this.to.x - this.pos.x) / props.duration;
-    this.v.y = (this.to.y - this.pos.y) / props.duration;
-    this.v.angle = (this.to.angle - this.pos.angle) / props.duration;
     this.duration = props.duration;
+    this.v = {
+      x: (props.to.x - this.object.position.x) / this.duration,
+      y: (props.to.y - this.object.position.y) / this.duration,
+      angle: (props.to.angle - this.object.position.angle) / this.duration,
+    }
     this.time = 0;
     this.done = false;
   }
 
-  updateRollAnimation(dt) {
+  update(dt) {
     if (this.done) return;
 
-    this.pos.x += dt * this.v.x;
-    this.pos.y += dt * this.v.y;
-    this.pos.angle += dt * this.v.angle;
+    this.object.position.x += dt * this.v.x;
+    this.object.position.y += dt * this.v.y;
+    this.object.position.angle += dt * this.v.angle;
     this.time += dt;
 
     if (this.time >= this.duration) {
@@ -39,17 +27,15 @@ class Head {
     }
   }
 
-  renderRollAnimation() {
-
-// if (!this.done) console.log(this.pos);
-
+  render() {
     ctx.save();
-    ctx.translate(this.pos.x + this.center.x, this.pos.y + this.center.y);
-    ctx.rotate(this.pos.angle);
-    ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.center.x, -this.center.y, 101, 171);
+    ctx.translate(this.object.position.x + this.object.sprite.center.y, this.object.position.y + this.object.sprite.center.y);
+    ctx.rotate(this.object.position.angle);
+    ctx.drawImage(Resources.get(this.object.sprite.url),
+                  this.object.sprite.offset.x, this.object.sprite.offset.y, 101, 171,
+                  -this.object.sprite.center.x, -this.object.sprite.center.y, 101, 171);
       ctx.fillStyle = 'green';
       ctx.fillRect(0, 0, 3, 3);
     ctx.restore();
   }
-
 }

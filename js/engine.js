@@ -13,16 +13,29 @@
  * writing app.js a little simpler to work with.
  */
 
-head = new Head();
-head.startRollAnimation({
-  from: {
-    x: 100,
-    y: 200,
-    angle: Math.PI/4,
+const head = {
+  sprite: {
+    url:  'images/char-boy.png',
+    offset: { x: 101, y: 0 },
+    center: { x: 50,  y: 95 },
   },
+  position: {
+    x: 100,
+    y: 100,
+    angle: Math.PI / 3,
+  }
+}
+
+animation = new Roll({
+  object: head,
+  // from: {
+  //   x: 200,
+  //   y: 400,
+  //   angle: Math.PI/4,
+  // },
   to: {
     x: 400,
-    y: 200,
+    y: 100,
     angle: 9 * Math.PI / 4,
   },
   duration: 2,
@@ -191,7 +204,7 @@ var Engine = (function(global) {
         newBugs = createBugsForLevel(level + 1);
       }
     }
-    head.updateRollAnimation(dt);
+    animation.update(dt);
   }
 
   // For each pair of different bugs checks if they collide
@@ -255,7 +268,7 @@ var Engine = (function(global) {
       renderCharacterSelection();
     }
 
-    head.renderRollAnimation();
+    animation.render();
 
   }
 
