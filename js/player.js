@@ -4,6 +4,26 @@
 const Player = function(sprite = 'images/char-horn-girl.png') {
   this.sprite = sprite;
   this.reset();
+
+  this.trunk = {
+    sprite: {
+      url:  this.sprite,
+      offset: { x: 202, y: 0 },
+      center: { x: 50,  y: 125 },
+    },
+    position: {},
+  }
+
+  this.head = {
+    sprite: {
+      url:  this.sprite,
+      offset: { x: 101, y: 0 },
+      center: { x: 50,  y: 95 },
+    },
+    position: {},
+  }
+
+  this.defineAnimations();
 }
 
 // Resets the player's position to bottom center
@@ -22,35 +42,10 @@ Player.prototype.update = function(dt) {
   const FINAL_X = 101 * 2;
   const FINAL_Y = 83 * 5 - 40;
   switch (this.state) {
-    case 'hit':
-      if (this.headY < FINAL_Y) {
-        // Falling phase
-        this.trunkX += dt * this.trunkVX;
-        this.headX += dt * this.headVX;
-        this.headY += dt * this.v;
-        this.trunkY = this.headY;
-        this.v += dt * this.a;
-
-        this.alpha += dt * this.omega;
-
-      } else if ((FINAL_X - this.trunkX) * this.trunkJumpV > 0) {
-        // Trunk jumping phase
-        this.trunkX += dt * this.trunkJumpV;
-        this.trunkY = -20 * Math.abs(Math.sin((this.trunkX - this.trunkJumpStartX) * 4 * Math.PI / 202)) + FINAL_Y;
-      } else {
-        // Coming back to life
-        this.state = 'alive';
-        this.say(hitTexts[Math.floor(Math.random() * hitTexts.length)]);
-        this.row = 5;
-        this.col = 2;
-      }
-      break;
-    case 'drown':
-      this.updateDrownedAnimation(dt);
-      if (this.animationState === 'finished') {
-        this.state = 'alive';
-        this.row = 5;
-        this.col = 2;
+    case 'killed':
+      this.animation.update(dt);
+      if (this.animation.done) {
+        this.revive();
       }
       break;
   }
@@ -60,6 +55,9 @@ Player.prototype.render = function() {
   const x = 101 * this.col;
   const y = 83 * this.row - 40;
   switch (this.state) {
+    case 'killed':
+      this.animation.render();
+      break;
     case 'alive':
       ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
 
@@ -67,21 +65,6 @@ Player.prototype.render = function() {
         this.renderSpeech(this.currentText);
       }
       break;
-    case 'hit':
-      ctx.save();
-      ctx.translate(this.trunkX + 50, this.trunkY + 130);
-      ctx.rotate(this.alpha);
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, -50, -130, 101, 171);
-      ctx.restore();
-
-      ctx.save();
-      ctx.translate(this.headX + 50, this.headY + 100);
-      ctx.rotate(-this.alpha);
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -50, -100, 101, 171);
-      ctx.restore();
-      break;
-    case 'drown':
-      this.renderDrownedAnimation();
   }
 }
 
@@ -113,6 +96,21 @@ Player.prototype.handleInput = function(input) {
   }
 }
 
+Player.prototype.revive = function() {
+  this.state = 'alive';
+  this.row = 5;
+  this.col = 2;
+  this.say(this.message);
+}
+
+Player.prototype.currentPosition = function() {
+  return {
+    x: this.col * 101,
+    y: this.row * 83 - 40,
+    angle: 0,
+  }
+}
+
 Player.prototype.handleCollisions = function(bugs) {
   if (this.state !== 'alive') return;
 
@@ -122,71 +120,19 @@ Player.prototype.handleCollisions = function(bugs) {
 
   if (bug) {
     this.lives--;
-    this.state = 'hit';
+    this.state = 'killed';
 
-    // Trunk and head falling:
+    this.head.position = this.currentPosition();
+    this.trunk.position = this.currentPosition();
 
-    // Time it takes the head and trunk to fly to the bottom
-    const TIME = 1;
+    this.trunkThrow.to.x = bug.v > 0 ? 404 : 0;
+    this.trunkThrow.to.angle = bug.v > 0 ? 4 * Math.PI : -4 * Math.PI;
+    this.headThrow.to.angle = -this.trunkThrow.to.angle;
 
-    // Horizontalinetion has constant velocity
+    this.animation = this.hitAnimation;
+    this.animation.initialize();
 
-    // Initial position
-    this.headX = 101 * this.col;
-    this.trunkX = 101 * this.col;
-
-    // Final position
-    const FINAL_HEAD_X = 101 * 2;
-    const FINAL_TRUNK_X = bug.v > 0 ? 101 * 4 : 0;
-
-    // Horizontal velocities
-    this.headVX = (FINAL_HEAD_X - this.headX) / TIME;
-    this.trunkVX = (FINAL_TRUNK_X - this.trunkX) / TIME;
-
-    // Vertical motion of head and trunk is the same
-    // Vertical acceleration and initial velocity formulas
-    // derived from conservation of energy and
-    // equation of uniformly accelerated motion
-
-    // Initial position
-    this.headY = 83 * this.row - 40;
-    this.trunkY = this.headY;
-
-    // Final position
-    const FINAL_Y = 83 * 5 - 40;
-
-    // How high they will fly above the initial position
-    const HEIGHT = 50;
-
-    // How low they will land below the initial position
-    const DEPTH = FINAL_Y - this.headY;
-
-    // Vertical initial velocity
-    this.v = -2 * HEIGHT * (1 + Math.sqrt(1 + DEPTH / HEIGHT)) / TIME;
-
-    // Vertical acceleration
-    this.a = this.v * this.v / (2 * HEIGHT);
-
-    // Head and trunk rotating
-
-    // Rotation of head and trunk is the same, but in oposite directions
-
-    // Initial angle:
-    this.alpha = 0;
-
-    const NUMBER_OF_ROTATIONS = 2;
-    const DIRECTION = (bug.v > 0 ? 1 : -1);
-
-    // Angular velocity:
-    this.omega = DIRECTION * 2 * Math.PI * NUMBER_OF_ROTATIONS / TIME;
-
-    // Trunk jumping:
-
-    // Constant horizontal velocity
-    this.trunkJumpV = (FINAL_HEAD_X - FINAL_TRUNK_X) / TIME;
-
-    // Initial horizontal jumping position
-    this.trunkJumpStartX = FINAL_TRUNK_X;
+    this.message = hitTexts[Math.floor(Math.random() * hitTexts.length)];
   }
 }
 
@@ -194,8 +140,40 @@ Player.prototype.handleTerrain = function(terrain) {
   if (this.state !== 'alive') return;
   if (terrain[this.row][this.col] === 'water') {
     this.lives--;
-    this.state = 'drown';
-    this.startDrownedAnimation();
+    this.state = 'killed';
+
+    this.splash.position.x = this.col * 101;
+    this.splash.position.y = this.row * 83;
+
+    // Find lowest water row:
+    while (this.terrain[this.row + 1][this.col] === 'water') {
+      this.row++;
+    }
+    this.head.position.y = this.row * 83 + 60;
+    this.trunk.position.y = this.row * 83 + 20;
+
+    // Find leftmost water cell:
+    while (this.col > 0 && this.terrain[this.row][this.col - 1] === 'water') {
+      this.col--;
+    }
+    this.head.position.x = this.col * 101 - 20;
+    // Find leftmost water cell:
+    while (this.col < 4 && this.terrain[this.row][this.col + 1] === 'water') {
+      this.col++;
+    }
+    this.trunk.position.x = this.col * 101;
+
+    this.head.position.angle = -Math.PI;
+    this.trunk.position.angle = 0;
+
+    this.headEmerge.clipY = this.row * 83 + 134;
+    this.trunkEmerge.clipY = this.row * 83 + 134;
+
+    this.animation = this.drownedAnimation;
+    this.animation.initialize();
+
+//******!!!!!!!!!!
+    this.message = hitTexts[Math.floor(Math.random() * hitTexts.length)];
   }
 }
 
@@ -287,193 +265,94 @@ Player.prototype.unfreeze = function() {
   this.frozen = false;
 }
 
-Player.prototype.startDrownedAnimation = function() {
-  this.frame = 0;
-  this.frameRate = 8;
+Player.prototype.defineAnimations = function() {
+  this.trunkThrow = new Throw({
+    object: this.trunk,
+    to: {
+      x: 0,
+      y: 5 * 83 - 40,
+      angle: 2 * Math.PI,
+    },
+    height: 50,
+    duration: 1,
+  });
 
-  this.depth = 0;
-  this.v = 400;
+  this.trunkJump = new Jump({
+    object: this.trunk,
+    to: {
+      x: 2 * 101,
+      y: 5 * 83 - 40,
+    },
+    height: 30,
+    numberOfJumps: 4,
+    duration: 1,
+  });
 
-  // Find lowest water row:
-  while (this.terrain[this.row + 1][this.col] === 'water') {
-    this.row++;
-  }
+  this.headThrow = new Throw({
+    object: this.head,
+    to: {
+      x: 2 * 101,
+      y: 5 * 83 - 40,
+      angle: 2 * Math.PI,
+    },
+    height: 50,
+    duration: 1,
+  });
 
-  this.animationState = 'drown';
-}
+  this.trunkEmerge = new Emerge({
+    object: this.trunk,
+    change: {
+      x: 0,
+      y: -20,
+      angle: 0,
+    },
+    duration: 0.5,
+    clipY: 4 * 83 + 45,
+  });
 
-Player.prototype.updateDrownedAnimation = function(dt) {
-  const FINAL_X = 101 * 2;
-  const FINAL_Y = 83 * 5 - 40;
-  switch (this.animationState) {
+  this.headEmerge = new Emerge({
+    object: this.head,
+    change: {
+      x: 40,
+      y: -60,
+      angle: Math.PI,
+    },
+    duration: 0.5,
+    clipY: 4 * 83 + 45,
+  });
 
-    case 'drown':
-      this.depth += dt * this.v;
-      this.frame += dt * this.frameRate;
+  this.splash = new Splash({
+    url: 'images/splash.png',
+    position: {
+      x: 202,
+      y: 2 * 83,
+    },
+    duration: 1,
+    numberOfFrames: 9,
+  });
 
-      if (this.frame >= 8) {
-        this.animationState = 'emerge trunk';
-
-        // Find rightmost water cell:
-        while (this.col < 4 && this.terrain[this.row][this.col] === 'water') {
-          this.col++;
-        }
-
-        this.depth = 30;
-        this.v = 20;
-        this.trunkY = this.row * 83 - 10 + 30;
-        this.trunkX = this.col * 101;
-
-      }
-      break;
-
-    case 'emerge trunk':
-      this.depth -= dt * this.v;
-      this.trunkY -= dt * this.v;
-
-      if (this.depth <= 0) {
-        this.animationState = 'jump trunk';
-        const trunkTime = 1;
-        this.trunkJumpStartY = this.trunkY;
-        this.distanceY = (FINAL_Y - this.trunkY);
-        this.trunkVX = (FINAL_X - this.trunkX) / trunkTime;
-        this.trunkVY = (FINAL_Y - this.trunkY) / trunkTime;
-        this.yOffset = 0;
-      }
-      break;
-
-    case 'jump trunk':
-      this.trunkX += dt * this.trunkVX;
-      this.trunkY += dt * this.trunkVY;
-      this.yOffset = -20 * Math.abs(Math.sin((this.trunkY - this.trunkJumpStartY) * 4 * Math.PI / this.distanceY))
-
-      if (this.trunkY > FINAL_Y) {
-        this.animationState = 'emerge head';
-
-        const HEAD_EMERGE_TIME = 1;
-
-        // Find leftmost water cell:
-        while (this.col > 0 && this.terrain[this.row][this.col] === 'water') {
-          this.col--;
-        }
-        // Initial position
-        this.headX = this.col * 101;
-        this.headY = this.row * 83 + 30;
-        // Initial angle
-        this.alpha = 0;
-        // Angular velocity
-        this.omega = Math.PI / HEAD_EMERGE_TIME;
-        // Rotation axis offset
-        this.rotationXOffset = this.col > 2 ? 17 : 101 - 17; 
-        this.rotationYOffset = 105;
-      }
-      break;
-
-    case 'emerge head':
-      this.alpha += dt * this.omega;
-
-      if (this.alpha >= Math.PI) {
-        this.animationState = 'roll head';
-
-        const HEAD_ROLL_TIME = 1;
-        const HEAD_ROLL_TOTAL_ANGLE = 3 * Math.PI / 2;
-
-        // Initial position
-        this.headX += this.col > 2 ? -45 : 45;
-        this.headY -= 23;
-        // Velocities
-        this.headVX = (FINAL_X - this.headX) / 1;
-        this.headVY = (FINAL_Y - this.headY) / 1;
-        // Initial angle
-        this.alpha = Math.PI / 2;
-        // Angular velocity
-        this.omega = 3 * Math.PI / 2 / 1;
-        // Rotation axis offset
-        this.rotationXOffset = 50;
-        this.rotationYOffset = 95;
-      }
-      break;
-
-    case 'roll head':
-      this.headX += dt * this.headVX;
-      this.headY += dt * this.headVY;
-      this.alpha += dt * this.omega;
-
-      if (this.alpha >= 2 * Math.PI) {
-        this.animationState = 'finished';
-        this.row = 5;
-        this.col = 2;
-      }
-      break;
-  }
-}
-
-Player.prototype.renderDrownedAnimation = function() {
-  const x = 101 * this.col;
-  const y = 83 * this.row - 40;
-  switch (this.animationState) {
-    case 'drown':
-      ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171 - this.depth - 34, x, y + this.depth, 101, 171 - this.depth - 34);
-    // Splash sprites from here:
-    // https://daveriskit.wordpress.com/2015/02/07/animated-gif-maker/
-      const xOffset = Math.floor(this.frame) * 101;
-      ctx.drawImage(Resources.get('images/splash.png'), xOffset, 0, 101, 171, x, y + 30, 101, 171);
-      break;
-    case 'emerge trunk':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171 - this.depth - 30, this.trunkX, this.trunkY, 101, 171 - this.depth - 30);
-      break;
-    case 'jump trunk':
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY + this.yOffset, 101, 171);
-      break;
-    case 'emerge head':
-
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
+  this.drownedAnimation = new AnimationSequence([
+    this.splash,
+    new AnimationParallel([
+      new AnimationSequence([
+        this.trunkEmerge,
+        this.trunkJump,
+      ]),
+      new AnimationSequence([
+        this.headEmerge,
+        this.headThrow,
+      ]),
+    ]),
+  ]);
 
 
-      ctx.save()
-
-      const clipY = this.row * 83 + 134;
-      ctx.beginPath();
-      ctx.moveTo(0, clipY);
-      ctx.lineTo(5 * 101, clipY);
-      ctx.lineTo(5 * 101, clipY - 100);
-      ctx.lineTo(0, clipY - 100);
-      ctx.lineTo(0, clipY);
-      ctx.closePath();
-      ctx.clip();
-
-      ctx.save();
-      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
-
-      this.beta = this.col > 2 ? Math.PI / 2 - this.alpha : this.alpha - Math.PI / 2;
-      ctx.rotate(this.beta);
-
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
-      ctx.restore();
-
-
-      ctx.restore();
-      break;
-    case 'roll head':
-
-      ctx.drawImage(Resources.get(this.sprite), 202, 0, 101, 171, this.trunkX, this.trunkY, 101, 171);
-
-      ctx.save();
-      ctx.translate(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset);
-
-      this.beta = this.col > 2 ? - this.alpha : this.alpha;
-      ctx.rotate(this.beta);
-
-      ctx.drawImage(Resources.get(this.sprite), 101, 0, 101, 171, -this.rotationXOffset, -this.rotationYOffset, 101, 171);
-      ctx.restore();
-
-      ctx.fillStyle = 'green';
-      ctx.fillRect(this.headX, this.headY, 3, 3);
-      ctx.fillStyle = 'red';
-      ctx.fillRect(this.headX + this.rotationXOffset, this.headY + this.rotationYOffset, 3, 3);
-
-      break;
-  }
+  this.hitAnimation = new AnimationParallel([
+    new AnimationSequence([
+      this.trunkThrow,
+      this.trunkJump
+    ]),
+    this.headThrow,
+  ]);
 }
 
 const hitTexts = [

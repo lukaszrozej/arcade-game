@@ -1,6 +1,6 @@
 class Emerge {
   constructor(props) {
-    this.props = props;
+    Object.assign(this, props);
     this.initialized = false;
     this.done = false;
   }
@@ -13,20 +13,17 @@ class Emerge {
     this.done = false;
     this.initialized = true;
 
-    this.object = this.props.object;
-    if (this.props.from) {
-      Object.assign(this.object.position, this.props.from)
+    if (this.from) {
+      Object.assign(this.object.position, this.from)
     }
-    this.duration = this.props.duration;
-
 
     this.v = {
-      x: (this.props.to.x - this.object.position.x) / this.duration,
-      y: (this.props.to.y - this.object.position.y) / this.duration,
-      angle: (this.props.to.angle - this.object.position.angle) / this.duration,
+      x: this.change.x / this.duration,
+      y: this.change.y / this.duration,
+      angle: this.change.angle / this.duration,
     }
 
-    this.clipY = this.props.clipY ? this.props.clipY : ctx.canvas.height;
+    this.clipY = this.clipY ? this.clipY : ctx.canvas.height;
 
     this.time = 0;
   }
@@ -72,7 +69,7 @@ class Emerge {
 
 class Throw {
   constructor(props) {
-    this.props = props;
+    Object.assign(this, props);
     this.initialized = false;
     this.done = false;
   }
@@ -85,23 +82,21 @@ class Throw {
     this.done = false;
     this.initialized = true;
 
-    this.object = this.props.object;
-    if (this.props.from) {
-      Object.assign(this.object.position, this.props.from)
+    if (this.from) {
+      Object.assign(this.object.position, this.from)
     }
-    this.duration = this.props.duration;
 
-    const depth = this.props.to.y - this.object.position.y;
+    const depth = this.to.y - this.object.position.y;
 
     this.v = {
-      x: (this.props.to.x - this.object.position.x) / this.duration,
-      y: this.props.height > 0
-          ? -2 * this.props.height * (1 + Math.sqrt(1 + depth / this.props.height)) / this.duration
+      x: (this.to.x - this.object.position.x) / this.duration,
+      y: this.height > 0
+          ? -2 * this.height * (1 + Math.sqrt(1 + depth / this.height)) / this.duration
           : 0,
-      angle: (this.props.to.angle - this.object.position.angle) / this.duration,
+      angle: (this.to.angle - this.object.position.angle) / this.duration,
     }
     this.a = this.v.y !== 0
-              ? this.v.y * this.v.y / (2 * this.props.height)
+              ? this.v.y * this.v.y / (2 * this.height)
               : 2 * depth / (this.duration * this.duration);
 
     this.time = 0;
@@ -139,7 +134,7 @@ class Throw {
 
 class Jump {
   constructor(props) {
-    this.props = props;
+    Object.assign(this, props);
     this.initialized = false;
     this.done = false;
   }
@@ -152,17 +147,13 @@ class Jump {
     this.done = false;
     this.initialized = true;
 
-    this.object = this.props.object;
-    if (this.props.from) {
-      Object.assign(this.object.position, this.props.from);
+    if (this.from) {
+      Object.assign(this.object.position, this.from);
     }
     this.startY = this.object.position.y;
-    this.duration = this.props.duration;
-    this.height = this.props.height;
-    this.numberOfJumps = this.props.numberOfJumps;
     this.v = {
-      x: (this.props.to.x - this.object.position.x) / this.duration,
-      y: (this.props.to.y - this.object.position.y) / this.duration,
+      x: (this.to.x - this.object.position.x) / this.duration,
+      y: (this.to.y - this.object.position.y) / this.duration,
     }
     this.time = 0;
   }
@@ -175,7 +166,7 @@ class Jump {
     } else {
       this.object.position.x += dt * this.v.x;
       this.time += dt;
-      this.object.position.y = this. startY
+      this.object.position.y = this.startY
                             + this.time * this.v.y
                             - this.height *  Math.abs(Math.sin(this.numberOfJumps * Math.PI * this.time / this.duration));
 
@@ -199,11 +190,9 @@ class Jump {
 
 class Splash {
   constructor(props) {
-    this.url = `images/${props.sprites}.png`;
-    this.position = props.position;
-    this.duration = props.duration;
-    this.frameRate = props.numberOfFrames / props.duration;
+    Object.assign(this, props);
     this.done = false;
+    this.initialized = false;
   }
 
   start() {
@@ -213,6 +202,7 @@ class Splash {
   initialize() {
     this.done = false;
     this.initialized = true;
+    this.frameRate = this.numberOfFrames / this.duration;
     this.time = 0;
   }
 
@@ -237,7 +227,7 @@ class Splash {
   }
 }
 
-class Sequence {
+class AnimationSequence {
   constructor(animations) {
     this.animations = animations;
     this.initialized = false;
@@ -258,6 +248,7 @@ class Sequence {
 
   update(dt) {
     if (this.done) return;
+
 
     if (!this.initialized) {
       this.initialize();
@@ -281,7 +272,7 @@ class Sequence {
   }
 }
 
-class Parallel {
+class AnimationParallel {
   constructor(animations) {
     this.animations = animations;
     this.initialized = false;
