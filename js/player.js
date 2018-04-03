@@ -132,7 +132,7 @@ Player.prototype.handleCollisions = function(bugs) {
     this.animation = this.hitAnimation;
     this.animation.initialize();
 
-    this.message = hitTexts[Math.floor(Math.random() * hitTexts.length)];
+    this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 }
 
@@ -173,7 +173,7 @@ Player.prototype.handleTerrain = function(terrain) {
     this.animation.initialize();
 
 //******!!!!!!!!!!
-    this.message = hitTexts[Math.floor(Math.random() * hitTexts.length)];
+    this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 }
 
@@ -355,7 +355,7 @@ Player.prototype.defineAnimations = function() {
   ]);
 }
 
-const hitTexts = [
+const hitMessages = [
   `Ouch, that hurt!`,
   `No wonder I got hit.
   I'm walking backwards.`,
