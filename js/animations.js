@@ -5,10 +5,6 @@ class Emerge {
     this.done = false;
   }
 
-  start() {
-    this.done = false;
-  }
-
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -74,10 +70,6 @@ class Throw {
     this.done = false;
   }
 
-  start() {
-    this.done = false;
-  }
-
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -139,10 +131,6 @@ class Jump {
     this.done = false;
   }
 
-  start() {
-    this.done = false;
-  }
-
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -195,10 +183,6 @@ class Splash {
     this.initialized = false;
   }
 
-  start() {
-    this.done = false;
-  }
-
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -234,9 +218,6 @@ class AnimationSequence {
     this.done = false;
   }
 
-  start() {
-    this.done = false;
-  }
 
   initialize() {
     this.done = false;
@@ -277,10 +258,6 @@ class AnimationParallel {
     this.animations = animations;
     this.initialized = false;
     this.done = false;
-  }
-
-  start() {
-    this.done = false
   }
 
   initialize() {
