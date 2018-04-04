@@ -19,7 +19,7 @@ class Sprite {
 
     this.frameTime = this.numberOfFrames / this.period;
     this.frame = 0;
-
+    this.time = 0;
     this.done = false;
   }
 
