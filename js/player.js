@@ -169,6 +169,8 @@ Player.prototype.handleTerrain = function(terrain) {
     this.headEmerge.clipY = this.row * 83 + 134;
     this.trunkEmerge.clipY = this.row * 83 + 134;
 
+    this.headThrow.to.angle = 4 * Math.PI;
+
     this.animation = this.drownedAnimation;
     this.animation.initialize();
 
