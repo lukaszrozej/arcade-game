@@ -1,3 +1,40 @@
+class Animation {
+  constructor(props) {
+    Object.assign(this, props);
+    this.initialized = false;
+    this.done = false;
+  }
+
+  initialize() {
+    this.done = false;
+    this.initialized = true;
+
+    if (this.from) {
+      Object.assign(this.sprite.position, this.from);
+    }
+
+    if (this.to) {
+      this.change.x = this.to.x - this.from.x;
+      this.change.y = this.to.y - this.from.y;
+      this.change.a = this.to.a - this.from.a;
+    }
+
+    this.sprite.v.x = this.change.x / this.duration;
+    this.sprite.v.y = this.change.y / this.duration;
+    this.sprite.v.a = this.change.a / this.duration;
+
+    this.jumpTime = this.duration / this.numberOfJumps;
+  }
+
+  update() {
+
+  }
+
+  render() {
+
+  }
+}
+
 class Emerge {
   constructor(props) {
     Object.assign(this, props);
