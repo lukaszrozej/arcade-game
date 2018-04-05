@@ -1,3 +1,5 @@
+const GRAVITY = 1000;
+
 class Sprite {
   constructor(props) {
     // url, spriteOffset, center, bottom, numberOfFrames, period, once
@@ -15,7 +17,6 @@ class Sprite {
       z: 0,
       a: 0,
     }
-    this.gravity = 0;
 
     this.frameTime = this.numberOfFrames / this.period;
     this.frame = 0;
@@ -28,7 +29,7 @@ class Sprite {
     this.position.y += dt * this.v.y
     this.position.z += dt * this.v.z
     this.position.a += dt * this.v.a
-    this.v.z += dt * this.gravity;
+    this.v.z += dt * GRAVITY;
 
     // Bounce of the floor
     if (this.position.z < 0 && this.getTerrain() !== 'water') {
