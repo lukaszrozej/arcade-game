@@ -13,6 +13,43 @@
  * writing app.js a little simpler to work with.
  */
 
+const head = new Sprite({
+  url: 'images/temp/char-boy-V.png',
+  spriteUffset: = 171,
+  center: 95,
+  bottom: 137,
+  numberOfFrames: 1,
+  period: 1,
+  once: true;
+});
+
+const trunk = new Sprite({
+  url: 'images/temp/char-boy-V.png',
+  spriteUffset: = 2 * 171,
+  center: 125,
+  bottom: 137,
+  numberOfFrames: 1,
+  period: 1,
+  once: true;
+});
+
+const headThrow = new Animation({
+  from: {
+    x: 4 * 101,
+    y: 2 * 83,
+    z: 0,
+    a: 0,
+  },
+  to: {
+    x: 2 * 101,
+    y: 5 * 83,
+    a: 2 * Math.PI,
+  },
+  duration: 2,
+  numberOfJumps: 1,
+});
+
+
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
    * create the canvas element, grab the 2D context for that canvas
@@ -347,6 +384,7 @@ var Engine = (function(global) {
     'images/heart-small.png',
     'images/Selector.png',
     'images/splash.png',
+    'images/temp/char-boy-V.png',
   ]);
   Resources.onReady(init);
 

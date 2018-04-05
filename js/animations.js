@@ -35,13 +35,13 @@ class Animation {
     this.sprite.resetFrames();
   }
 
-  update() {
+  update(dt) {
     if (this.done) return;
 
     if (!this.initialized) {
       this.initialize();
     } else {
-      this.sprite.update();
+      this.sprite.update(dt);
       if (this.time >= this.duration) {
         this.done = true;
         this.initialized = false;
