@@ -76,7 +76,7 @@ class Sprite {
       ctx.clip();
     }
 
-    ctx.translate(this.position.x + this.center.x, this.position.y + this.center.y);
+    ctx.translate(this.position.x + this.center.x, this.position.y - this.position.z + this.center.y);
     ctx.rotate(this.position.a);
     ctx.drawImage(Resources.get(this.url),
                   this.frame * 101, this.spriteOffset, 101, 171,
