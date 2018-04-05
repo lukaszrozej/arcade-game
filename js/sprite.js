@@ -1,4 +1,4 @@
-const GRAVITY = 1000;
+const GRAVITY = -1000;
 
 class Sprite {
   constructor(props) {
