@@ -24,6 +24,12 @@ class Sprite {
     this.done = false;
   }
 
+  resetFrames() {
+    this.frame = 0;
+    this.time = 0;
+    this.done = false;
+  }
+
   update(dt) {
     this.position.x += dt * this.v.x
     this.position.y += dt * this.v.y
