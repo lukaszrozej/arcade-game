@@ -15,25 +15,28 @@
 
 const head = new Sprite({
   url: 'images/temp/char-boy-V.png',
-  spriteUffset: = 171,
-  center: 95,
+  spriteOffset: 171,
+  center: { x: 50,  y: 95 },
   bottom: 137,
   numberOfFrames: 1,
   period: 1,
-  once: true;
+  once: true,
+  terrain: levels[0].terrain,
 });
 
 const trunk = new Sprite({
   url: 'images/temp/char-boy-V.png',
-  spriteUffset: = 2 * 171,
-  center: 125,
+  spriteOffset: 2 * 171,
+  center: { x: 50,  y: 125 },
   bottom: 137,
   numberOfFrames: 1,
   period: 1,
-  once: true;
+  once: true,
+  terrain: levels[0].terrain,
 });
 
 const headThrow = new Animation({
+  sprite: head,
   from: {
     x: 4 * 101,
     y: 2 * 83,
@@ -43,11 +46,31 @@ const headThrow = new Animation({
   to: {
     x: 2 * 101,
     y: 5 * 83,
-    a: 2 * Math.PI,
+    a: -4 * Math.PI,
   },
-  duration: 2,
+  duration: 1,
   numberOfJumps: 1,
 });
+
+const trunkThrow = new Animation({
+  sprite: trunk,
+  from: {
+    x: 4 * 101,
+    y: 2 * 83,
+    z: 0,
+    a: 0,
+  },
+  to: {
+    x: 2 * 101,
+    y: 5 * 83,
+    a: 4 * Math.PI,
+  },
+  duration: 1,
+  numberOfJumps: 1,
+});
+
+
+const animation = trunkThrow;
 
 
 var Engine = (function(global) {
@@ -213,6 +236,9 @@ var Engine = (function(global) {
         newBugs = createBugsForLevel(level + 1);
       }
     }
+
+animation.update(dt);
+
   }
 
   // For each pair of different bugs checks if they collide
@@ -275,6 +301,9 @@ var Engine = (function(global) {
     if (state === 'choose character') {
       renderCharacterSelection();
     }
+
+animation.render(ctx);
+
   }
 
   function renderMessage(message) {
