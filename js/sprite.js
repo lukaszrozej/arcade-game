@@ -30,6 +30,12 @@ class Sprite {
     this.done = false;
   }
 
+  terrainBelow() {
+    const row = Math.floor((this.position.y + 40)/ 83);
+    const col = Math.floor(this.position.x / 101);
+    return this.terrain[col][row];
+  }
+
   update(dt) {
     this.position.x += dt * this.v.x
     this.position.y += dt * this.v.y
@@ -38,7 +44,7 @@ class Sprite {
     this.v.z += dt * GRAVITY;
 
     // Bounce of the floor
-    if (this.position.z < 0 && this.getTerrain() !== 'water') {
+    if (this.position.z < 0 && this.terrainBelow() !== 'water') {
       this.position.z = 0;
       this.v.z = -this.v.z;
     }
@@ -58,7 +64,7 @@ class Sprite {
   render(ctx) {
     ctx.save();
 
-    if (this.position.z < 0 && this.getTerrain() === 'water') {
+    if (this.position.z < 0 && this.terrainBelow() === 'water') {
       const clipY = this.position.y + bottom;
       ctx.beginPath();
       ctx.moveTo(0, 0);
