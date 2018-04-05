@@ -30,24 +30,23 @@ class Animation {
     const z = this.sprite.position.z;
 
     this.sprite.v.z = n > 1
-      ? -g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
-      : -g * t / 2 + z / (2 * t);
+      ? g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
+      : g * t / 2 + z / (2 * t);
 
     this.sprite.resetFrames();
 
     this.time = 0;
-// console.log(this.sprite.position);
   }
 
   update(dt) {
     if (this.done) return;
 
     if (!this.initialized) {
-// console.log('anim update');
       this.initialize();
     } else {
       this.sprite.update(dt);
       this.time += dt;
+
       if (this.time >= this.duration) {
         this.done = true;
         this.initialized = false;
