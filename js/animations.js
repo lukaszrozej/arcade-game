@@ -1,5 +1,6 @@
 class Animation {
   constructor(props) {
+    this.change = {};
     Object.assign(this, props);
     this.initialized = false;
     this.done = false;
@@ -33,15 +34,20 @@ class Animation {
       : -g * t / 2 + z / (2 * t);
 
     this.sprite.resetFrames();
+
+    this.time = 0;
+// console.log(this.sprite.position);
   }
 
   update(dt) {
     if (this.done) return;
 
     if (!this.initialized) {
+// console.log('anim update');
       this.initialize();
     } else {
       this.sprite.update(dt);
+      this.time += dt;
       if (this.time >= this.duration) {
         this.done = true;
         this.initialized = false;
@@ -49,7 +55,7 @@ class Animation {
     }
   }
 
-  render() {
+  render(ctx) {
     this.sprite.render(ctx);
   }
 }
