@@ -23,15 +23,32 @@ class Animation {
     this.sprite.v.y = this.change.y / this.duration;
     this.sprite.v.a = this.change.a / this.duration;
 
-    this.jumpTime = this.duration / this.numberOfJumps;
+    const n = this.numberOfJumps;
+    const t = this.duration;
+    const g = GRAVITY;
+    const z = this.sprite.position.z;
+
+    this.sprite.v.z = n > 1
+      ? -g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
+      : -g * t / 2 + z / (2 * t);
   }
 
   update() {
+    if (this.done) return;
 
+    if (!this.initialized) {
+      this.initialize();
+    } else {
+      this.sprite.update();
+      if (this.time >= this.duration) {
+        this.done = true;
+        this.initialized = false;
+      }
+    }
   }
 
   render() {
-
+    this.sprite.render(ctx);
   }
 }
 
