@@ -39,28 +39,22 @@ head.position = {
     x: 4 * 101,
     y: 2 * 83,
     z: 0,
-    a: 0,
+    a: -4 * Math.PI,
   };
 
 trunk.position = {
     x: 4 * 101,
     y: 2 * 83,
     z: 0,
-    a: 0,
+    a: 4 * Math.PI,
   };
 
 const headThrow = new Animation({
   sprite: head,
-  // from: {
-  //   x: 4 * 101,
-  //   y: 2 * 83,
-  //   z: 0,
-  //   a: 0,
-  // },
   to: {
     x: 2 * 101,
     y: 5 * 83,
-    a: -4 * Math.PI,
+    a: 0,
   },
   duration: 1,
   numberOfJumps: 1,
@@ -68,23 +62,34 @@ const headThrow = new Animation({
 
 const trunkThrow = new Animation({
   sprite: trunk,
-  from: {
-    x: 4 * 101,
-    y: 2 * 83,
-    z: 0,
-    a: 0,
-  },
   to: {
-    x: 2 * 101,
+    x: 0 * 101,
     y: 5 * 83,
-    a: 4 * Math.PI,
+    a: 0,
   },
   duration: 1,
   numberOfJumps: 1,
 });
 
+const trunkJump = new Animation({
+  sprite: trunk,
+  to: {
+    x: 2 * 101,
+    y: 5 * 83,
+  },
+  duration: 1,
+  numberOfJumps: 4,
+});
 
-const animation = headThrow;
+const hitAnimation = new AnimationParallel([
+  new AnimationSequence([
+    trunkThrow,
+    trunkJump
+  ]),
+  headThrow,
+]);
+
+const animation = hitAnimation;
 
 
 var Engine = (function(global) {

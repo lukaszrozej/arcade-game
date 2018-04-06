@@ -54,8 +54,8 @@ class Animation {
     }
   }
 
-  render(ctx) {
-    this.sprite.render(ctx);
+  render() {
+    this.sprite.render();
   }
 }
 

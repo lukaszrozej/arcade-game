@@ -63,7 +63,7 @@ class Sprite {
 
   }
 
-  render(ctx) {
+  render() {
     ctx.save();
 
     if (this.position.z < 0 && this.terrainBelow() === 'water') {
