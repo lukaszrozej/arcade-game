@@ -26,11 +26,17 @@ class Animation {
     this.sprite.v.y = (this.to.y - this.sprite.position.y) / this.duration;
     this.sprite.v.a = (this.to.a - this.sprite.position.a) / this.duration;
 
+    if (this.sprite.once) {
+      this.sprite.period = this.duration;
+    }
     this.sprite.resetFrames();
 
     this.time = 0;
 
-    if (!this.gravity) return
+    if (!this.gravity) {
+      this.sprite.gravity = 0;
+      return;
+    }
 
     const n = this.numberOfJumps;
     const t = this.duration;
