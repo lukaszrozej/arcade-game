@@ -15,9 +15,9 @@ class Animation {
     }
 
     if (this.to) {
-      this.change.x = this.to.x - this.from.x;
-      this.change.y = this.to.y - this.from.y;
-      this.change.a = this.to.a - this.from.a;
+      this.change.x = this.to.x - this.sprite.position.x;
+      this.change.y = this.to.y - this.sprite.position.y;
+      this.change.a = this.to.a - this.sprite.position.a;
     }
 
     this.sprite.v.x = this.change.x / this.duration;

@@ -14,10 +14,10 @@
  */
 
 const head = new Sprite({
-  url: 'images/temp/char-boy-V.png',
+  url: 'images/temp/char-boy.png',
   spriteOffset: 171,
-  center: { x: 50,  y: 95 },
-  bottom: 137,
+  center: { x: 50,  y: 60 },
+  bottom: 102,
   numberOfFrames: 1,
   period: 1,
   once: true,
@@ -25,24 +25,38 @@ const head = new Sprite({
 });
 
 const trunk = new Sprite({
-  url: 'images/temp/char-boy-V.png',
+  url: 'images/temp/char-boy.png',
   spriteOffset: 2 * 171,
-  center: { x: 50,  y: 125 },
-  bottom: 137,
+  center: { x: 50,  y: 90 },
+  bottom: 102,//137
   numberOfFrames: 1,
   period: 1,
   once: true,
   terrain: levels[0].terrain,
 });
 
-const headThrow = new Animation({
-  sprite: head,
-  from: {
+head.position = {
     x: 4 * 101,
     y: 2 * 83,
     z: 0,
     a: 0,
-  },
+  };
+
+trunk.position = {
+    x: 4 * 101,
+    y: 2 * 83,
+    z: 0,
+    a: 0,
+  };
+
+const headThrow = new Animation({
+  sprite: head,
+  // from: {
+  //   x: 4 * 101,
+  //   y: 2 * 83,
+  //   z: 0,
+  //   a: 0,
+  // },
   to: {
     x: 2 * 101,
     y: 5 * 83,
@@ -70,7 +84,7 @@ const trunkThrow = new Animation({
 });
 
 
-const animation = trunkThrow;
+const animation = headThrow;
 
 
 var Engine = (function(global) {
@@ -413,7 +427,7 @@ animation.render(ctx);
     'images/heart-small.png',
     'images/Selector.png',
     'images/splash.png',
-    'images/temp/char-boy-V.png',
+    'images/temp/char-boy.png',
   ]);
   Resources.onReady(init);
 

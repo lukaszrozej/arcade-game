@@ -31,7 +31,7 @@ class Sprite {
   }
 
   terrainBelow() {
-    const row = Math.floor((this.position.y + 40)/ 83);
+    const row = Math.floor(this.position.y / 83);
     const col = Math.floor(this.position.x / 101);
     return this.terrain[col][row];
   }
