@@ -41,12 +41,13 @@ class Sprite {
     this.position.y += dt * this.v.y
     this.position.z += dt * this.v.z
     this.position.a += dt * this.v.a
-    this.v.z += dt * GRAVITY;
 
     // Bounce of the floor
     if (this.position.z < 0 && this.terrainBelow() !== 'water') {
-      this.position.z = 0;
+      this.position.z -= dt * this.v.z;
       this.v.z = -this.v.z;
+    } else {
+      this.v.z += dt * GRAVITY;
     }
 
     if (this.done) return;
@@ -59,6 +60,7 @@ class Sprite {
     }
     this.time %= this.period;
     this.frame = Math.floor(this.time / this.frameTime)
+
   }
 
   render(ctx) {
