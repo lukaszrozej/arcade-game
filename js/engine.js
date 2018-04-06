@@ -28,8 +28,30 @@ const trunk = new Sprite({
   url: 'images/temp/char-boy.png',
   spriteOffset: 2 * 171,
   center: { x: 50,  y: 90 },
-  bottom: 102,//137
+  bottom: 102,
   numberOfFrames: 1,
+  period: 1,
+  once: true,
+  terrain: levels[0].terrain,
+});
+
+const body = new Sprite({
+  url: 'images/temp/char-boy.png',
+  spriteOffset: 0,
+  center: { x: 50,  y: 90 },
+  bottom: 102,
+  numberOfFrames: 1,
+  period: 1,
+  once: true,
+  terrain: levels[0].terrain,
+});
+
+const splash = new Sprite({
+  url: 'images/splash.png',
+  spriteOffset: 0,
+  center: { x: 50,  y: 90 },
+  // bottom: 102,
+  numberOfFrames: 9,
   period: 1,
   once: true,
   terrain: levels[0].terrain,
@@ -89,7 +111,35 @@ const hitAnimation = new AnimationParallel([
   headThrow,
 ]);
 
-const animation = hitAnimation;
+const splashAnimation = new Animation({
+  sprite: splash,
+  from: {
+    x: 2 * 101,
+    y: 5 * 83,
+  },
+  duration: 1,
+  gravity: false,
+});
+
+body.position = {
+  x: 2 * 101,
+  y: 2 * 83,
+  z: 0,
+  a: 0,
+}
+
+const submerge = new Animation({
+  sprite: body,
+  to: {
+    x: 2 * 101,
+    y: 2 * 83,
+    z: -70,
+    a: 0,
+  },
+  // duration: 1,
+})
+
+const animation = submerge;
 
 
 var Engine = (function(global) {
