@@ -39,10 +39,10 @@ class Sprite {
   }
 
   update(dt) {
-    this.position.x += dt * this.v.x
-    this.position.y += dt * this.v.y
-    this.position.z += dt * this.v.z
-    this.position.a += dt * this.v.a
+    this.position.x += dt * this.v.x;
+    this.position.y += dt * this.v.y;
+    this.position.z += dt * this.v.z;
+    this.position.a += dt * this.v.a;
 
     // Bounce of the floor
     if (this.position.z < 0 && this.terrainBelow() !== 'water') {
