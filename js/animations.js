@@ -18,14 +18,14 @@ class Animation {
       Object.assign(this.sprite.position, this.from);
     }
 
+    if (this.duration === undefined) return;
+
     if (this.sprite.once) {
       this.sprite.period = this.duration;
     }
     this.sprite.resetFrames();
 
     this.time = 0;
-
-    if (this.duration === undefined) return;
 
     if (!this.to) {
       this.to = this.sprite.position;
@@ -59,9 +59,11 @@ class Animation {
       this.sprite.update(dt);
       this.time += dt;
 
-      if (this.time >= this.duration) {
+      if ((this.duration === undefined && this.sprite.position.z <= this.to.z) ||
+          (this.time >= this.duration)) {
         this.done = true;
         this.initialized = false;
+console.log('done:  ', this.time)
       }
     }
   }
