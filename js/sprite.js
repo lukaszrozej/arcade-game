@@ -25,6 +25,7 @@ class Sprite {
   }
 
   resetFrames() {
+    this.frameTime = this.period / this.numberOfFrames;
     this.frame = 0;
     this.time = 0;
     this.done = false;
