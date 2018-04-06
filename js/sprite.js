@@ -17,6 +17,7 @@ class Sprite {
       z: 0,
       a: 0,
     }
+    this.gravity = GRAVITY;
 
     this.frameTime = this.period / this.numberOfFrames;
     this.frame = 0;
@@ -48,7 +49,7 @@ class Sprite {
       this.position.z -= dt * this.v.z;
       this.v.z = -this.v.z;
     } else {
-      this.v.z += dt * GRAVITY;
+      this.v.z += dt * this.gravity;
     }
 
     if (this.done) return;
@@ -61,7 +62,6 @@ class Sprite {
     }
     this.time %= this.period;
     this.frame = Math.floor(this.time / this.frameTime)
-
   }
 
   render() {
