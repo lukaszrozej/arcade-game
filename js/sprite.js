@@ -68,7 +68,7 @@ class Sprite {
     ctx.save();
 
     if (this.position.z < 0 && this.terrainBelow() === 'water') {
-      const clipY = this.position.y + bottom;
+      const clipY = this.position.y + this.bottom;
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(0, clipY);
