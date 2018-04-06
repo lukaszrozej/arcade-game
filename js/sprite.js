@@ -18,6 +18,7 @@ class Sprite {
       a: 0,
     }
     this.gravity = GRAVITY;
+    this.period = 1;
 
     this.frameTime = this.period / this.numberOfFrames;
     this.frame = 0;
