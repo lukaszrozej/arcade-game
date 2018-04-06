@@ -1,7 +1,7 @@
 class Animation {
   constructor(props) {
     this.gravity = true;
-    this.duration = 1;
+    this.duration = undefined;
     this.numberOfJumps = 1;
 
     Object.assign(this, props);
@@ -18,6 +18,15 @@ class Animation {
       Object.assign(this.sprite.position, this.from);
     }
 
+    if (this.sprite.once) {
+      this.sprite.period = this.duration;
+    }
+    this.sprite.resetFrames();
+
+    this.time = 0;
+
+    if (this.duration === undefined) return;
+
     if (!this.to) {
       this.to = this.sprite.position;
     }
@@ -25,13 +34,6 @@ class Animation {
     this.sprite.v.x = (this.to.x - this.sprite.position.x) / this.duration;
     this.sprite.v.y = (this.to.y - this.sprite.position.y) / this.duration;
     this.sprite.v.a = (this.to.a - this.sprite.position.a) / this.duration;
-
-    if (this.sprite.once) {
-      this.sprite.period = this.duration;
-    }
-    this.sprite.resetFrames();
-
-    this.time = 0;
 
     if (!this.gravity) {
       this.sprite.gravity = 0;
