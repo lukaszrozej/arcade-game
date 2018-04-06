@@ -30,7 +30,7 @@ class Animation {
     const z = this.sprite.position.z;
 
     this.sprite.v.z = n > 1
-      ? g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
+      ? -g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
       : -g * t / 2 + z / (2 * t);
 
     this.sprite.resetFrames();
