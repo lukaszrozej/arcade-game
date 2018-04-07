@@ -16,14 +16,11 @@ class Animation {
     this.done = false;
     this.initialized = true;
 
+    // Set initial and final position
     Object.assign(this.sprite.position, this.from);
-
-    this.sprite.resetFrames();
-
-    this.time = 0;
-
     this.to = Object.assign({}, this.sprite.position, this.to);
 
+    // Set velocity and gravity
     this.sprite.v.x = (this.to.x - this.sprite.position.x) / this.duration;
     this.sprite.v.y = (this.to.y - this.sprite.position.y) / this.duration;
     this.sprite.v.a = (this.to.a - this.sprite.position.a) / this.duration;
@@ -36,6 +33,10 @@ class Animation {
       this.sprite.v.z = 4 * this.height / t;
       this.sprite.gravity = -2 * this.sprite.v.z / t;
     }
+
+    this.sprite.resetFrames();
+
+    this.time = 0;
   }
 
     update(dt) {
