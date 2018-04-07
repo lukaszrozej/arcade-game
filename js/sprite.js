@@ -3,22 +3,15 @@ const GRAVITY = -1000;
 class Sprite {
   constructor(props) {
     // url, spriteOffset, center, bottom, numberOfFrames, period, once
-    Object.assign(this, props);
-
-    this.position = {
-      x: 0,
-      y: 0,
-      z: 0,
-      a: 0,
-    };
-    this.v = {
-      x: 0,
-      y: 0,
-      z: 0,
-      a: 0,
-    }
-    this.gravity = 0;
-    this.period = 1;
+    Object.assign(this, {
+        position: { x: 0, y: 0, z: 0, a: 0, },
+        v: { x: 0, y: 0, z: 0, a: 0, },
+        gravity: 0,
+        period: 1,
+        numberOfFrames: 1,
+      },
+      props
+    );
 
     this.frameTime = this.period / this.numberOfFrames;
     this.frame = 0;
