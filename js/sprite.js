@@ -17,7 +17,7 @@ class Sprite {
       z: 0,
       a: 0,
     }
-    this.gravity = GRAVITY;
+    this.gravity = 0;
     this.period = 1;
 
     this.frameTime = this.period / this.numberOfFrames;
@@ -33,25 +33,19 @@ class Sprite {
     this.done = false;
   }
 
-  terrainBelow() {
-    const row = Math.floor(this.position.y / 83);
-    const col = Math.floor(this.position.x / 101);
-    return this.terrain[col][row];
-  }
-
   update(dt) {
-    this.position.x += dt * this.v.x;
-    this.position.y += dt * this.v.y;
-    this.position.z += dt * this.v.z;
-    this.position.a += dt * this.v.a;
-
     // Bounce of the floor
-    if (this.position.z < 0 && this.terrainBelow() !== 'water') {
-      this.position.z -= dt * this.v.z;
+    if (this.position.z < 0 && this.gravity !== 0) {
+      this.position.z = 0;
       this.v.z = -this.v.z;
     } else {
       this.v.z += dt * this.gravity;
     }
+
+    this.position.x += dt * this.v.x;
+    this.position.y += dt * this.v.y;
+    this.position.z += dt * this.v.z;
+    this.position.a += dt * this.v.a;
 
     if (this.done) return;
 
@@ -68,7 +62,7 @@ class Sprite {
   render() {
     ctx.save();
 
-    if (this.position.z < 0 && this.terrainBelow() === 'water') {
+    if (this.position.z < 0 && this.gravity === 0) {
       const clipY = this.position.y + this.bottom;
       ctx.beginPath();
       ctx.moveTo(0, 0);
