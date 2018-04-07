@@ -1,10 +1,12 @@
 class Animation {
   constructor(props) {
-    this.duration = 1;
-    this.numberOfJumps = 1;
-    this.height = 0;
-
-    Object.assign(this, props);
+    Object.assign(this, {
+        duration: 1,
+        numberOfJumps: 1,
+        height: 0,
+      },
+      props
+    );
 
     this.initialized = false;
     this.done = false;
