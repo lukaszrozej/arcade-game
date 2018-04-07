@@ -21,7 +21,6 @@ const head = new Sprite({
   numberOfFrames: 1,
   period: 1,
   once: true,
-  terrain: levels[0].terrain,
 });
 
 const trunk = new Sprite({
@@ -32,7 +31,6 @@ const trunk = new Sprite({
   numberOfFrames: 1,
   period: 1,
   once: true,
-  terrain: levels[0].terrain,
 });
 
 const body = new Sprite({
@@ -43,32 +41,29 @@ const body = new Sprite({
   numberOfFrames: 1,
   period: 1,
   once: true,
-  terrain: levels[0].terrain,
 });
 
 const splash = new Sprite({
   url: 'images/splash.png',
   spriteOffset: 0,
   center: { x: 50,  y: 90 },
-  // bottom: 102,
   numberOfFrames: 9,
   period: 1,
   once: true,
-  terrain: levels[0].terrain,
 });
 
 head.position = {
     x: 4 * 101,
     y: 2 * 83,
     z: 0,
-    a: -4 * Math.PI,
+    a: 0,
   };
 
 trunk.position = {
     x: 4 * 101,
     y: 2 * 83,
     z: 0,
-    a: 4 * Math.PI,
+    a: 0,
   };
 
 const headThrow = new Animation({
@@ -76,21 +71,23 @@ const headThrow = new Animation({
   to: {
     x: 2 * 101,
     y: 5 * 83,
-    a: 0,
+    a: 4 * Math.PI,
   },
   duration: 1,
   numberOfJumps: 1,
+  height: 100,
 });
 
 const trunkThrow = new Animation({
   sprite: trunk,
   to: {
-    x: 0 * 101,
+    x: 4 * 101,
     y: 5 * 83,
     a: 0,
   },
   duration: 1,
   numberOfJumps: 1,
+  height: 100,
 });
 
 const trunkJump = new Animation({
@@ -101,6 +98,7 @@ const trunkJump = new Animation({
   },
   duration: 1,
   numberOfJumps: 4,
+  height: 15
 });
 
 const hitAnimation = new AnimationParallel([
@@ -115,10 +113,9 @@ const splashAnimation = new Animation({
   sprite: splash,
   from: {
     x: 2 * 101,
-    y: 5 * 83,
+    y: 2 * 83,
   },
   duration: 1,
-  gravity: false,
 });
 
 body.position = {
@@ -136,11 +133,55 @@ const submerge = new Animation({
     z: -70,
     a: 0,
   },
-  // duration: 1,
-})
+  duration: 0.3,
+});
 
-const animation = submerge;
+const headEmerge = new Animation({
+  sprite: head,
+  from: {
+    x: 0,
+    y: 3 * 83,
+    z: -70,
+    a: -Math.PI,
+  },
+  to: {
+    z: 0,
+    a: 0,
+  },
+  duration: 0.5,
+});
 
+const trunkEmerge = new Animation({
+  sprite: trunk,
+  from: {
+    x: 404,
+    y: 3 * 83,
+    z: -20,
+    a: 0,
+  },
+  to: {
+    z: 0,
+  },
+  duration: 0.5,
+});
+
+
+const drownAnimation = new AnimationSequence([
+  submerge,
+  splashAnimation,
+  new AnimationParallel([
+    new AnimationSequence([
+      trunkEmerge,
+      trunkJump,
+    ]),
+    new AnimationSequence([
+      headEmerge,
+      headThrow,
+    ]),
+  ]),
+]);
+
+const animation = drownAnimation;
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,

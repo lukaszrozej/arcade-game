@@ -2,8 +2,8 @@ const levels = [{
     terrain: [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'water', 'water', 'water', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
