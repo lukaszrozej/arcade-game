@@ -1,5 +1,3 @@
-const GRAVITY = -1000;
-
 class Sprite {
   constructor(props) {
     // url, spriteOffset, center, bottom, numberOfFrames, period, once
