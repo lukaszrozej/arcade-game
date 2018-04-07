@@ -16,9 +16,7 @@ class Animation {
     this.done = false;
     this.initialized = true;
 
-    if (this.from) {
-      Object.assign(this.sprite.position, this.from);
-    }
+    Object.assign(this.sprite.position, this.from);
 
     if (this.sprite.once) {
       this.sprite.period = this.duration;
