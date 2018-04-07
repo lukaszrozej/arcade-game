@@ -31,13 +31,11 @@ class Animation {
     if (this.height === 0) {
       this.sprite.v.z = (this.to.z - this.sprite.position.z) / this.duration;
       this.sprite.gravity = 0;
-      return;
+    } else {
+      const t = this.duration / this.numberOfJumps;
+      this.sprite.v.z = 4 * this.height / t;
+      this.sprite.gravity = -2 * this.sprite.v.z / t;
     }
-
-    const t = this.duration / this.numberOfJumps;
-
-    this.sprite.v.z = 4 * this.height / t;
-    this.sprite.gravity = -2 * this.sprite.v.z / t;
   }
 
     update(dt) {
