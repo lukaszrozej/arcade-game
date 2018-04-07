@@ -1,8 +1,8 @@
 class Animation {
   constructor(props) {
-    this.gravity = true;
-    this.duration = undefined;
+    this.duration = 1;
     this.numberOfJumps = 1;
+    this.height = 0;
 
     Object.assign(this, props);
 
@@ -18,8 +18,6 @@ class Animation {
       Object.assign(this.sprite.position, this.from);
     }
 
-    if (this.duration === undefined) return;
-
     if (this.sprite.once) {
       this.sprite.period = this.duration;
     }
@@ -27,30 +25,25 @@ class Animation {
 
     this.time = 0;
 
-    if (!this.to) {
-      this.to = this.sprite.position;
-    }
+    this.to = Object.assign({}, this.sprite.position, this.to);
 
     this.sprite.v.x = (this.to.x - this.sprite.position.x) / this.duration;
     this.sprite.v.y = (this.to.y - this.sprite.position.y) / this.duration;
     this.sprite.v.a = (this.to.a - this.sprite.position.a) / this.duration;
 
-    if (!this.gravity) {
+    if (this.height === 0) {
+      this.sprite.v.z = (this.to.z - this.sprite.position.z) / this.duration;
       this.sprite.gravity = 0;
       return;
     }
 
-    const n = this.numberOfJumps;
-    const t = this.duration;
-    const g = GRAVITY;
-    const z = this.sprite.position.z;
+    const t = this.duration / this.numberOfJumps;
 
-    this.sprite.v.z = n > 1
-      ? -g * t * (Math.sqrt(1 + 4 * n * (n - 1) * (1 + z / (g * t * t))) - 1) / (4 * n * (n - 1))
-      : -g * t / 2 + z / (2 * t);
+    this.sprite.v.z = 4 * this.height / t;
+    this.sprite.gravity = -2 * this.sprite.v.z / t;
   }
 
-  update(dt) {
+    update(dt) {
     if (this.done) return;
 
     if (!this.initialized) {
@@ -59,11 +52,9 @@ class Animation {
       this.sprite.update(dt);
       this.time += dt;
 
-      if ((this.duration === undefined && this.sprite.position.z <= this.to.z) ||
-          (this.time >= this.duration)) {
+      if (this.time >= this.duration) {
         this.done = true;
         this.initialized = false;
-console.log('done:  ', this.time)
       }
     }
   }
