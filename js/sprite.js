@@ -7,6 +7,7 @@ class Sprite {
         gravity: 0,
         period: 1,
         numberOfFrames: 1,
+        once: true,
       },
       props
     );
