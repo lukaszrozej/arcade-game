@@ -323,7 +323,7 @@ var Engine = (function(global) {
   function createBugsForLevel(level) {
     const bugs = [];
     for(let i = 0; i < levels[level].numberOfEnemies; i++) {
-      bugs.push(new Enemy(levels[level].enemyOptions));
+      bugs.push(new LandBug(levels[level].enemyOptions));
     }
     for(let i = 0; i < levels[level].numberOfWaterBugs; i++) {
       bugs.push(new WaterBug(levels[level].waterBugOptions));

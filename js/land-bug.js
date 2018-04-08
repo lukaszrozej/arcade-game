@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(options) {
+var LandBug = function(options) {
 
   this.sprites = 'images/land-bug.png';
 
@@ -10,7 +10,7 @@ var Enemy = function(options) {
 
 // Set the enmies position and velocity to random values
 // according to options
-Enemy.prototype.setToRandom = function() {
+LandBug.prototype.setToRandom = function() {
   // Row number from 1 to 3 - one of the 3 stone tracks
   const rowNumber = Math.floor(Math.random() * this.options.rows.length);
   this.row = this.options.rows[rowNumber].row;
@@ -22,7 +22,7 @@ Enemy.prototype.setToRandom = function() {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
+LandBug.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
@@ -33,12 +33,12 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+LandBug.prototype.render = function() {
   const y = this.row * 83 - 23;
   const spriteY = this.v > 0 ? 0 : 171;
   ctx.drawImage(Resources.get(this.sprites), 0, spriteY, 101, 171, this.x, y, 101, 171);
 };
 
-Enemy.prototype.offScreen = function() {
+LandBug.prototype.offScreen = function() {
   return this.x < -101 || this.x > 505;
 }
