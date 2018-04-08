@@ -56,8 +56,6 @@ console.log('splash:   ', this.splashAnimation.to)
 
 Player.prototype.render = function() {
   const x = 101 * this.col;
-//******!!!!!!!!!!
-  // const y = 83 * this.row - 40;
   const y = 83 * this.row;
   switch (this.state) {
     case 'killed':
@@ -97,7 +95,6 @@ Player.prototype.handleInput = function(input) {
   if (this.row === 0 && this.col === 2) {
     this.finishedLevel = true;
     this.score++;
-    // this.reset();
   }
 }
 
