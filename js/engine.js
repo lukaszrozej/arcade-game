@@ -13,175 +13,175 @@
  * writing app.js a little simpler to work with.
  */
 
-const head = new Sprite({
-  url: 'images/temp/char-boy.png',
-  spriteOffset: 171,
-  center: { x: 50,  y: 60 },
-  bottom: 102,
-  numberOfFrames: 1,
-  period: 1,
-  once: true,
-});
+// const head = new Sprite({
+//   url: 'images/temp/char-boy.png',
+//   spriteOffset: 171,
+//   center: { x: 50,  y: 60 },
+//   bottom: 102,
+//   numberOfFrames: 1,
+//   period: 1,
+//   once: true,
+// });
 
-const trunk = new Sprite({
-  url: 'images/temp/char-boy.png',
-  spriteOffset: 2 * 171,
-  center: { x: 50,  y: 90 },
-  bottom: 102,
-  numberOfFrames: 1,
-  period: 1,
-  once: true,
-});
+// const trunk = new Sprite({
+//   url: 'images/temp/char-boy.png',
+//   spriteOffset: 2 * 171,
+//   center: { x: 50,  y: 90 },
+//   bottom: 102,
+//   numberOfFrames: 1,
+//   period: 1,
+//   once: true,
+// });
 
-const body = new Sprite({
-  url: 'images/temp/char-boy.png',
-  spriteOffset: 0,
-  center: { x: 50,  y: 90 },
-  bottom: 102,
-  numberOfFrames: 1,
-  period: 1,
-  once: true,
-});
+// const body = new Sprite({
+//   url: 'images/temp/char-boy.png',
+//   spriteOffset: 0,
+//   center: { x: 50,  y: 90 },
+//   bottom: 102,
+//   numberOfFrames: 1,
+//   period: 1,
+//   once: true,
+// });
 
-const splash = new Sprite({
-  url: 'images/splash.png',
-  spriteOffset: 0,
-  center: { x: 50,  y: 90 },
-  numberOfFrames: 9,
-  period: 1,
-  once: true,
-});
+// const splash = new Sprite({
+//   url: 'images/splash.png',
+//   spriteOffset: 0,
+//   center: { x: 50,  y: 90 },
+//   numberOfFrames: 9,
+//   period: 1,
+//   once: true,
+// });
 
-head.position = {
-    x: 4 * 101,
-    y: 2 * 83,
-    z: 0,
-    a: 0,
-  };
+// head.position = {
+//     x: 4 * 101,
+//     y: 2 * 83,
+//     z: 0,
+//     a: 0,
+//   };
 
-trunk.position = {
-    x: 4 * 101,
-    y: 2 * 83,
-    z: 0,
-    a: 0,
-  };
+// trunk.position = {
+//     x: 4 * 101,
+//     y: 2 * 83,
+//     z: 0,
+//     a: 0,
+//   };
 
-const headThrow = new Animation({
-  sprite: head,
-  to: {
-    x: 2 * 101,
-    y: 5 * 83,
-    a: 4 * Math.PI,
-  },
-  duration: 1,
-  numberOfJumps: 1,
-  height: 100,
-});
+// const headThrow = new Animation({
+//   sprite: head,
+//   to: {
+//     x: 2 * 101,
+//     y: 5 * 83,
+//     a: 4 * Math.PI,
+//   },
+//   duration: 1,
+//   numberOfJumps: 1,
+//   height: 100,
+// });
 
-const trunkThrow = new Animation({
-  sprite: trunk,
-  to: {
-    x: 4 * 101,
-    y: 5 * 83,
-    a: 0,
-  },
-  duration: 1,
-  numberOfJumps: 1,
-  height: 100,
-});
+// const trunkThrow = new Animation({
+//   sprite: trunk,
+//   to: {
+//     x: 4 * 101,
+//     y: 5 * 83,
+//     a: -4 * Math.PI,
+//   },
+//   duration: 1,
+//   numberOfJumps: 1,
+//   height: 100,
+// });
 
-const trunkJump = new Animation({
-  sprite: trunk,
-  to: {
-    x: 2 * 101,
-    y: 5 * 83,
-  },
-  duration: 1,
-  numberOfJumps: 4,
-  height: 15
-});
+// const trunkJump = new Animation({
+//   sprite: trunk,
+//   to: {
+//     x: 2 * 101,
+//     y: 5 * 83,
+//   },
+//   duration: 1,
+//   numberOfJumps: 4,
+//   height: 15
+// });
 
-const hitAnimation = new AnimationParallel([
-  new AnimationSequence([
-    trunkThrow,
-    trunkJump
-  ]),
-  headThrow,
-]);
+// const hitAnimation = new AnimationParallel([
+//   new AnimationSequence([
+//     trunkThrow,
+//     trunkJump
+//   ]),
+//   headThrow,
+// ]);
 
-const splashAnimation = new Animation({
-  sprite: splash,
-  from: {
-    x: 2 * 101,
-    y: 2 * 83,
-  },
-  duration: 1,
-});
+// const splashAnimation = new Animation({
+//   sprite: splash,
+//   from: {
+//     x: 2 * 101,
+//     y: 2 * 83,
+//   },
+//   duration: 1,
+// });
 
-body.position = {
-  x: 2 * 101,
-  y: 2 * 83,
-  z: 0,
-  a: 0,
-}
+// body.position = {
+//   x: 2 * 101,
+//   y: 2 * 83,
+//   z: 0,
+//   a: 0,
+// }
 
-const submerge = new Animation({
-  sprite: body,
-  to: {
-    x: 2 * 101,
-    y: 2 * 83,
-    z: -70,
-    a: 0,
-  },
-  duration: 0.3,
-});
+// const submerge = new Animation({
+//   sprite: body,
+//   to: {
+//     x: 2 * 101,
+//     y: 2 * 83,
+//     z: -70,
+//     a: 0,
+//   },
+//   duration: 0.3,
+// });
 
-const headEmerge = new Animation({
-  sprite: head,
-  from: {
-    x: 0,
-    y: 3 * 83,
-    z: -70,
-    a: -Math.PI,
-  },
-  to: {
-    z: 0,
-    a: 0,
-  },
-  duration: 0.5,
-});
+// const headEmerge = new Animation({
+//   sprite: head,
+//   from: {
+//     x: 0,
+//     y: 3 * 83,
+//     z: -70,
+//     a: -Math.PI,
+//   },
+//   to: {
+//     z: 0,
+//     a: 0,
+//   },
+//   duration: 0.5,
+// });
 
-const trunkEmerge = new Animation({
-  sprite: trunk,
-  from: {
-    x: 404,
-    y: 3 * 83,
-    z: -20,
-    a: 0,
-  },
-  to: {
-    z: 0,
-  },
-  duration: 0.5,
-});
+// const trunkEmerge = new Animation({
+//   sprite: trunk,
+//   from: {
+//     x: 404,
+//     y: 3 * 83,
+//     z: -20,
+//     a: 0,
+//   },
+//   to: {
+//     z: 0,
+//   },
+//   duration: 0.5,
+// });
 
 
-const drownAnimation = new AnimationSequence([
-  submerge,
-  splashAnimation,
-  new AnimationParallel([
-    new AnimationSequence([
-      trunkEmerge,
-      trunkJump,
-    ]),
-    new AnimationSequence([
-      headEmerge,
-      headThrow,
-    ]),
-  ]),
-]);
+// const drownAnimation = new AnimationSequence([
+//   submerge,
+//   splashAnimation,
+//   new AnimationParallel([
+//     new AnimationSequence([
+//       trunkEmerge,
+//       trunkJump,
+//     ]),
+//     new AnimationSequence([
+//       headEmerge,
+//       headThrow,
+//     ]),
+//   ]),
+// ]);
 
-const animation = drownAnimation;
+// const animation = hitAnimation;
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
@@ -347,7 +347,7 @@ var Engine = (function(global) {
       }
     }
 
-animation.update(dt);
+// animation.update(dt);
 
   }
 
@@ -412,7 +412,7 @@ animation.update(dt);
       renderCharacterSelection();
     }
 
-animation.render(ctx);
+// animation.render(ctx);
 
   }
 
@@ -445,7 +445,9 @@ animation.render(ctx);
 
     ctx.drawImage(Resources.get('images/Selector.png'), currentCharacter * 101, 5 * 83 - 40);
     characterImages.forEach((image, index) =>
-      ctx.drawImage(Resources.get(image), 0, 0, 101, 171, index * 101, 5 * 83 - 40, 101, 171)
+//******!!!!!!!!!!
+      // ctx.drawImage(Resources.get(image), 0, 0, 101, 171, index * 101, 5 * 83 - 40, 101, 171)
+      ctx.drawImage(Resources.get(image), 0, 0, 101, 171, index * 101, 5 * 83, 101, 171)
     );
   }
 

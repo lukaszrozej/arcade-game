@@ -18,15 +18,15 @@ class Animation {
 
     // Set initial and final position
     Object.assign(this.sprite.position, this.from);
-    this.to = Object.assign({}, this.sprite.position, this.to);
+    const to = Object.assign({}, this.sprite.position, this.to);
 
     // Set velocity and gravity
-    this.sprite.v.x = (this.to.x - this.sprite.position.x) / this.duration;
-    this.sprite.v.y = (this.to.y - this.sprite.position.y) / this.duration;
-    this.sprite.v.a = (this.to.a - this.sprite.position.a) / this.duration;
+    this.sprite.v.x = (to.x - this.sprite.position.x) / this.duration;
+    this.sprite.v.y = (to.y - this.sprite.position.y) / this.duration;
+    this.sprite.v.a = (to.a - this.sprite.position.a) / this.duration;
 
     if (this.height === 0) {
-      this.sprite.v.z = (this.to.z - this.sprite.position.z) / this.duration;
+      this.sprite.v.z = (to.z - this.sprite.position.z) / this.duration;
       this.sprite.gravity = 0;
     } else {
       const t = this.duration / this.numberOfJumps;
@@ -37,6 +37,9 @@ class Animation {
     this.sprite.resetFrames();
 
     this.time = 0;
+
+console.log('Initializing animation', this.sprite.url)
+
   }
 
     update(dt) {

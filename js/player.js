@@ -44,6 +44,9 @@ Player.prototype.update = function(dt) {
   switch (this.state) {
     case 'killed':
       this.animation.update(dt);
+
+console.log('splash:   ', this.splashAnimation.to)
+
       if (this.animation.done) {
         this.revive();
       }
@@ -53,7 +56,9 @@ Player.prototype.update = function(dt) {
 
 Player.prototype.render = function() {
   const x = 101 * this.col;
-  const y = 83 * this.row - 40;
+//******!!!!!!!!!!
+  // const y = 83 * this.row - 40;
+  const y = 83 * this.row;
   switch (this.state) {
     case 'killed':
       this.animation.render();
@@ -106,8 +111,7 @@ Player.prototype.revive = function() {
 Player.prototype.currentPosition = function() {
   return {
     x: this.col * 101,
-    y: this.row * 83 - 40,
-    angle: 0,
+    y: this.row * 83,
   }
 }
 
@@ -142,39 +146,36 @@ Player.prototype.handleTerrain = function(terrain) {
     this.lives--;
     this.state = 'killed';
 
-    this.splash.position.x = this.col * 101;
-    this.splash.position.y = this.row * 83;
+    Object.assign(this.body.position, this.currentPosition());
+    Object.assign(this.splash.position, this.currentPosition());
+
+    this.body.position.z = 0;
 
     // Find lowest water row:
     while (this.terrain[this.row + 1][this.col] === 'water') {
       this.row++;
     }
-    this.head.position.y = this.row * 83 + 60;
-    this.trunk.position.y = this.row * 83 + 20;
-
     // Find leftmost water cell:
     while (this.col > 0 && this.terrain[this.row][this.col - 1] === 'water') {
       this.col--;
     }
-    this.head.position.x = this.col * 101 - 20;
+    Object.assign(this.headEmerge.from, this.currentPosition());
+
     // Find leftmost water cell:
     while (this.col < 4 && this.terrain[this.row][this.col + 1] === 'water') {
       this.col++;
     }
-    this.trunk.position.x = this.col * 101;
-
-    this.head.position.angle = -Math.PI;
-    this.trunk.position.angle = 0;
-
-    this.headEmerge.clipY = this.row * 83 + 134;
-    this.trunkEmerge.clipY = this.row * 83 + 134;
+    Object.assign(this.trunkEmerge.from, this.currentPosition());
 
     this.headThrow.to.angle = 4 * Math.PI;
 
-    this.animation = this.drownedAnimation;
+//******!!!!!!!!!!
+    // this.animation = this.drownedAnimation;
+    this.animation = this.drownAnimation;
     this.animation.initialize();
 
-//******!!!!!!!!!!
+console.log(this.splash.position)
+
     this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 }
@@ -268,93 +269,236 @@ Player.prototype.unfreeze = function() {
 }
 
 Player.prototype.defineAnimations = function() {
-  this.trunkThrow = new Throw({
-    object: this.trunk,
-    to: {
-      x: 0,
-      y: 5 * 83 - 40,
-      angle: 2 * Math.PI,
-    },
-    height: 50,
-    duration: 1,
-  });
+  // this.trunkThrow = new Throw({
+  //   object: this.trunk,
+  //   to: {
+  //     x: 0,
+  //     y: 5 * 83 - 40,
+  //     angle: 2 * Math.PI,
+  //   },
+  //   height: 50,
+  //   duration: 1,
+  // });
 
-  this.trunkJump = new Jump({
-    object: this.trunk,
-    to: {
-      x: 2 * 101,
-      y: 5 * 83 - 40,
-    },
-    height: 30,
-    numberOfJumps: 4,
-    duration: 1,
-  });
+  // this.trunkJump = new Jump({
+  //   object: this.trunk,
+  //   to: {
+  //     x: 2 * 101,
+  //     y: 5 * 83 - 40,
+  //   },
+  //   height: 30,
+  //   numberOfJumps: 4,
+  //   duration: 1,
+  // });
 
-  this.headThrow = new Throw({
-    object: this.head,
-    to: {
-      x: 2 * 101,
-      y: 5 * 83 - 40,
-      angle: 2 * Math.PI,
-    },
-    height: 50,
-    duration: 1,
-  });
+  // this.headThrow = new Throw({
+  //   object: this.head,
+  //   to: {
+  //     x: 2 * 101,
+  //     y: 5 * 83 - 40,
+  //     angle: 2 * Math.PI,
+  //   },
+  //   height: 50,
+  //   duration: 1,
+  // });
 
-  this.trunkEmerge = new Emerge({
-    object: this.trunk,
-    change: {
-      x: 0,
-      y: -20,
-      angle: 0,
-    },
-    duration: 0.5,
-    clipY: 4 * 83 + 45,
-  });
+  // this.trunkEmerge = new Emerge({
+  //   object: this.trunk,
+  //   change: {
+  //     x: 0,
+  //     y: -20,
+  //     angle: 0,
+  //   },
+  //   duration: 0.5,
+  //   clipY: 4 * 83 + 45,
+  // });
 
-  this.headEmerge = new Emerge({
-    object: this.head,
-    change: {
-      x: 40,
-      y: -60,
-      angle: Math.PI,
-    },
-    duration: 0.5,
-    clipY: 4 * 83 + 45,
-  });
+  // this.headEmerge = new Emerge({
+  //   object: this.head,
+  //   change: {
+  //     x: 40,
+  //     y: -60,
+  //     angle: Math.PI,
+  //   },
+  //   duration: 0.5,
+  //   clipY: 4 * 83 + 45,
+  // });
 
-  this.splash = new Splash({
-    url: 'images/splash.png',
-    position: {
-      x: 202,
-      y: 2 * 83,
-    },
-    duration: 1,
-    numberOfFrames: 9,
-  });
+  // this.splash = new Splash({
+  //   url: 'images/splash.png',
+  //   position: {
+  //     x: 202,
+  //     y: 2 * 83,
+  //   },
+  //   duration: 1,
+  //   numberOfFrames: 9,
+  // });
 
-  this.drownedAnimation = new AnimationSequence([
-    this.splash,
-    new AnimationParallel([
-      new AnimationSequence([
-        this.trunkEmerge,
-        this.trunkJump,
-      ]),
-      new AnimationSequence([
-        this.headEmerge,
-        this.headThrow,
-      ]),
-    ]),
-  ]);
+  // this.drownedAnimation = new AnimationSequence([
+  //   this.splash,
+  //   new AnimationParallel([
+  //     new AnimationSequence([
+  //       this.trunkEmerge,
+  //       this.trunkJump,
+  //     ]),
+  //     new AnimationSequence([
+  //       this.headEmerge,
+  //       this.headThrow,
+  //     ]),
+  //   ]),
+  // ]);
 
 
-  this.hitAnimation = new AnimationParallel([
+  // this.hitAnimation = new AnimationParallel([
+  //   new AnimationSequence([
+  //     this.trunkThrow,
+  //     this.trunkJump
+  //   ]),
+  //   this.headThrow,
+  // ]);
+
+//******
+
+this.head = new Sprite({
+  url: this.sprite,
+  spriteOffset: 171,
+  center: { x: 50,  y: 60 },
+  bottom: 102,
+  numberOfFrames: 1,
+  period: 1,
+  once: true,
+});
+
+this.trunk = new Sprite({
+  url: this.sprite,
+  spriteOffset: 2 * 171,
+  center: { x: 50,  y: 90 },
+  bottom: 102,
+  numberOfFrames: 1,
+  period: 1,
+  once: true,
+});
+
+this.body = new Sprite({
+  url: this.sprite,
+  spriteOffset: 0,
+  center: { x: 50,  y: 90 },
+  bottom: 102,
+  numberOfFrames: 1,
+  period: 1,
+  once: true,
+});
+
+this.splash = new Sprite({
+  url: 'images/splash.png',
+  spriteOffset: 0,
+  center: { x: 50,  y: 90 },
+  numberOfFrames: 9,
+  period: 1,
+  once: true,
+});
+
+this.headThrow = new Animation({
+  sprite: this.head,
+  to: {
+    x: 2 * 101,
+    y: 5 * 83,
+    a: 4 * Math.PI,
+  },
+  duration: 1,
+  numberOfJumps: 1,
+  height: 100,
+});
+
+this.trunkThrow = new Animation({
+  sprite: this.trunk,
+  to: {
+    x: 4 * 101,
+    y: 5 * 83,
+    a: 0,
+  },
+  duration: 1,
+  numberOfJumps: 1,
+  height: 100,
+});
+
+this.trunkJump = new Animation({
+  sprite: this.trunk,
+  to: {
+    x: 2 * 101,
+    y: 5 * 83,
+  },
+  duration: 1,
+  numberOfJumps: 4,
+  height: 15
+});
+
+this.hitAnimation = new AnimationParallel([
+  new AnimationSequence([
+    this.trunkThrow,
+    this.trunkJump
+  ]),
+  this.headThrow,
+]);
+
+this.splashAnimation = new Animation({
+  sprite: this.splash,
+  duration: 1,
+});
+
+this.submerge = new Animation({
+  sprite: this.body,
+  to: {
+    z: -70,
+  },
+  duration: 0.3,
+});
+
+this.headEmerge = new Animation({
+  sprite: this.head,
+  from: {
+    x: 0,
+    y: 3 * 83,
+    z: -70,
+    a: -Math.PI,
+  },
+  to: {
+    z: 0,
+    a: 0,
+  },
+  duration: 0.5,
+});
+
+this.trunkEmerge = new Animation({
+  sprite: this.trunk,
+  from: {
+    x: 404,
+    y: 3 * 83,
+    z: -20,
+    a: 0,
+  },
+  to: {
+    z: 0,
+  },
+  duration: 0.5,
+});
+
+
+this.drownAnimation = new AnimationSequence([
+  this.submerge,
+  this.splashAnimation,
+  new AnimationParallel([
     new AnimationSequence([
-      this.trunkThrow,
-      this.trunkJump
+      this.trunkEmerge,
+      this.trunkJump,
     ]),
-    this.headThrow,
-  ]);
+    new AnimationSequence([
+      this.headEmerge,
+      this.headThrow,
+    ]),
+  ]),
+]);
+
 }
 
 const hitMessages = [
