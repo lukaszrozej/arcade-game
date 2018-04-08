@@ -37,9 +37,6 @@ class Animation {
     this.sprite.resetFrames();
 
     this.time = 0;
-
-console.log('Initializing animation', this.sprite.url)
-
   }
 
     update(dt) {

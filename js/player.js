@@ -45,8 +45,6 @@ Player.prototype.update = function(dt) {
     case 'killed':
       this.animation.update(dt);
 
-console.log('splash:   ', this.splashAnimation.to)
-
       if (this.animation.done) {
         this.revive();
       }
@@ -168,8 +166,6 @@ Player.prototype.handleTerrain = function(terrain) {
 
     this.animation = this.drownAnimation;
     this.animation.initialize();
-
-// console.log(this.splash.position)
 
     this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
