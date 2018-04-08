@@ -320,13 +320,15 @@ var Engine = (function(global) {
     state = 'choose character';
   }
 
-  function createBugsForLevel(level) {
+  function createBugsForLevel(levelNumber) {
+    const level = levels[levelNumber];
+
     const bugs = [];
-    for(let i = 0; i < levels[level].numberOfEnemies; i++) {
-      bugs.push(new LandBug(levels[level].enemyOptions));
+    for(let i = 0; i < level.landBugs.number; i++) {
+      bugs.push(new LandBug(level.landBugs.options));
     }
-    for(let i = 0; i < levels[level].numberOfWaterBugs; i++) {
-      bugs.push(new WaterBug(levels[level].waterBugOptions));
+    for(let i = 0; i < level.waterBugs.number; i++) {
+      bugs.push(new WaterBug(level.waterBugs.options));
     }
     return bugs;
   }

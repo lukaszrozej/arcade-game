@@ -7,6 +7,22 @@ const levels = [{
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
+    landBugs: {
+      number: 3,
+      options: {
+        rows: [
+          { row: 1, direction: 1 },
+          { row: 2, direction: -1 },
+          { row: 3, direction: 1 },
+        ],
+        maxSpeed: 300,
+        minSpeed: 100
+      },
+    },
+    waterBugs: {
+      number: 0,
+    },
+
     enemyOptions: {
       rows: [
         { row: 1, direction: 1 },
@@ -29,6 +45,23 @@ const levels = [{
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 3,
+      options: {
+        rows: [
+          { row: 1, direction: -1 },
+          { row: 2, direction: 1 },
+          { row: 3, direction: -1 },
+        ],
+        maxSpeed: 300,
+        minSpeed: 100,
+      },
+    },
+
+
     waterBugOptions: {
       rows: [
         { row: 1, direction: -1 },
