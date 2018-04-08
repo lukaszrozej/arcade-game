@@ -5,24 +5,6 @@ const Player = function(sprite = 'images/char-horn-girl.png') {
   this.sprite = sprite;
   this.reset();
 
-  this.trunk = {
-    sprite: {
-      url:  this.sprite,
-      offset: { x: 202, y: 0 },
-      center: { x: 50,  y: 125 },
-    },
-    position: {},
-  }
-
-  this.head = {
-    sprite: {
-      url:  this.sprite,
-      offset: { x: 101, y: 0 },
-      center: { x: 50,  y: 95 },
-    },
-    position: {},
-  }
-
   this.defineAnimations();
 }
 
@@ -50,6 +32,13 @@ Player.prototype.update = function(dt) {
       }
       break;
   }
+}
+
+Player.prototype.setCharacter = function(url) {
+  this.sprite = url;
+  this.body.url = url;
+  this.head.url = url;
+  this.trunk.url = url;
 }
 
 Player.prototype.render = function() {

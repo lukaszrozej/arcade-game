@@ -104,7 +104,8 @@ var Engine = (function(global) {
           currentCharacter += 1;
         }
         if (e.keyCode === 13) {
-          player.sprite = characterImages[currentCharacter];
+          // player.sprite = characterImages[currentCharacter];
+          player.setCharacter(characterImages[currentCharacter]);
           player.say(levels[level].message);
           state = 'play';
         }
