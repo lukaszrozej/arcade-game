@@ -52,6 +52,7 @@ console.log('Initializing animation', this.sprite.url)
       this.time += dt;
 
       if (this.time >= this.duration) {
+        Object.assign(this.sprite.position, this.to);
         this.done = true;
         this.initialized = false;
       }
