@@ -76,7 +76,7 @@ const levels = [{
     },
     waterBugs: {
       number: 0,
-    }
+    },
     message: `Bugs again`
   },
 ]
