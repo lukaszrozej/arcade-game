@@ -358,14 +358,11 @@ class Player {
     ]);
   }
 
+  get dead() {
+    return this.lives === 0;
+  }
+
 }
-
-  Object.defineProperty(Player.prototype, 'dead', {
-    get() {
-      return this.lives === 0;
-    }
-  });
-
 
 const hitMessages = [
   `Ouch, that hurt!`,
