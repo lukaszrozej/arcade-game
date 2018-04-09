@@ -148,8 +148,7 @@ class Player {
       this.lives--;
       this.state = 'killed';
 
-      Object.assign(this.body.position, this.currentPosition());
-      Object.assign(this.splash.position, this.currentPosition());
+      Object.assign(this.splash.position, this.body.position);
 
       // Find lowest water row:
       while (this.terrain[this.row + 1][this.col] === 'water') {
