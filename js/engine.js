@@ -141,6 +141,11 @@ var Engine = (function(global) {
         level++;
         player.terrain = levels[level].terrain;
         player.row = 5;
+//***
+    player.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
+
+
+
         bugs = newBugs;
         player.unfreeze();
         player.say(levels[level].message);

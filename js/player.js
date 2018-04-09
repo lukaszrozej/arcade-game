@@ -1,7 +1,6 @@
 class Player {
     constructor(sprite = 'images/char-horn-girl.png') {
     this.sprite = sprite;
-    this.reset();
 
     this.body = new Sprite({
       url: this.sprite,
@@ -9,6 +8,9 @@ class Player {
       center: { x: 50,  y: 90 },
       bottom: 102,
     });
+
+
+    this.reset();
 
     this.defineAnimations();
   }
@@ -23,6 +25,8 @@ class Player {
     this.finishedLevel = false;
     this.row = 5;
     this.col = 2;
+
+    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
   }
 
   update(dt) {
@@ -54,7 +58,8 @@ class Player {
         this.animation.render();
         break;
       case 'alive':
-        ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
+        // ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
+        this.body.render();
 
         if (this.talking) {
           this.renderSpeech(this.currentText);
@@ -72,20 +77,28 @@ class Player {
 
     switch (input) {
       case 'left':
-        if (this.col > 0) this.col -= 1;
-        if (this.col > 0) this.body.position.x -= 101;
+        if (this.col > 0) {
+          this.col -= 1;
+          this.body.position.x -= 101;
+        }
         break;
       case 'right':
-        if (this.col < 4) this.col += 1;
-        if (this.col < 4) this.body.position.x += 101;
+        if (this.col < 4) {
+          this.col += 1;
+          this.body.position.x += 101;
+        }
         break;
       case 'up':
-        if (this.row > 0) this.row -= 1;
-        if (this.row > 0) this.body.position.y -= 83;
+        if (this.row > 0) {
+          this.row -= 1;
+          this.body.position.y -= 83;
+        }
         break;
       case 'down':
-        if (this.row < 5) this.row += 1;
-        if (this.row < 5) this.body.position.y += 83;
+        if (this.row < 5) {
+          this.row += 1;
+          this.body.position.y += 83;
+        }
         break;
     }
     if (this.row === 0 && this.col === 2) {
@@ -99,6 +112,9 @@ class Player {
     this.row = 5;
     this.col = 2;
     this.say(this.message);
+
+    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
+
   }
 
   currentPosition() {
