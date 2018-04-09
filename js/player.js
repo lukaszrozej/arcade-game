@@ -63,6 +63,14 @@ class Player {
     }
   }
 
+  get row() {
+    return Math.floor(this.body.position.y / 83); 
+  }
+
+  get col() {
+    return Math.floor(this.body.position.x / 101); 
+  }
+
   handleInput(input) {
     if (this.dead || this.frozen) return;
     if (this.state !== 'alive') return;
@@ -73,25 +81,21 @@ class Player {
     switch (input) {
       case 'left':
         if (this.col > 0) {
-          this.col -= 1;
           this.body.position.x -= 101;
         }
         break;
       case 'right':
         if (this.col < 4) {
-          this.col += 1;
           this.body.position.x += 101;
         }
         break;
       case 'up':
         if (this.row > 0) {
-          this.row -= 1;
           this.body.position.y -= 83;
         }
         break;
       case 'down':
         if (this.row < 5) {
-          this.row += 1;
           this.body.position.y += 83;
         }
         break;
@@ -150,21 +154,24 @@ class Player {
 
       Object.assign(this.splash.position, this.body.position);
 
-      // Find lowest water row:
-      while (this.terrain[this.row + 1][this.col] === 'water') {
-        this.row++;
-      }
-      // Find leftmost water cell:
-      while (this.col > 0 && this.terrain[this.row][this.col - 1] === 'water') {
-        this.col--;
-      }
-      this.headEmerge.from = Object.assign({}, this.currentPosition(), { z: -70, a: -Math.PI, });
+      let row = this.row;
+      let col = this.col;
 
-      // Find leftmost water cell:
-      while (this.col < 4 && this.terrain[this.row][this.col + 1] === 'water') {
-        this.col++;
+      // Find lowest water row:
+      while (row < 5 && this.terrain[row + 1][col] === 'water') {
+        row++;
       }
-      this.trunkEmerge.from = Object.assign({}, this.currentPosition(), { z: -20, });
+      // Find leftmost water cell:
+      while (col > 0 && this.terrain[row][col - 1] === 'water') {
+        col--;
+      }
+      this.headEmerge.from = { x: col * 101, y: row * 83, z: -70, a: -Math.PI, };
+
+      // Find rightmost water cell:
+      while (col < 4 && this.terrain[row][col + 1] === 'water') {
+        col++;
+      }
+      this.trunkEmerge.from = { x: col * 101, y: row * 83, z: -20, a: 0, };
 
       this.headThrow.to.a = 4 * Math.PI;
 
@@ -258,8 +265,6 @@ class Player {
   }
 
   goToStartingPosition() {
-    this.row = 5;
-    this.col = 2;
     this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
   }
 
