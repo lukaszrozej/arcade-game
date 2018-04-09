@@ -48,8 +48,6 @@ class Player {
   }
 
   render() {
-    const x = 101 * this.col;
-    const y = 83 * this.row;
     switch (this.state) {
       case 'killed':
         this.animation.render();
