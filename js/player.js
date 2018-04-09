@@ -128,8 +128,8 @@ class Player {
       this.lives--;
       this.state = 'killed';
 
-      this.head.position = this.currentPosition();
-      this.trunk.position = this.currentPosition();
+      Object.assign(this.head.position, this.body.position);
+      Object.assign(this.trunk.position, this.body.position);
 
       this.trunkThrow.to.x = bug.v > 0 ? 404 : 0;
       this.trunkThrow.to.a = bug.v > 0 ? 4 * Math.PI : -4 * Math.PI;
