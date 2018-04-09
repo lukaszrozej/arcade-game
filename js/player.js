@@ -121,7 +121,7 @@ class Player {
     if (this.state !== 'alive') return;
 
     const collision = bug =>
-      bug.row === this.row && Math.abs(bug.x - 101 * this.col) < 60;
+      bug.row === this.row && Math.abs(bug.x - this.body.position.x) < 60;
     const bug = bugs.find(collision);
 
     if (bug) {
