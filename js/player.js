@@ -73,15 +73,19 @@ class Player {
     switch (input) {
       case 'left':
         if (this.col > 0) this.col -= 1;
+        if (this.col > 0) this.body.position.x -= 101;
         break;
       case 'right':
         if (this.col < 4) this.col += 1;
+        if (this.col < 4) this.body.position.x += 101;
         break;
       case 'up':
         if (this.row > 0) this.row -= 1;
+        if (this.row > 0) this.body.position.y -= 83;
         break;
       case 'down':
         if (this.row < 5) this.row += 1;
+        if (this.row < 5) this.body.position.y += 83;
         break;
     }
     if (this.row === 0 && this.col === 2) {
