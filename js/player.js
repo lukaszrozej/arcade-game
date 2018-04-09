@@ -23,10 +23,7 @@ class Player {
     this.talking = false;
     this.frozen = false;
     this.finishedLevel = false;
-    this.row = 5;
-    this.col = 2;
-
-    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
+    this.goToStartingPosition();
   }
 
   update(dt) {
@@ -109,12 +106,8 @@ class Player {
 
   revive() {
     this.state = 'alive';
-    this.row = 5;
-    this.col = 2;
+    this.goToStartingPosition()
     this.say(this.message);
-
-    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
-
   }
 
   currentPosition() {
@@ -265,6 +258,12 @@ class Player {
 
   unfreeze() {
     this.frozen = false;
+  }
+
+  goToStartingPosition() {
+    this.row = 5;
+    this.col = 2;
+    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
   }
 
   defineAnimations() {
