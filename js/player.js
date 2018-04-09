@@ -3,6 +3,13 @@ class Player {
     this.sprite = sprite;
     this.reset();
 
+    this.body = new Sprite({
+      url: this.sprite,
+      spriteOffset: 0,
+      center: { x: 50,  y: 90 },
+      bottom: 102,
+    });
+
     this.defineAnimations();
   }
 
@@ -251,13 +258,6 @@ class Player {
     this.trunk = new Sprite({
       url: this.sprite,
       spriteOffset: 2 * 171,
-      center: { x: 50,  y: 90 },
-      bottom: 102,
-    });
-
-    this.body = new Sprite({
-      url: this.sprite,
-      spriteOffset: 0,
       center: { x: 50,  y: 90 },
       bottom: 102,
     });
