@@ -28,6 +28,9 @@ class Player {
 
   update(dt) {
     switch (this.state) {
+      case 'alive':
+        this.body.update(dt);
+        break;
       case 'killed':
         this.animation.update(dt);
 
@@ -264,6 +267,7 @@ class Player {
 
   goToStartingPosition() {
     this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
+    this.body.v = { x: 0, y: 0, z: 0, a: 0 }
   }
 
   defineAnimations() {
