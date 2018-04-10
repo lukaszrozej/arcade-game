@@ -21,7 +21,6 @@ class Player {
     this.lives = 3
     this.state = 'alive';
     this.talking = false;
-    this.frozen = false;
     this.finishedLevel = false;
     this.goToStartingPosition();
   }
@@ -81,7 +80,7 @@ class Player {
   }
 
   handleInput(input) {
-    if (this.dead || this.frozen) return;
+    if (this.dead) return;
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
@@ -278,14 +277,6 @@ class Player {
   say(text) {
     this.talking = true;
     this.currentText = text;
-  }
-
-  freeze() {
-    this.frozen = true;
-  }
-
-  unfreeze() {
-    this.frozen = false;
   }
 
   goToStartingPosition() {

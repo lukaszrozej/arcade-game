@@ -92,34 +92,69 @@ var Engine = (function(global) {
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
     document.addEventListener('keyup', function(e) {
-      if ((state === 'game over' || state === 'win') && e.keyCode === 13){
-        reset();
-        return;
-      }
-      if (state === 'choose character') {
-        if (e.keyCode === 37) {
-          currentCharacter += 4;
-        }
-        if (e.keyCode === 39) {
-          currentCharacter += 1;
-        }
-        if (e.keyCode === 13) {
-          player.setCharacter(characterImages[currentCharacter]);
-          player.say(levels[level].message);
-          state = 'play';
-        }
-        currentCharacter %= 5;
-        return;
+      // if ((state === 'game over' || state === 'win') && e.keyCode === 13){
+      //   reset();
+      //   return;
+      // }
+      // if (state === 'choose character') {
+      //   if (e.keyCode === 37) {
+      //     currentCharacter += 4;
+      //   }
+      //   if (e.keyCode === 39) {
+      //     currentCharacter += 1;
+      //   }
+      //   if (e.keyCode === 13) {
+      //     player.setCharacter(characterImages[currentCharacter]);
+      //     player.say(levels[level].message);
+      //     state = 'play';
+      //   }
+      //   currentCharacter %= 5;
+      //   return;
+      // }
+
+      // var allowedKeys = {
+      //   37: 'left',
+      //   38: 'up',
+      //   39: 'right',
+      //   40: 'down'
+      // };
+
+      // player.handleInput(allowedKeys[e.keyCode]);
+
+      switch (state) {
+        case 'game over':
+        case 'win':
+          if (e.keyCode === 13){
+            reset();
+          }
+          break;
+        case 'choose character': 
+          switch (e.keyCode) {
+            case 37:
+              currentCharacter += 4;
+              break;
+            case 39:
+              currentCharacter += 1;
+              break;
+            case 13:
+              player.setCharacter(characterImages[currentCharacter]);
+              player.say(levels[level].message);
+              state = 'play';
+              break;
+            }
+          currentCharacter %= 5;
+          break;
+        case 'play':
+          const allowedKeys = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+          };
+          player.handleInput(allowedKeys[e.keyCode]);
+          break;
       }
 
-      var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-      };
-
-      player.handleInput(allowedKeys[e.keyCode]);
     });
   }
 
@@ -142,7 +177,6 @@ var Engine = (function(global) {
         player.terrain = levels[level].terrain;
         player.goToStartingPosition();
         bugs = newBugs;
-        player.unfreeze();
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
@@ -167,7 +201,6 @@ var Engine = (function(global) {
     }
     if (player.finishedLevel) {
       player.finishedLevel = false;
-      player.freeze();
       if (level === levels.length - 1) {
         state = 'win';
       } else {
