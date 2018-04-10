@@ -27,8 +27,6 @@ class Player {
   }
 
   update(dt) {
-    const FINAL_X = 101 * 2;
-    const FINAL_Y = 83 * 5 - 40;
     switch (this.state) {
       case 'killed':
         this.animation.update(dt);
