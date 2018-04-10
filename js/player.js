@@ -69,7 +69,6 @@ class Player {
         this.animation.render();
         break;
       case 'alive':
-        // ctx.drawImage(Resources.get(this.sprite), 0, 0, 101, 171, x, y, 101, 171);
         this.body.render();
 
         if (this.talking) {
