@@ -8,6 +8,8 @@ class Sprite {
         period: 1,
         numberOfFrames: 1,
         once: true,
+        spriteOffset: 0,
+        center: { x: 0,  y: 0 },
       },
       props
     );

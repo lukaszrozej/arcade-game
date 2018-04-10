@@ -325,10 +325,10 @@ var Engine = (function(global) {
 
     const bugs = [];
     for(let i = 0; i < level.landBugs.number; i++) {
-      bugs.push(new LandBug(level.landBugs.options));
+      bugs.push(new Bug('land', level.landBugs.options));
     }
     for(let i = 0; i < level.waterBugs.number; i++) {
-      bugs.push(new WaterBug(level.waterBugs.options));
+      bugs.push(new Bug('water', level.waterBugs.options));
     }
     return bugs;
   }
