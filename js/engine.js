@@ -166,7 +166,7 @@ var Engine = (function(global) {
     player.handleCollisions(bugs);
     player.handleTerrain(levels[level].terrain);
 
-    if (player.dead) {
+    if (player.state === 'dead') {
       state = 'game over';
     }
     if (player.finishedLevel) {

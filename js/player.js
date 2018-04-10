@@ -87,7 +87,6 @@ class Player {
   }
 
   handleInput(input) {
-    if (this.dead) return;
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
