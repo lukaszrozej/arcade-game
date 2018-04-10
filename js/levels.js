@@ -38,7 +38,7 @@ const levels = [{
       number: 0,
     },
     waterBugs: {
-      number: 3,
+      number: 6,
       options: {
         rows: [
           { row: 1, direction: -1 },

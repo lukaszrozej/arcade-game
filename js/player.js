@@ -32,9 +32,11 @@ class Player {
         this.body.update(dt);
         if (this.body.position.x < 0) {
           this.body.position.x = 0;
+          this.body.v.x = 0;
         }
         if (this.body.position.x > 404) {
           this.body.position.x = 404;
+          this.body.v.x = 0;
         }
         break;
       case 'killed':
@@ -89,21 +91,25 @@ class Player {
       case 'left':
         if (this.col > 0) {
           this.body.position.x -= 101;
+          this.body.v.x = 0;
         }
         break;
       case 'right':
         if (this.col < 4) {
           this.body.position.x += 101;
+          this.body.v.x = 0;
         }
         break;
       case 'up':
         if (this.row > 0) {
           this.body.position.y -= 83;
+          this.body.v.x = 0;
         }
         break;
       case 'down':
         if (this.row < 5) {
           this.body.position.y += 83;
+          this.body.v.x = 0;
         }
         break;
     }
@@ -135,7 +141,9 @@ class Player {
       bug.row === this.row && Math.abs(bug.x - this.body.position.x) < 60;
     const bug = bugs.find(collision);
 
-    if (bug) {
+    if (bug === undefined) return;
+
+    if (bug.type === 'land') {
       this.lives--;
       this.state = 'killed';
 
@@ -150,11 +158,17 @@ class Player {
       this.animation.initialize();
 
       this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
+    } else {
+      this.body.v.x = bug.v;
     }
   }
 
   handleTerrain(terrain) {
     if (this.state !== 'alive') return;
+
+    // On a bug
+    if (this.body.v.x !== 0) return;
+
     if (terrain[this.row][this.col] === 'water') {
       this.lives--;
       this.state = 'killed';
@@ -186,6 +200,9 @@ class Player {
       this.animation.initialize();
 
       this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
+    } else {
+      // Snap to grid
+      this.body.position.x = this.col * 101;
     }
   }
 
