@@ -30,6 +30,12 @@ class Player {
     switch (this.state) {
       case 'alive':
         this.body.update(dt);
+        if (this.body.position.x < 0) {
+          this.body.position.x = 0;
+        }
+        if (this.body.position.x > 404) {
+          this.body.position.x = 404;
+        }
         break;
       case 'killed':
         this.animation.update(dt);
