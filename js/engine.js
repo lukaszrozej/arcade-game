@@ -92,35 +92,6 @@ var Engine = (function(global) {
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
     document.addEventListener('keyup', function(e) {
-      // if ((state === 'game over' || state === 'win') && e.keyCode === 13){
-      //   reset();
-      //   return;
-      // }
-      // if (state === 'choose character') {
-      //   if (e.keyCode === 37) {
-      //     currentCharacter += 4;
-      //   }
-      //   if (e.keyCode === 39) {
-      //     currentCharacter += 1;
-      //   }
-      //   if (e.keyCode === 13) {
-      //     player.setCharacter(characterImages[currentCharacter]);
-      //     player.say(levels[level].message);
-      //     state = 'play';
-      //   }
-      //   currentCharacter %= 5;
-      //   return;
-      // }
-
-      // var allowedKeys = {
-      //   37: 'left',
-      //   38: 'up',
-      //   39: 'right',
-      //   40: 'down'
-      // };
-
-      // player.handleInput(allowedKeys[e.keyCode]);
-
       switch (state) {
         case 'game over':
         case 'win':
@@ -154,7 +125,6 @@ var Engine = (function(global) {
           player.handleInput(allowedKeys[e.keyCode]);
           break;
       }
-
     });
   }
 

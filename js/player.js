@@ -42,8 +42,15 @@ class Player {
         this.animation.update(dt);
 
         if (this.animation.done) {
-          this.revive();
+          if (this.lives > 0) {
+            this.revive();
+          } else {
+            this.die();
+          }
         }
+        break;
+      case 'dead':
+        this.animation.update(dt);
         break;
     }
   }
@@ -57,6 +64,7 @@ class Player {
 
   render() {
     switch (this.state) {
+      case 'dead':
       case 'killed':
         this.animation.render();
         break;
@@ -122,6 +130,12 @@ class Player {
     this.state = 'alive';
     this.goToStartingPosition()
     this.say(this.message);
+  }
+
+  die() {
+    this.state = 'dead';
+    this.animation = this.dieAnimation;
+    this.animation.initialize();
   }
 
   currentPosition() {
@@ -392,6 +406,39 @@ class Player {
           this.headThrow,
         ]),
       ]),
+    ]);
+
+    this.headFall = new Animation({
+      sprite: this.head,
+      from: {
+        a: 0,
+      },
+      to: {
+        x: 2 * 101 - 50,
+        y: 5 * 83,
+        z: -10,
+        a: -Math.PI,
+      },
+      duration: 0.5,
+    });
+
+    this.trunkFall = new Animation({
+      sprite: this.trunk,
+      from: {
+        a: 0,
+      },
+      to: {
+        x: 2 * 101,
+        y: 5 * 83,
+        z: 0,
+        a: -Math.PI / 4,
+      },
+      duration: 0.5,
+    });
+
+    this.dieAnimation = new AnimationParallel([
+      this.trunkFall,
+      this.headFall,
     ]);
   }
 
