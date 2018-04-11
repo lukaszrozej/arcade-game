@@ -146,7 +146,20 @@ class Player {
   }
 
   handleItems(items) {
-    
+    const index = items.findIndex(item => item.row === this.row && item.col === this.col);
+    if (index >= 0) {
+      switch (items[index].name) {
+        case 'gem-orange':
+          break;
+        case 'gem-green':
+          break;
+        case 'gem-blue':
+          break;
+        case 'key':
+          break;
+      }
+      items.splice(index, 1);
+    }
   }
 
   handleCollisions(bugs) {
