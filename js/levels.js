@@ -24,6 +24,9 @@ const levels = [{
     },
     items: [
       { name: 'gem-orange', col: 2, row: 0 },
+      { name: 'gem-green', col: 3, row: 1 },
+      { name: 'gem-blue', col: 0, row: 3 },
+      { name: 'key', col: 4, row: 5 },
     ],
     message: `I'd better avoid
               these bugs.`
