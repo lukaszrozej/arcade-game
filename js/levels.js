@@ -22,6 +22,9 @@ const levels = [{
     waterBugs: {
       number: 0,
     },
+    items: [
+      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+    ],
     message: `I'd better avoid
               these bugs.`
   },
@@ -49,6 +52,9 @@ const levels = [{
         minSpeed: 100,
       },
     },
+    items: [
+      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+    ],
     message: `I can't swim.
               Maybe I can jump
               on those bugs`
@@ -77,6 +83,9 @@ const levels = [{
     waterBugs: {
       number: 0,
     },
+    items: [
+      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+    ],
     message: `Bugs again`
   },
 ]
