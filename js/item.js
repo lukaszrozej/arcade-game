@@ -1,8 +1,10 @@
 class Item {
-  constructor(name = 'gem-orange', position = { x: 202, y: 0 }) {
-    this.name = name;
-    this.url = `images/${name}.png`;
-    this.position = position;
+  constructor(props) {
+    Object.assign(this,
+                 { name: 'gem-orange', position: { x: 202, y: 0, }, }
+                   props
+    );
+    this.url = `images/${this.name}.png`;
   }
 
   render() {
