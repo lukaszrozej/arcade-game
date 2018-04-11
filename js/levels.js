@@ -23,7 +23,7 @@ const levels = [{
       number: 0,
     },
     items: [
-      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+      { name: 'gem-orange', col: 2, row: 0 },
     ],
     message: `I'd better avoid
               these bugs.`
@@ -53,7 +53,7 @@ const levels = [{
       },
     },
     items: [
-      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+      { name: 'gem-orange', col: 2, row: 0 },
     ],
     message: `I can't swim.
               Maybe I can jump
@@ -84,7 +84,7 @@ const levels = [{
       number: 0,
     },
     items: [
-      { name: 'gem-orange', position: { x: 202, y: 0, }, },
+      { name: 'gem-orange', col: 2, row: 0 },
     ],
     message: `Bugs again`
   },
