@@ -336,6 +336,12 @@ var Engine = (function(global) {
     return bugs;
   }
 
+  function createItemsForLevel(levelNumber) {
+    return levels[levelNumber]
+      .items
+      .map(itemProps => new Item(itemProps));
+  }
+
   /* Go ahead and load all of the images we know we're going to need to
    * draw our game level. Then set init as the callback method, so that when
    * all of these images are properly loaded our game will start.
