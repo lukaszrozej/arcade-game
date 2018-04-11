@@ -145,6 +145,10 @@ class Player {
     }
   }
 
+  handleItems(items) {
+    
+  }
+
   handleCollisions(bugs) {
     if (this.state !== 'alive') return;
 
