@@ -149,6 +149,7 @@ var Engine = (function(global) {
         player.terrain = levels[level].terrain;
         player.goToStartingPosition();
         bugs = newBugs;
+        items = newItems;
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
