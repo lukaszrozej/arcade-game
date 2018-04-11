@@ -29,6 +29,8 @@ var Engine = (function(global) {
 
   let bugs, newBugs;
 
+  let items, newItems;
+
   let player = new Player();
 
   let scrollProgress;
@@ -177,6 +179,7 @@ var Engine = (function(global) {
         state = 'scroll';
         scrollProgress = 0;
         newBugs = createBugsForLevel(level + 1);
+        newItems = createItemsForLevel(level + 1);
       }
     }
   }
@@ -216,6 +219,9 @@ var Engine = (function(global) {
       newBugs.forEach(function(bug) {
         bug.render();
       });
+
+      newItems.forEach(item => item.render());
+
       ctx.translate(0, -scrollProgress + 5 * 83);
     }
 
@@ -224,6 +230,8 @@ var Engine = (function(global) {
     bugs.forEach(function(bug) {
       bug.render();
     });
+
+    items.forEach(item => item.render());
 
     if (state !== 'choose character') {
       player.render();
@@ -316,6 +324,9 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
     bugs = createBugsForLevel(0);
+
+    items = createItemsForLevel(0);
+
     player.reset();
     player.terrain = levels[0].terrain;
     state = 'choose character';
@@ -358,6 +369,10 @@ var Engine = (function(global) {
     'images/heart-small.png',
     'images/Selector.png',
     'images/splash.png',
+    'images/gem-orange.png',
+    'images/gem-green.png',
+    'images/gem-blue.png',
+    'images/key.png',
   ]);
   Resources.onReady(init);
 
