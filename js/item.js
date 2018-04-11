@@ -1,7 +1,7 @@
 class Item {
   constructor(props) {
     Object.assign(this,
-                 { name: 'gem-orange', position: { x: 202, y: 0, }, }
+                 { name: 'gem-orange', position: { x: 202, y: 0, }, },
                    props
     );
     this.url = `images/${this.name}.png`;
