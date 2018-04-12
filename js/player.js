@@ -86,13 +86,13 @@ class Player {
     return Math.floor(this.body.position.x / 101); 
   }
 
-  move(input) {
+  move(direction) {
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
     this.talking = false;
 
-    switch (input) {
+    switch (direction) {
       case 'left':
         if (this.col > 0) {
           this.body.position.x -= 101;

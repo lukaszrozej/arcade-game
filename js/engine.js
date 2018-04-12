@@ -118,13 +118,13 @@ var Engine = (function(global) {
           currentCharacter %= 5;
           break;
         case 'play':
-          const allowedKeys = {
+          const directions = {
             37: 'left',
             38: 'up',
             39: 'right',
             40: 'down'
           };
-          player.move(allowedKeys[e.keyCode]);
+          player.move(directions[e.keyCode]);
           break;
       }
     });
