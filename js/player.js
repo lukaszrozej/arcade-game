@@ -118,10 +118,6 @@ class Player {
         }
         break;
     }
-    if (this.row === 0 && this.col === 2) {
-      this.finishedLevel = true;
-      this.score++;
-    }
   }
 
   revive() {
