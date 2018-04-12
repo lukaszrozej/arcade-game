@@ -1,4 +1,30 @@
-const levels = [{
+const levels = [
+  {
+    terrain: [
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+      { name: 'gem-blue', col: 2, row: 0 },
+    ],
+    rocks: [
+      { col: 1, row: 4, },
+      { col: 3, row: 2, },
+    ],
+    message: `I'd better avoid
+              these bugs.`
+  },
+  {
     terrain: [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
@@ -27,6 +53,10 @@ const levels = [{
       { name: 'gem-green', col: 3, row: 1 },
       { name: 'gem-orange', col: 0, row: 3 },
       { name: 'key', col: 4, row: 5 },
+    ],
+    rocks: [
+      { col: 1, row: 4, },
+      { col: 0, row: 0, },
     ],
     message: `I'd better avoid
               these bugs.`
@@ -58,6 +88,7 @@ const levels = [{
     items: [
       { name: 'gem-blue', col: 2, row: 0 },
     ],
+    rocks: [],
     message: `I can't swim.
               Maybe I can jump
               on those bugs`
@@ -89,6 +120,7 @@ const levels = [{
     items: [
       { name: 'gem-blue', col: 2, row: 0 },
     ],
+    rocks: [],
     message: `Bugs again`
   },
 ]

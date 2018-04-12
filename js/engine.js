@@ -31,6 +31,8 @@ var Engine = (function(global) {
 
   let items, newItems;
 
+  let rocks, newRocks;
+
   let player = new Player();
 
   let scrollProgress;
@@ -149,6 +151,7 @@ var Engine = (function(global) {
         player.goToStartingPosition();
         bugs = newBugs;
         items = newItems;
+        rocks = newRocks;
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
@@ -183,6 +186,7 @@ var Engine = (function(global) {
         scrollProgress = 0;
         newBugs = createBugsForLevel(level + 1);
         newItems = createItemsForLevel(level + 1);
+        newRocks = createRocksForLevel(level + 1);
       }
     }
   }
@@ -225,6 +229,8 @@ var Engine = (function(global) {
 
       newItems.forEach(item => item.render());
 
+      newRocks.forEach(rock => rock.render());
+
       ctx.translate(0, -scrollProgress + 5 * 83);
     }
 
@@ -232,6 +238,8 @@ var Engine = (function(global) {
     renderTerrain(level);
 
     items.forEach(item => item.render());
+
+    rocks.forEach(rock => rock.render());
 
     bugs.forEach(function(bug) {
       bug.render();
@@ -331,6 +339,8 @@ var Engine = (function(global) {
 
     items = createItemsForLevel(0);
 
+    rocks = createRocksForLevel(0);
+
     player.reset();
     state = 'choose character';
   }
@@ -352,6 +362,12 @@ var Engine = (function(global) {
     return levels[levelNumber]
       .items
       .map(itemProps => new Item(itemProps));
+  }
+
+  function createRocksForLevel(levelNumber) {
+    return levels[levelNumber]
+      .rocks
+      .map(position => new Rock(position));
   }
 
   /* Go ahead and load all of the images we know we're going to need to
@@ -376,6 +392,7 @@ var Engine = (function(global) {
     'images/gem-green.png',
     'images/gem-blue.png',
     'images/key.png',
+    'images/rock.png',
   ]);
   Resources.onReady(init);
 
