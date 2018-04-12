@@ -223,11 +223,12 @@ var Engine = (function(global) {
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
       renderTerrain(level + 1);
+
+      newItems.forEach(item => item.render());
+
       newBugs.forEach(function(bug) {
         bug.render();
       });
-
-      newItems.forEach(item => item.render());
 
       newRocks.forEach(rock => rock.render());
 
@@ -239,11 +240,11 @@ var Engine = (function(global) {
 
     items.forEach(item => item.render());
 
-    rocks.forEach(rock => rock.render());
-
     bugs.forEach(function(bug) {
       bug.render();
     });
+
+    rocks.forEach(rock => rock.render());
 
     if (state !== 'choose character') {
       player.render();
