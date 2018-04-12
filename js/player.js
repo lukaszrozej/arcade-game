@@ -86,7 +86,7 @@ class Player {
     return Math.floor(this.body.position.x / 101); 
   }
 
-  handleInput(input) {
+  move(input) {
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
