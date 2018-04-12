@@ -238,11 +238,7 @@ var Engine = (function(global) {
     ctx.translate(0, scrollProgress);
     renderTerrain(level);
 
-    items.forEach(item => item.render());
-
-    bugs.forEach(bug => bug.render());
-
-    rocks.forEach(rock => rock.render());
+    [...items, ...bugs, ...rocks].forEach(entity => entity.render());
 
     if (state !== 'choose character') {
       player.render();
