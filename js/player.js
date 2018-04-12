@@ -141,7 +141,7 @@ class Player {
     }
   }
 
-  handleItems(items) {
+  collect(items) {
     const index = items.findIndex(item => item.row === this.row && item.col === this.col);
     if (index >= 0) {
       switch (items[index].name) {

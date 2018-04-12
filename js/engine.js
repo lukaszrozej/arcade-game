@@ -166,7 +166,7 @@ var Engine = (function(global) {
 
     player.update(dt);
 
-    player.handleItems(items);
+    player.collect(items);
 
     player.handleCollisions(bugs);
     player.handleTerrain(levels[level].terrain);
