@@ -13,3 +13,14 @@ class Item {
                   this.col * 101, this.row * 83, 101, 171);
   }
 }
+
+class Rock extends Item {
+  constructor(props) {
+    props.name = 'rock';
+    super(props);
+  }
+
+  move() {
+    
+  }
+}
