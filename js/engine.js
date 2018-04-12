@@ -240,9 +240,7 @@ var Engine = (function(global) {
 
     items.forEach(item => item.render());
 
-    bugs.forEach(function(bug) {
-      bug.render();
-    });
+    bugs.forEach(bug => bug.render());
 
     rocks.forEach(rock => rock.render());
 
