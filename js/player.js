@@ -207,17 +207,17 @@ class Player {
       let col = this.col;
 
       // Find lowest water row:
-      while (row < 5 && this.terrain[row + 1][col] === 'water') {
+      while (row < 5 && terrain[row + 1][col] === 'water') {
         row++;
       }
       // Find leftmost water cell:
-      while (col > 0 && this.terrain[row][col - 1] === 'water') {
+      while (col > 0 && terrain[row][col - 1] === 'water') {
         col--;
       }
       this.headEmerge.from = { x: col * 101, y: row * 83, z: -70, a: -Math.PI, };
 
       // Find rightmost water cell:
-      while (col < 4 && this.terrain[row][col + 1] === 'water') {
+      while (col < 4 && terrain[row][col + 1] === 'water') {
         col++;
       }
       this.trunkEmerge.from = { x: col * 101, y: row * 83, z: -20, a: 0, };

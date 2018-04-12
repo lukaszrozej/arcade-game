@@ -146,7 +146,6 @@ var Engine = (function(global) {
         scrollProgress = 0;
         state = 'play';
         level++;
-        player.terrain = levels[level].terrain;
         player.goToStartingPosition();
         bugs = newBugs;
         items = newItems;
@@ -333,7 +332,6 @@ var Engine = (function(global) {
     items = createItemsForLevel(0);
 
     player.reset();
-    player.terrain = levels[0].terrain;
     state = 'choose character';
   }
 
