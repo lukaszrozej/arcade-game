@@ -150,10 +150,14 @@ class Player {
     if (index >= 0) {
       switch (items[index].name) {
         case 'gem-orange':
+            this.score++;
           break;
         case 'gem-green':
+            this.lives++;
           break;
         case 'gem-blue':
+            this.score++;
+            this.finishedLevel = true;
           break;
         case 'key':
           break;
