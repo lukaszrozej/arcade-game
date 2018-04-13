@@ -176,18 +176,10 @@ var Engine = (function(global) {
     bugs.forEach(bug => bug.update(dt));
     bugs.forEach(bug => bug.checkTerrain(terrain));
 
-    for(bug of bugs) {
-      for (rock of rocks) {
-        const col = this.bug.v > 0
-              ? Math.ceil(bug.x / 101)
-              : Math.floor(bug.x / 101);
-        if (col === rock.col && bug.row === rock.row) {
-          bug.v *= -1;
-        }
-      }
-    }
-
     checkBugCollisions(bugs);
+    handleBugRockCollisions(bugs, rocks);
+
+    rocks.forEach(rock => rock.update(dt));
 
     player.update(dt);
 
@@ -228,6 +220,19 @@ var Engine = (function(global) {
           } else {
             [bugs[i].v, bugs[j].v] = [bugs[j].v, bugs[i].v];
           }
+        }
+      }
+    }
+  }
+
+  function handleBugRockCollisions(bugs, rocks) {
+    for(bug of bugs) {
+      for (rock of rocks) {
+        const col = this.bug.v > 0
+              ? Math.ceil(bug.x / 101)
+              : Math.floor(bug.x / 101);
+        if (col === rock.col && bug.row === rock.row) {
+          bug.v *= -1;
         }
       }
     }

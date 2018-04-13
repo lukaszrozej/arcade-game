@@ -18,6 +18,18 @@ class Rock extends Item {
   constructor(props) {
     props.name = 'rock';
     super(props);
+
+    this.splashAnimation = new Animation({
+      sprite: new Sprite({
+        url: 'images/splash.png',
+        spriteOffset: 0,
+        center: { x: 50,  y: 90 },
+        numberOfFrames: 9,
+        period: 1,
+        once: true,
+      }),
+      duration: 1,
+    });
   }
 
   move(position, terrain, obstacles) {
@@ -32,12 +44,32 @@ class Rock extends Item {
     this.col = position.col;
 
     if (terrain[this.row][this.col] === 'water') {
+      
       terrain[this.row][this.col] = 'rock-in-water';
-      // Splash
+
+      this.splashAnimation.from = { x: this.col * 101, y: this.row * 83 };
+      this.splashAnimation.initialize();
+
       this.row = -1;
       this.col = -1;
     }
 
     return true;
+  }
+
+  update(dt) {
+    if (this.splashAnimation.initialized) {
+      this.splashAnimation.update(dt);
+    }
+  }
+
+  render() {
+    if (this.splashAnimation.done) return;
+
+    if (this.splashAnimation.initialized) {
+      this.splashAnimation.render();
+    } else {
+      super.render();
+    }
   }
 }
