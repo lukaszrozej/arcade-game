@@ -79,11 +79,11 @@ class Player {
   }
 
   get row() {
-    return Math.floor(this.body.position.y / 83); 
+    return Math.round(this.body.position.y / 83); 
   }
 
   get col() {
-    return Math.floor(this.body.position.x / 101); 
+    return Math.round(this.body.position.x / 101); 
   }
 
   move(direction) {
