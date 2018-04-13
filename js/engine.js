@@ -373,7 +373,7 @@ var Engine = (function(global) {
   }
 
   function copyTerrain(terrain) {
-    return JSON.parse(JSON.stringify(levels[level].terrain));
+    return Array.from(terrain, row => Array.from(row))
   }
 
   function createBugsForLevel(levelNumber) {
