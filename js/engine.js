@@ -89,59 +89,56 @@ var Engine = (function(global) {
    */
   function init() {
     reset();
-    addEventListeners();
+    document.addEventListener('keyup', handleInput);
     lastTime = Date.now();
     main();
   }
 
-  function addEventListeners() {
-    // This listens for key presses and sends the keys to your
-    // Player.handleInput() method. You don't need to modify this.
-    document.addEventListener('keyup', function(e) {
-      switch (state) {
-        case 'game over':
-        case 'win':
-          if (e.keyCode === 13){
-            reset();
+  function handleInput(e) {
+    switch (state) {
+      case 'game over':
+      case 'win':
+        if (e.keyCode === 13){
+          reset();
+        }
+        break;
+      case 'choose character': 
+        switch (e.keyCode) {
+          case 37:
+            currentCharacter += 4;
+            break;
+          case 39:
+            currentCharacter += 1;
+            break;
+          case 13:
+            player.setCharacter(characterImages[currentCharacter]);
+            player.say(levels[level].message);
+            state = 'play';
+            break;
           }
-          break;
-        case 'choose character': 
-          switch (e.keyCode) {
-            case 37:
-              currentCharacter += 4;
-              break;
-            case 39:
-              currentCharacter += 1;
-              break;
-            case 13:
-              player.setCharacter(characterImages[currentCharacter]);
-              player.say(levels[level].message);
-              state = 'play';
-              break;
-            }
-          currentCharacter %= 5;
-          break;
-        case 'play':
-          const directions = {
-            37: 'left',
-            38: 'up',
-            39: 'right',
-            40: 'down'
-          };
+        currentCharacter %= 5;
+        break;
+      case 'play':
+        const directions = {
+          37: 'left',
+          38: 'up',
+          39: 'right',
+          40: 'down'
+        };
 
-          const direction = directions[e.keyCode];
-          if (direction) {
-            player.move({
-              direction,
-              terrain,
-              rocks,
-              obstacles: [...items, ...bugs, ...rocks],
-            });
-          }
-          break;
-      }
-    });
+        const direction = directions[e.keyCode];
+        if (direction) {
+          player.move({
+            direction,
+            terrain,
+            rocks,
+            obstacles: [...items, ...bugs, ...rocks],
+          });
+        }
+        break;
+    }
   }
+
 
   /* This function is called by main (our game loop) and itself calls all
    * of the functions which may need to update entity's data. Based on how
