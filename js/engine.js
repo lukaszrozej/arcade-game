@@ -170,6 +170,7 @@ var Engine = (function(global) {
         newBugs.forEach(bug => bug.update(dt));
         newBugs.forEach(bug => bug.checkTerrain(levels[level].terrain));
         checkBugCollisions(newBugs);
+        handleBugRockCollisions(newBugs, newRocks);
       }
     }
 
