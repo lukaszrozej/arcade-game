@@ -21,7 +21,7 @@ class Rock extends Item {
 
     this.splashAnimation = new Animation({
       sprite: new Sprite({
-        url: 'images/splash.png',
+        url: 'images/big-splash.png',
         spriteOffset: 0,
         center: { x: 50,  y: 90 },
         numberOfFrames: 9,
