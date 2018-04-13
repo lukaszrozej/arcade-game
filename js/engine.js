@@ -167,15 +167,15 @@ var Engine = (function(global) {
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
-        newBugs.forEach(bug => {
-          bug.update(dt);
-        });
+        newBugs.forEach(bug => bug.update(dt));
+        newBugs.forEach(bug => bug.checkTerrain(levels[level].terrain));
         checkBugCollisions(newBugs);
       }
     }
 
     bugs.forEach(bug => bug.update(dt));
-    
+    bugs.forEach(bug => bug.checkTerrain(terrain));
+
     checkBugCollisions(bugs);
 
     player.update(dt);

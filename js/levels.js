@@ -74,12 +74,12 @@ const levels = [
       number: 0,
     },
     waterBugs: {
-      number: 2,
+      number: 4,
       options: {
         rows: [
           { row: 1, direction: -1 },
           { row: 2, direction: 1 },
-          { row: 3, direction: -1 },
+          { row: 3, direction: 1 },
         ],
         maxSpeed: 300,
         minSpeed: 100,

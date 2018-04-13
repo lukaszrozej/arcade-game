@@ -34,6 +34,21 @@ class Bug {
     }
   };
 
+  checkTerrain(terrain) {
+    const col = this.sprite.v.x > 0
+                ? Math.ceil(this.sprite.position.x / 101)
+                : Math.floor(this.sprite.position.x / 101);
+    
+    if (col < 0 || col > 4) return;
+
+    const spot = terrain[this.row][col];
+
+    if ((this.type === 'water' && spot !== 'water')
+        || this.type === 'land' && (spot === 'water' || spot === 'tree')) {
+      this.v *= -1;
+    }
+  }
+
   render() {
     this.sprite.render();
   };
@@ -60,6 +75,7 @@ class Bug {
 
   set v(value) {
     this.sprite.v.x = value;
+    this.sprite.spriteOffset = this.sprite.v.x > 0 ? 0 : 171;
   }
 
 }
