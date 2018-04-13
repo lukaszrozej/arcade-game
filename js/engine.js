@@ -159,11 +159,13 @@ var Engine = (function(global) {
         scrollProgress = 0;
         state = 'play';
         level++;
+
         terrain = copyTerrain(levels[level].terrain);
-        player.goToStartingPosition();
         bugs = newBugs;
         items = newItems;
         rocks = newRocks;
+
+        player.goToStartingPosition();
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
