@@ -176,6 +176,17 @@ var Engine = (function(global) {
     bugs.forEach(bug => bug.update(dt));
     bugs.forEach(bug => bug.checkTerrain(terrain));
 
+    for(bug of bugs) {
+      for (rock of rocks) {
+        const col = this.bug.v > 0
+              ? Math.ceil(bug.x / 101)
+              : Math.floor(bug.x / 101);
+        if (col === rock.col && bug.row === rock.row) {
+          bug.v *= -1;
+        }
+      }
+    }
+
     checkBugCollisions(bugs);
 
     player.update(dt);
