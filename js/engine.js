@@ -167,7 +167,7 @@ var Engine = (function(global) {
       } else {
         scrollProgress += dt * 83 * 5 / 2;
         newBugs.forEach(bug => bug.update(dt));
-        newBugs.forEach(bug => bug.checkTerrain(levels[level].terrain));
+        newBugs.forEach(bug => bug.checkTerrain(levels[level + 1].terrain));
         checkBugCollisions(newBugs);
         handleBugRockCollisions(newBugs, newRocks);
       }
@@ -226,9 +226,9 @@ var Engine = (function(global) {
   }
 
   function handleBugRockCollisions(bugs, rocks) {
-    for(bug of bugs) {
-      for (rock of rocks) {
-        const col = this.bug.v > 0
+    for(const bug of bugs) {
+      for (const rock of rocks) {
+        const col = bug.v > 0
               ? Math.ceil(bug.x / 101)
               : Math.floor(bug.x / 101);
         if (col === rock.col && bug.row === rock.row) {
@@ -253,9 +253,7 @@ var Engine = (function(global) {
 
       newItems.forEach(item => item.render());
 
-      newBugs.forEach(function(bug) {
-        bug.render();
-      });
+      newBugs.forEach(bug => bug.render());
 
       newRocks.forEach(rock => rock.render());
 

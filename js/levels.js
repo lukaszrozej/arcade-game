@@ -9,31 +9,6 @@ const levels = [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
     ],
     landBugs: {
-      number: 0,
-    },
-    waterBugs: {
-      number: 0,
-    },
-    items: [
-      { name: 'gem-blue', col: 2, row: 0 },
-    ],
-    rocks: [
-      { col: 1, row: 4, },
-      { col: 3, row: 2, },
-    ],
-    message: `I'd better avoid
-              these bugs.`
-  },
-  {
-    terrain: [
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
-    ],
-    landBugs: {
       number: 3,
       options: {
         rows: [
@@ -41,8 +16,8 @@ const levels = [
           { row: 2, direction: -1 },
           { row: 3, direction: 1 },
         ],
-        maxSpeed: 60,
-        minSpeed: 50
+        maxSpeed: 300,
+        minSpeed: 100,
       },
     },
     waterBugs: {
