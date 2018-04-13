@@ -86,38 +86,74 @@ class Player {
     return Math.round(this.body.position.x / 101); 
   }
 
-  move(direction) {
+  move({direction, terrain, rocks, obstacles}) {
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
     this.talking = false;
 
+    const newPosition = Object.assign({}, this.body.position);
+    const rockNewPosition = { col: this.col, row: this.row };
+
     switch (direction) {
       case 'left':
-        if (this.col > 0) {
-          this.body.position.x -= 101;
-          this.body.v.x = 0;
-        }
+        if (this.col === 0) return;
+        newPosition.x -= 101;
+        rockNewPosition.col -= 2;
         break;
       case 'right':
-        if (this.col < 4) {
-          this.body.position.x += 101;
-          this.body.v.x = 0;
-        }
+        if (this.col === 4) return;
+        newPosition.x += 101;
+        rockNewPosition.col += 2;
         break;
       case 'up':
-        if (this.row > 0) {
-          this.body.position.y -= 83;
-          this.body.v.x = 0;
-        }
+        if (this.row === 0) return;
+        newPosition.y -= 83;
+        rockNewPosition.row -= 2;
         break;
       case 'down':
-        if (this.row < 5) {
-          this.body.position.y += 83;
-          this.body.v.x = 0;
-        }
+        if (this.row === 5) return;
+        newPosition.y += 83;
+        rockNewPosition.row += 2;
         break;
     }
+
+    const col = Math.round(newPosition.x / 101);
+    const row = Math.round(newPosition.y / 83);
+
+    const rock = rocks.find(rock => rock.col === col && rock.row === row);
+
+    if(!rock || rock.move(rockNewPosition, terrain, obstacles)) {
+      this.body.position = newPosition;
+      this.body.v.x = 0;
+    }
+
+    // switch (direction) {
+    //   case 'left':
+    //     if (this.col > 0) {
+    //       this.body.position.x -= 101;
+    //       this.body.v.x = 0;
+    //     }
+    //     break;
+    //   case 'right':
+    //     if (this.col < 4) {
+    //       this.body.position.x += 101;
+    //       this.body.v.x = 0;
+    //     }
+    //     break;
+    //   case 'up':
+    //     if (this.row > 0) {
+    //       this.body.position.y -= 83;
+    //       this.body.v.x = 0;
+    //     }
+    //     break;
+    //   case 'down':
+    //     if (this.row < 5) {
+    //       this.body.position.y += 83;
+    //       this.body.v.x = 0;
+    //     }
+    //     break;
+    // }
   }
 
   revive() {

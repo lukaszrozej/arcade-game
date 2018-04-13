@@ -27,6 +27,8 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
+  let terrain;
+
   let bugs, newBugs;
 
   let items, newItems;
@@ -126,7 +128,16 @@ var Engine = (function(global) {
             39: 'right',
             40: 'down'
           };
-          player.move(directions[e.keyCode]);
+
+          const direction = directions[e.keyCode];
+          if (direction) {
+            player.move({
+              direction,
+              terrain,
+              rocks,
+              obstacles: [...items, ...bugs, ...rocks],
+            });
+          }
           break;
       }
     });
@@ -148,6 +159,7 @@ var Engine = (function(global) {
         scrollProgress = 0;
         state = 'play';
         level++;
+        terrain = copyTerrain(levels[level].terrain);
         player.goToStartingPosition();
         bugs = newBugs;
         items = newItems;
@@ -222,7 +234,7 @@ var Engine = (function(global) {
 
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
-      renderTerrain(level + 1);
+      renderTerrain(levels[level + 1].terrain);
 
       newItems.forEach(item => item.render());
 
@@ -236,7 +248,7 @@ var Engine = (function(global) {
     }
 
     ctx.translate(0, scrollProgress);
-    renderTerrain(level);
+    renderTerrain(terrain);
 
     [...items, ...bugs, ...rocks].forEach(entity => entity.render());
 
@@ -291,8 +303,9 @@ var Engine = (function(global) {
     );
   }
 
-  function renderTerrain(level) {
-    levels[level].terrain
+  function renderTerrain(terrain) {
+    // levels[level].terrain
+    terrain
       .forEach((row, i) => {
         row.forEach((img, j) => {
           const path = `images/${img}.png`;
@@ -330,6 +343,9 @@ var Engine = (function(global) {
    */
   function reset() {
     level = 0;
+
+    terrain = copyTerrain(levels[0].terrain);
+
     bugs = createBugsForLevel(0);
 
     items = createItemsForLevel(0);
@@ -338,6 +354,10 @@ var Engine = (function(global) {
 
     player.reset();
     state = 'choose character';
+  }
+
+  function copyTerrain(terrain) {
+    return JSON.parse(JSON.stringify(levels[level].terrain));
   }
 
   function createBugsForLevel(levelNumber) {
@@ -388,6 +408,7 @@ var Engine = (function(global) {
     'images/gem-blue.png',
     'images/key.png',
     'images/rock.png',
+    'images/rock-in-water.png',
   ]);
   Resources.onReady(init);
 

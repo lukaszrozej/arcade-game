@@ -46,6 +46,10 @@ class Bug {
     return Math.floor(this.sprite.position.y / 83);
   }
 
+  get col() {
+    return Math.round(this.sprite.position.x / 101);
+  }
+
   get x() {
     return this.sprite.position.x;
   }

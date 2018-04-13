@@ -41,8 +41,8 @@ const levels = [
           { row: 2, direction: -1 },
           { row: 3, direction: 1 },
         ],
-        maxSpeed: 300,
-        minSpeed: 100
+        maxSpeed: 60,
+        minSpeed: 50
       },
     },
     waterBugs: {
@@ -74,7 +74,7 @@ const levels = [
       number: 0,
     },
     waterBugs: {
-      number: 6,
+      number: 2,
       options: {
         rows: [
           { row: 1, direction: -1 },
@@ -88,7 +88,9 @@ const levels = [
     items: [
       { name: 'gem-blue', col: 2, row: 0 },
     ],
-    rocks: [],
+    rocks: [
+      { col: 1, row: 4},
+    ],
     message: `I can't swim.
               Maybe I can jump
               on those bugs`
