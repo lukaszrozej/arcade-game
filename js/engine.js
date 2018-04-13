@@ -174,9 +174,8 @@ var Engine = (function(global) {
       }
     }
 
-    bugs.forEach(bug => {
-      bug.update(dt);
-    });
+    bugs.forEach(bug => bug.update(dt));
+    
     checkBugCollisions(bugs);
 
     player.update(dt);
