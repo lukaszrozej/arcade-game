@@ -127,33 +127,6 @@ class Player {
       this.body.position = newPosition;
       this.body.v.x = 0;
     }
-
-    // switch (direction) {
-    //   case 'left':
-    //     if (this.col > 0) {
-    //       this.body.position.x -= 101;
-    //       this.body.v.x = 0;
-    //     }
-    //     break;
-    //   case 'right':
-    //     if (this.col < 4) {
-    //       this.body.position.x += 101;
-    //       this.body.v.x = 0;
-    //     }
-    //     break;
-    //   case 'up':
-    //     if (this.row > 0) {
-    //       this.body.position.y -= 83;
-    //       this.body.v.x = 0;
-    //     }
-    //     break;
-    //   case 'down':
-    //     if (this.row < 5) {
-    //       this.body.position.y += 83;
-    //       this.body.v.x = 0;
-    //     }
-    //     break;
-    // }
   }
 
   revive() {
