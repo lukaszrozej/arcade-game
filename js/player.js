@@ -126,6 +126,9 @@ class Player {
     if(!rock || rock.move(rockNewPosition, terrain, obstacles)) {
       this.body.position = newPosition;
       this.body.v.x = 0;
+      if (this.col === 2 && this.row === 0) {
+        this.finishedLevel = true;
+      }
     }
   }
 
@@ -162,7 +165,7 @@ class Player {
           break;
         case 'gem-blue':
             this.score++;
-            this.finishedLevel = true;
+            // this.finishedLevel = true;
           break;
         case 'key':
           break;
