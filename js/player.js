@@ -9,6 +9,12 @@ class Player {
       bottom: 102,
     });
 
+    this.startingPosition = {
+      x: 2 * 101,
+      y: 5 * 83,
+      z: 0,
+      a: 0,
+    };
 
     this.reset();
 
