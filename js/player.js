@@ -224,9 +224,12 @@ class Player {
       let row = this.row;
       let col = this.col;
 
+      const floatDirection = this.body.position.y < this.startingPosition.y ? 1 : -1;
+
       // Find lowest water row:
       while (row < 5 && terrain[row + 1][col] === 'water') {
-        row++;
+        // row++;
+        row += floatDirection;
       }
       // Find leftmost water cell:
       while (col > 0 && terrain[row][col - 1] === 'water') {
