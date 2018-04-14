@@ -358,8 +358,8 @@ class Player {
     this.headThrow = new Animation({
       sprite: this.head,
       to: {
-        x: 2 * 101,
-        y: 5 * 83,
+        x: this.startingPosition.x,
+        y: this.startingPosition.y,
       },
       duration: 1,
       numberOfJumps: 1,
@@ -370,7 +370,7 @@ class Player {
       sprite: this.trunk,
       to: {
         x: 4 * 101,
-        y: 5 * 83,
+        y: this.startingPosition.y,
       },
       duration: 1,
       numberOfJumps: 1,
@@ -380,8 +380,8 @@ class Player {
     this.trunkJump = new Animation({
       sprite: this.trunk,
       to: {
-        x: 2 * 101,
-        y: 5 * 83,
+        x: this.startingPosition.x,
+        y: this.startingPosition.y,
       },
       duration: 1,
       numberOfJumps: 4,
@@ -447,8 +447,8 @@ class Player {
         a: 0,
       },
       to: {
-        x: 2 * 101 - 50,
-        y: 5 * 83,
+        x: this.startingPosition.x - 50,
+        y: this.startingPosition.y,
         z: -10,
         a: -Math.PI,
       },
@@ -461,8 +461,8 @@ class Player {
         a: 0,
       },
       to: {
-        x: 2 * 101,
-        y: 5 * 83,
+        x: this.startingPosition.x,
+        y: this.startingPosition.y,
         z: 0,
         a: -Math.PI / 4,
       },
