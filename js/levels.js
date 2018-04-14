@@ -6,7 +6,7 @@ const levels = [
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'start', 'grass', 'grass', ],
     ],
     landBugs: {
       number: 3,
@@ -24,7 +24,7 @@ const levels = [
       number: 0,
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 0 },
+      { name: 'gem-blue', col: 2, row: 3 },
     ],
     rocks: [
     ],
