@@ -373,6 +373,16 @@ var Engine = (function(global) {
     return Array.from(terrain, row => Array.from(row))
   }
 
+  function getTerrainForLevel(levelNumber) {
+    if (levelNumber === levels.length - 1) {
+      return Array.from(levels[levelNumber].terrain, row => Array.from(row));
+    } else {
+      return [levels[levelNumber + 1].terrain[5]].concat(
+        Array.from(levels[levelNumber].terrain, row => Array.from(row))
+      );
+    }
+  }
+
   function createBugsForLevel(levelNumber) {
     const level = levels[levelNumber];
 
