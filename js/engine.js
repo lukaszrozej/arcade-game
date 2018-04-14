@@ -27,7 +27,7 @@ var Engine = (function(global) {
   let level = 0;
   let state = 'choose character';
 
-  let terrain;
+  let terrain, newTerrain;
 
   let bugs, newBugs;
 
@@ -151,13 +151,14 @@ var Engine = (function(global) {
    */
   function update(dt) {
     if (state === 'scroll') {
-      if (scrollProgress > 83 * 5) {
+      if (scrollProgress >= 83 * 5) {
         // Scroll finished
         scrollProgress = 0;
         state = 'play';
         level++;
 
-        terrain = copyTerrain(levels[level].terrain);
+        terrain = newTerrain;
+
         bugs = newBugs;
         items = newItems;
         rocks = newRocks;
@@ -198,6 +199,7 @@ var Engine = (function(global) {
       } else {
         state = 'scroll';
         scrollProgress = 0;
+        newTerrain = getTerrainForLevel(level + 1);
         newBugs = createBugsForLevel(level + 1);
         newItems = createItemsForLevel(level + 1);
         newRocks = createRocksForLevel(level + 1);
@@ -249,7 +251,7 @@ var Engine = (function(global) {
 
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
-      renderTerrain(levels[level + 1].terrain);
+      renderTerrain(newTerrain);
 
       newItems.forEach(item => item.render());
 
@@ -357,7 +359,7 @@ var Engine = (function(global) {
   function reset() {
     level = 0;
 
-    terrain = copyTerrain(levels[0].terrain);
+    terrain = getTerrainForLevel(0);
 
     bugs = createBugsForLevel(0);
 
@@ -369,15 +371,13 @@ var Engine = (function(global) {
     state = 'choose character';
   }
 
-  function copyTerrain(terrain) {
-    return Array.from(terrain, row => Array.from(row))
-  }
-
   function getTerrainForLevel(levelNumber) {
+    const currentTerrain = levels[levelNumber].terrain;
     if (levelNumber === levels.length - 1) {
-      return Array.from(levels[levelNumber].terrain, row => Array.from(row));
+      return Array.from(currentTerrain, row => Array.from(row));
     } else {
-      return [levels[levelNumber + 1].terrain[5]].concat(
+      const nextTerrain = levels[levelNumber + 1].terrain;
+      return [nextTerrain[nextTerrain.length - 1]].concat(
         Array.from(levels[levelNumber].terrain, row => Array.from(row))
       );
     }
