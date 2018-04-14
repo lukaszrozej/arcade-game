@@ -327,7 +327,7 @@ class Player {
   }
 
   goToStartingPosition() {
-    this.body.position = { x: 2 * 101, y: 5 * 83, z: 0, a: 0 };
+    Object.assign(this.body.position, this.startingPosition);
     this.body.v = { x: 0, y: 0, z: 0, a: 0 }
   }
 
