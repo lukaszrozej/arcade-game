@@ -434,6 +434,7 @@ var Engine = (function(global) {
     'images/rock-in-water.png',
     'images/big-splash.png',
     'images/start.png',
+    'images/explosion.png',
   ]);
   Resources.onReady(init);
 

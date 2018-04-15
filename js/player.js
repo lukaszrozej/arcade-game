@@ -358,6 +358,15 @@ class Player {
       once: true,
     });
 
+    this.explosion = new Sprite({
+      url: 'images/explosion.png',
+      spriteOffset: 0,
+      center: { x: 50,  y: 90 },
+      numberOfFrames: 32,
+      period: 2,
+      once: true,
+    });
+
     this.headThrow = new Animation({
       sprite: this.head,
       to: {
@@ -475,6 +484,20 @@ class Player {
     this.dieAnimation = new AnimationParallel([
       this.trunkFall,
       this.headFall,
+    ]);
+
+    this.explosionAnimation = new Animation({
+      sprite: this.explosion,
+      duration: 1,
+    });
+
+    this.explodeAnimation = new AnimationParallel([
+      new AnimationSequence([
+        this.trunkThrow,
+        this.trunkJump
+      ]),
+      this.headThrow,
+      this.explosionAnimation,
     ]);
   }
 
