@@ -425,11 +425,6 @@ class Player {
       this.headThrow,
     ]);
 
-    this.splashAnimation = new Animation({
-      sprite: this.splash,
-      duration: 1,
-    });
-
     this.submerge = new Animation({
       sprite: this.body,
       to: {
@@ -457,7 +452,10 @@ class Player {
 
     this.drownAnimation = new AnimationSequence([
       this.submerge,
-      this.splashAnimation,
+      new Animation({
+        sprite: this.splash,
+        duration: 1,
+      }),
       new AnimationParallel([
         new AnimationSequence([
           this.trunkEmerge,
