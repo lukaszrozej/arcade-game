@@ -150,6 +150,11 @@ class Player {
     this.animation.initialize();
   }
 
+  explode() {
+    this.animation = this.explodeAnimation;
+    this.animation.initialize();
+  }
+
   currentPosition() {
     return {
       x: this.col * 101,
