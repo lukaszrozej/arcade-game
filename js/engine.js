@@ -113,6 +113,7 @@ var Engine = (function(global) {
             break;
           case 13:
             player.setCharacter(characterImages[currentCharacter]);
+            doppelganger.setCharacter(characterImages[currentCharacter]);
             player.say(levels[level].message);
             state = 'play';
             break;
@@ -129,12 +130,9 @@ var Engine = (function(global) {
 
         const direction = directions[e.keyCode];
         if (direction) {
-          player.move({
-            direction,
-            terrain,
-            rocks,
-            obstacles: [...items, ...bugs, ...rocks],
-          });
+          const obstacles = [...items, ...bugs, ...rocks];
+          player.move({ direction, terrain, rocks, obstacles, doppelganger, });
+          doppelganger.move({ direction, terrain, rocks, obstacles, doppelganger: player, });
         }
         break;
     }
@@ -164,6 +162,10 @@ var Engine = (function(global) {
         items = newItems;
         rocks = newRocks;
 
+        if (levels[level].doppelganger) {
+          doppelganger.activate();
+        }
+
         player.goToStartingPosition();
         player.say(levels[level].message);
       } else {
@@ -183,10 +185,13 @@ var Engine = (function(global) {
 
     rocks.forEach(rock => rock.update(dt));
 
+    doppelganger.update(dt);
+    doppelganger.collect(items);
+    doppelganger.handleCollisions(bugs);
+    doppelganger.handleTerrain(terrain);
+
     player.update(dt);
-
     player.collect(items);
-
     player.handleCollisions(bugs);
     player.handleTerrain(terrain);
 
@@ -204,6 +209,7 @@ var Engine = (function(global) {
         newBugs = createBugsForLevel(level + 1);
         newItems = createItemsForLevel(level + 1);
         newRocks = createRocksForLevel(level + 1);
+        doppelganger.deactivate();
       }
     }
   }
@@ -373,6 +379,10 @@ doppelganger.render();
     items = createItemsForLevel(0);
 
     rocks = createRocksForLevel(0);
+
+    if (levels[0].doppelganger) {
+      doppelganger.activate();
+    }
 
     player.reset();
     state = 'choose character';

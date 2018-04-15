@@ -92,7 +92,23 @@ class Player {
     return Math.round(this.body.position.x / 101); 
   }
 
-  move({direction, terrain, rocks, obstacles}) {
+  get x() {
+    return this.body.position.x;
+  }
+
+  get y() {
+    return this.body.position.y;
+  }
+
+  set x(value) {
+    this.body.position.x = value;
+  }
+
+  set y(value) {
+    this.body.position.y = value;
+  }
+
+  move({direction, terrain, rocks, obstacles, doppelganger, }) {
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
@@ -101,27 +117,41 @@ class Player {
     const newPosition = Object.assign({}, this.body.position);
     const rockNewPosition = { col: this.col, row: this.row };
 
+    let explosion = false;
     switch (direction) {
       case 'left':
         if (this.col === 0) return;
+        explosion = doppelganger.row === this.row && doppelganger.x >= this.x - 101;
         newPosition.x -= 101;
         rockNewPosition.col -= 2;
         break;
       case 'right':
         if (this.col === 4) return;
+        explosion = doppelganger.row === this.row && doppelganger.x <= this.x + 101;
         newPosition.x += 101;
         rockNewPosition.col += 2;
         break;
       case 'up':
         if (this.row === 0) return;
+        explosion = doppelganger.col === this.col && doppelganger.row === this.row - 1;
         newPosition.y -= 83;
         rockNewPosition.row -= 2;
         break;
       case 'down':
         if (this.row === 5) return;
+        explosion = doppelganger.col === this.col && doppelganger.row === this.row + 1;
         newPosition.y += 83;
         rockNewPosition.row += 2;
         break;
+    }
+
+    if (explosion) {
+      this.x = (this.x + doppelganger.x) / 2;
+      doppelganger.x = this.x;
+      this.y = (this.y + doppelganger.y) / 2;
+      doppelganger.y = this.y;
+      this.explode();
+      doppelganger.explode();
     }
 
     const col = Math.round(newPosition.x / 101);
@@ -129,7 +159,7 @@ class Player {
 
     const rock = rocks.find(rock => rock.col === col && rock.row === row);
 
-    if(!rock || rock.move(rockNewPosition, terrain, obstacles)) {
+    if(!rock || rock.move(rockNewPosition, terrain, [...obstacles, doppelganger])) {
       this.body.position = newPosition;
       this.body.v.x = 0;
       if (this.col === 2 && this.row === 0) {
@@ -244,7 +274,7 @@ class Player {
       const floatDirection = this.body.position.y < this.startingPosition.y ? 1 : -1;
 
       // Find lowest water row:
-      while (row < 5 && terrain[row + 1][col] === 'water') {
+      while (row < 5 && terrain[row + floatDirection][col] === 'water') {
         // row++;
         row += floatDirection;
       }
