@@ -12,7 +12,7 @@ class Doppelganger extends Player{
 
   deactivate() {
     this.state = 'inactive';
-    this.body.position = { x: -1, y: -1, z: 0, a: 0 };
+    this.body.position = { x: -1000, y: -1000, z: 0, a: 0 };
   }
 
   move(props) {
