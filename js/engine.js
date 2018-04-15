@@ -36,6 +36,7 @@ var Engine = (function(global) {
   let rocks, newRocks;
 
   let player = new Player();
+  let doppelganger = new Doppelganger();
 
   let scrollProgress;
 
@@ -249,6 +250,9 @@ var Engine = (function(global) {
    */
   function render() {
 
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, 60);
+
     if (state === 'scroll') {
       ctx.translate(0, scrollProgress - 5 * 83);
       renderTerrain(newTerrain);
@@ -266,6 +270,9 @@ var Engine = (function(global) {
     renderTerrain(terrain);
 
     [...items, ...bugs, ...rocks].forEach(entity => entity.render());
+
+
+doppelganger.render();
 
     if (state !== 'choose character') {
       player.render();
@@ -287,7 +294,7 @@ var Engine = (function(global) {
 
   function renderMessage(message) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
+    ctx.fillRect(0, 45, canvas.width, canvas.height - 45);
 
     ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
@@ -302,7 +309,7 @@ var Engine = (function(global) {
 
   function renderCharacterSelection() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 53, canvas.width, canvas.height - 53);
+    ctx.fillRect(0, 45, canvas.width, canvas.height - 45);
 
     ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
@@ -333,7 +340,7 @@ var Engine = (function(global) {
   // and within it: level, score, and lives
   function renderScorePanel() {
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, 53);
+    ctx.fillRect(0, 0, canvas.width, 45);
  
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';

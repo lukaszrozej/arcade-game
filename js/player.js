@@ -1,5 +1,5 @@
 class Player {
-    constructor(sprite = 'images/char-horn-girl.png') {
+    constructor(sprite = 'images/char-horn-girl.png', startingPosition) {
     this.sprite = sprite;
 
     this.body = new Sprite({
@@ -9,12 +9,12 @@ class Player {
       bottom: 102,
     });
 
-    this.startingPosition = {
+    this.startingPosition = Object.assign({
       x: 2 * 101,
       y: 5 * 83,
       z: 0,
       a: 0,
-    };
+    }, startingPosition);
 
     this.reset();
 
