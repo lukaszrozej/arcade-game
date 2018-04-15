@@ -2,6 +2,7 @@ class Doppelganger extends Player{
   constructor(sprite = 'images/char-horn-girl.png', startingPosition) {
     super(sprite, { y: 0 });
     this.lives = 100000;
+    this.deactivate();
   }
 
   activate() {

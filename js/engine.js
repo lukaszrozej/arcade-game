@@ -384,6 +384,9 @@ doppelganger.render();
       doppelganger.activate();
     }
 
+      console.log(doppelganger.state)
+
+
     player.reset();
     state = 'choose character';
   }
