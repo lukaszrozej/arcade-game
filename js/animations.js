@@ -3,7 +3,7 @@ class Animation {
     Object.assign(this, {
         duration: 1,
         numberOfJumps: 1,
-        height: 0,
+        heightFactor: 0,
       },
       props
     );
@@ -20,17 +20,22 @@ class Animation {
     Object.assign(this.sprite.position, this.from);
     const to = Object.assign({}, this.sprite.position, this.to);
 
+    const distanceX = to.x - this.sprite.position.x;
+    const distanceY = to.y - this.sprite.position.y;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    const height = distance * this.heightFactor;
+
     // Set velocity and gravity
     this.sprite.v.x = (to.x - this.sprite.position.x) / this.duration;
     this.sprite.v.y = (to.y - this.sprite.position.y) / this.duration;
     this.sprite.v.a = (to.a - this.sprite.position.a) / this.duration;
 
-    if (this.height === 0) {
+    if (height === 0) {
       this.sprite.v.z = (to.z - this.sprite.position.z) / this.duration;
       this.sprite.gravity = 0;
     } else {
       const t = this.duration / this.numberOfJumps;
-      this.sprite.v.z = 4 * this.height / t;
+      this.sprite.v.z = 4 * height / t;
       this.sprite.gravity = -2 * this.sprite.v.z / t;
     }
 

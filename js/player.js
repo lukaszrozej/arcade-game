@@ -366,7 +366,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 1,
-      height: 100,
+      heightFactor: 1/2,
     });
 
     this.trunkThrow = new Animation({
@@ -377,7 +377,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 1,
-      height: 100,
+      heightFactor: 1/2,
     });
 
     this.trunkJump = new Animation({
@@ -388,7 +388,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 4,
-      height: 15
+      heightFactor: 1/15,
     });
 
     this.hitAnimation = new AnimationParallel([
