@@ -151,8 +151,20 @@ class Player {
   }
 
   explode() {
+    this.state = 'killed';
+
+    Object.assign(this.head.position, this.body.position);
+    Object.assign(this.trunk.position, this.body.position);
+    Object.assign(this.explosion.position, this.body.position);
+
+    this.trunkThrow.to.x = this.col > 2 ? 0 : 404;
+    this.trunkThrow.to.a = this.col > 2 ? 4 * Math.PI : -4 * Math.PI;
+    this.headThrow.to.a = this.trunkThrow.to.a;
+
     this.animation = this.explodeAnimation;
     this.animation.initialize();
+
+    this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 
   currentPosition() {
@@ -491,18 +503,16 @@ class Player {
       this.headFall,
     ]);
 
-    this.explosionAnimation = new Animation({
-      sprite: this.explosion,
-      duration: 1,
-    });
-
     this.explodeAnimation = new AnimationParallel([
       new AnimationSequence([
         this.trunkThrow,
         this.trunkJump
       ]),
       this.headThrow,
-      this.explosionAnimation,
+      new Animation({
+        sprite: this.explosion,
+        duration: 1,
+      }),
     ]);
   }
 

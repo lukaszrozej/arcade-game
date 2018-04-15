@@ -39,12 +39,13 @@ class Animation {
       this.sprite.gravity = -2 * this.sprite.v.z / t;
     }
 
+    this.sprite.period = this.duration;
     this.sprite.resetFrames();
 
     this.time = 0;
   }
 
-    update(dt) {
+  update(dt) {
     if (this.done) return;
 
     if (!this.initialized) {
