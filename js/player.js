@@ -112,6 +112,15 @@ class Player {
     this.body.position.y = value;
   }
 
+  startLevel(level) {
+    const x = levels[level].startingColumn * 101;
+    this.startingPosition.x = x;
+    this.trunkJump.to.x = x;
+    this.headThrow.to.x = x;
+    this.goToStartingPosition()
+    this.say(levels[level].message);
+  }
+
   setStartingColumn(col) {
     this.startingPosition.x = col * 101;
     this.trunkJump.to.x = col * 101;

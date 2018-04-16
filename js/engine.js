@@ -166,10 +166,8 @@ var Engine = (function(global) {
           doppelganger.activate();
         }
 
-        player.setStartingColumn(levels[level].startingColumn);
-        // player.goToStartingPosition();
-        player.row = 5;
-        player.say(levels[level].message);
+
+        player.startLevel(level);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
         newBugs.forEach(bug => bug.update(dt));
