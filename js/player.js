@@ -92,6 +92,10 @@ class Player {
     return Math.round(this.body.position.x / 101); 
   }
 
+  set row(value) {
+    this.body.position.y = value * 83;
+  }
+
   get x() {
     return this.body.position.x;
   }
@@ -106,6 +110,10 @@ class Player {
 
   set y(value) {
     this.body.position.y = value;
+  }
+
+  setStartingColumn(col) {
+    this.startingPosition.x = col * 101;
   }
 
   move({direction, terrain, rocks, obstacles, doppelganger, }) {
@@ -156,6 +164,8 @@ class Player {
 
     const col = Math.round(newPosition.x / 101);
     const row = Math.round(newPosition.y / 83);
+
+    if (terrain[row][col] === 'tree') return;
 
     const rock = rocks.find(rock => rock.col === col && rock.row === row);
 
@@ -319,11 +329,12 @@ class Player {
     const tailHeight = 50;
 
     // Coordinates of lower left corner
-    const x = 202;
+    const x = this.x > 202 ? 202 : this.x;
     const y = 5 * 83;
 
     // Coordinates of tip
-    const tipX = 2 * 101 + 100;
+    // const tipX = 2 * 101 + 100;
+    const tipX = this.x + 100;
     const tipY = y + tailHeight;
 
     // Bubble dimensions

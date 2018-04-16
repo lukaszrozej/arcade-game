@@ -166,7 +166,9 @@ var Engine = (function(global) {
           doppelganger.activate();
         }
 
-        player.goToStartingPosition();
+        player.setStartingColumn(levels[level].startingColumn);
+        // player.goToStartingPosition();
+        player.row = 5;
         player.say(levels[level].message);
       } else {
         scrollProgress += dt * 83 * 5 / 2;
@@ -370,24 +372,24 @@ doppelganger.render();
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    level = 0;
+    level = 4;
 
-    terrain = getTerrainForLevel(0);
+    terrain = getTerrainForLevel(level);
 
-    bugs = createBugsForLevel(0);
+    bugs = createBugsForLevel(level);
 
-    items = createItemsForLevel(0);
+    items = createItemsForLevel(level);
 
-    rocks = createRocksForLevel(0);
+    rocks = createRocksForLevel(level);
 
-    if (levels[0].doppelganger) {
+    if (levels[level].doppelganger) {
       doppelganger.activate();
     }
 
-      console.log(doppelganger.state)
-
+    player.setStartingColumn(levels[level].startingColumn);
 
     player.reset();
+
     state = 'choose character';
   }
 
@@ -455,6 +457,7 @@ doppelganger.render();
     'images/big-splash.png',
     'images/start.png',
     'images/explosion.png',
+    'images/tree.png',
   ]);
   Resources.onReady(init);
 

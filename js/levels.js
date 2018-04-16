@@ -1,7 +1,7 @@
 const levels = [
   {
+    startingColumn: 2,
     terrain: [
-      // ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
@@ -32,6 +32,7 @@ const levels = [
               these bugs.`
   },
   {
+    startingColumn: 2,
     terrain: [
       ['water', 'water', 'water', 'water', 'water', ],
       ['water', 'water', 'water', 'water', 'water', ],
@@ -64,6 +65,7 @@ const levels = [
               on those bugs`
   },
   {
+    startingColumn: 2,
     terrain: [
       ['water', 'water', 'water', 'water', 'water', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
@@ -89,6 +91,7 @@ const levels = [
               into the water`
   },
   {
+    startingColumn: 2,
     terrain: [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
@@ -114,13 +117,45 @@ const levels = [
               I should avoid him`
   },
   {
+    startingColumn: 2,
+    terrain: [
+      ['grass', 'grass', 'tree', 'water', 'water', ],
+      ['grass', 'grass', 'tree', 'grass', 'grass', ],
+      ['grass', 'grass', 'tree', 'water', 'water', ],
+      ['grass', 'grass', 'water', 'water', 'water', ],
+      ['grass', 'grass', 'start', 'grass', 'grass', ],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 1,
+      options: {
+        rows: [
+          { row: 1, direction: -1 },
+          { row: 3, direction: -1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100,
+      },
+    },
+    items: [
+    ],
+    rocks: [
+      { col: 1, row: 1},
+      { col: 1, row: 3},
+    ],
+    message: `???`
+  },
+  {
+    startingColumn: 3,
     terrain: [
       ['grass', 'grass', 'start', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['grass', 'grass', 'start', 'grass', 'grass', ],
+      ['grass', 'grass', 'tree', 'start', 'grass', ],
     ],
     landBugs: {
       number: 6,
