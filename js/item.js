@@ -33,14 +33,15 @@ class Rock extends Item {
   }
 
   move(position, terrain, obstacles) {
-    if (position.col < 0 || position.col > 4
-      || position.row < 0 || position.row > 5) return false;
-
-    if (obstacles.find(obstacle =>
-      obstacle.row === position.row && obstacle.col === position.col)
+    if (position.col < 0
+      || position.col > 4
+      || position.row < 0
+      || position.row > 5
+      || obstacles.find(obstacle =>
+          obstacle.row === position.row && obstacle.col === position.col
+        )
+      || terrain[position.row][position.col] === 'tree'
     ) return false;
-
-    if (terrain[position.row][position.col] === 'tree') return false;
 
     this.row = position.row;
     this.col = position.col;
