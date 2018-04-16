@@ -114,7 +114,9 @@ var Engine = (function(global) {
           case 13:
             player.setCharacter(characterImages[currentCharacter]);
             doppelganger.setCharacter(characterImages[currentCharacter]);
-            player.say(levels[level].message);
+
+            player.startLevel(4);
+
             state = 'play';
             break;
           }
