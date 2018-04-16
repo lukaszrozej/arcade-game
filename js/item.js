@@ -40,6 +40,8 @@ class Rock extends Item {
       obstacle.row === position.row && obstacle.col === position.col)
     ) return false;
 
+    if (terrain[position.row][position.col] === 'tree') return false;
+
     this.row = position.row;
     this.col = position.col;
 
