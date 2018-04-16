@@ -114,6 +114,8 @@ class Player {
 
   setStartingColumn(col) {
     this.startingPosition.x = col * 101;
+    this.trunkJump.to.x = col * 101;
+    this.headThrow.to.x = col * 101;
   }
 
   move({direction, terrain, rocks, obstacles, doppelganger, }) {
