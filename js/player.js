@@ -117,6 +117,8 @@ class Player {
     this.startingPosition.x = x;
     this.trunkJump.to.x = x;
     this.headThrow.to.x = x;
+    this.headFall.to.x = x - 50;
+    this.trunkFall.to.x = x;
     this.goToStartingPosition()
     this.say(levels[level].message);
   }
