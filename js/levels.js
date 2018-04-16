@@ -119,20 +119,27 @@ const levels = [
   {
     startingColumn: 2,
     terrain: [
-      ['grass', 'grass', 'tree', 'water', 'water', ],
       ['grass', 'grass', 'tree', 'grass', 'grass', ],
+      ['stone', 'stone', 'tree', 'stone', 'stone', ],
       ['grass', 'grass', 'tree', 'water', 'water', ],
       ['grass', 'grass', 'water', 'water', 'water', ],
       ['grass', 'grass', 'start', 'grass', 'grass', ],
     ],
     landBugs: {
-      number: 0,
+      number: 2,
+      options: {
+        rows: [
+          { row: 2, direction: -1 },
+          { row: 2, direction: 1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100,
+      },
     },
     waterBugs: {
       number: 1,
       options: {
         rows: [
-          { row: 1, direction: -1 },
           { row: 3, direction: -1 },
         ],
         maxSpeed: 200,
