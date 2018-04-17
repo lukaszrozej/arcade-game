@@ -115,6 +115,10 @@ var Engine = (function(global) {
             player.setCharacter(characterImages[currentCharacter]);
             doppelganger.setCharacter(characterImages[currentCharacter]);
 
+            if (levels[level].doppelganger) {
+              doppelganger.startLevel(level);
+            }
+
             player.startLevel(level);
 
             state = 'play';
@@ -165,9 +169,8 @@ var Engine = (function(global) {
         rocks = newRocks;
 
         if (levels[level].doppelganger) {
-          doppelganger.activate();
+          doppelganger.startLevel(level);
         }
-
 
         player.startLevel(level);
       } else {
@@ -372,7 +375,7 @@ doppelganger.render();
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    level = 4;
+    level = 0;
 
     terrain = getTerrainForLevel(level);
 
