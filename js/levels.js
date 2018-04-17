@@ -260,7 +260,6 @@ const levels = [
   {
     startingColumn: 2,
     terrain: [
-      ['grass', 'grass', 'start', 'grass', 'grass', ],
       ['water', 'water', 'water', 'water', 'water', ],
       ['water', 'water', 'water', 'water', 'grass', ],
       ['grass', 'water', 'water', 'water', 'water', ],
@@ -299,7 +298,35 @@ const levels = [
     rocks: [
       { col: 0, row: 3 },
       { col: 4, row: 2 },
+      { col: 2, row: 0 },
     ],
     message: `How do I get to the gem?`
+  },
+ {
+    startingColumn: 1,
+    terrain: [
+      ['grass', 'grass', 'grass', 'tree', 'start', ],
+      ['grass', 'grass', 'grass', 'tree', 'grass', ],
+      ['grass', 'tree', 'water', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'tree', 'grass', ],
+      ['tree', 'grass', 'grass', 'tree', 'grass', ],
+      ['tree', 'start', 'grass', 'grass', 'tree', ],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+      { name: 'gem-orange', col: 4, row: 4 },
+    ],
+    rocks: [
+      { col: 2, row: 5 },
+      { col: 1, row: 4 },
+      { col: 0, row: 2 },
+      { col: 1, row: 1 },
+    ],
+    message: `What a labiryth!`
   },
 ]
