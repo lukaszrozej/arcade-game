@@ -113,6 +113,7 @@ class Player {
   }
 
   startLevel(level) {
+    this.state = 'alive';
     const x = levels[level].startingColumn * 101;
     this.startingPosition.x = x;
     this.trunkJump.to.x = x;
@@ -204,6 +205,7 @@ class Player {
   }
 
   explode() {
+    this.lives--;
     this.state = 'killed';
 
     Object.assign(this.head.position, this.body.position);
