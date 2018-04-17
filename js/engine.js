@@ -115,7 +115,7 @@ var Engine = (function(global) {
             player.setCharacter(characterImages[currentCharacter]);
             doppelganger.setCharacter(characterImages[currentCharacter]);
 
-            player.startLevel(4);
+            player.startLevel(level);
 
             state = 'play';
             break;
