@@ -157,32 +157,70 @@ const levels = [
   {
     startingColumn: 3,
     terrain: [
-      ['grass', 'grass', 'start', 'grass', 'grass', ],
       ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
-      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['tree', 'grass', 'tree', 'tree', 'tree', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['water', 'water', 'water', 'water', 'water', ],
       ['grass', 'grass', 'tree', 'start', 'grass', ],
     ],
     landBugs: {
-      number: 6,
+      number: 2,
       options: {
         rows: [
-          { row: 1, direction: -1 },
-          { row: 2, direction: 1 },
-          { row: 3, direction: -1 },
+          { row: 1, direction: 1 },
         ],
         maxSpeed: 300,
         minSpeed: 100
       },
     },
     waterBugs: {
-      number: 0,
+      number: 2,
+      options: {
+        rows: [
+          { row: 4, direction: 1 },
+          { row: 4, direction: -1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 0 },
+      { name: 'gem-orange', col: 0, row: 3 },
+      { name: 'gem-orange', col: 2, row: 3 },
+      { name: 'gem-orange', col: 4, row: 3 },
     ],
-    rocks: [],
-    message: `Bugs again`
+    rocks: [
+      { row: 3, col: 1 },
+      { row: 3, col: 3 },
+    ],
+    message: `???`
+  },
+  {
+    startingColumn: 4,
+    terrain: [
+      ['start', 'tree', 'tree', 'tree', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['tree', 'tree', 'tree', 'tree', 'start'],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 0,
+    },
+    doppelganger: true,
+    items: [
+      { name: 'gem-orange', col: 3, row: 1 },
+      { name: 'gem-orange', col: 3, row: 4 },
+      { name: 'gem-orange', col: 1, row: 2 },
+      { name: 'gem-orange', col: 1, row: 3 },
+    ],
+    rocks: [
+    ],
+    message: `How to collect the gems
+              before the doppelganger?`
   },
 ]
