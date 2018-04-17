@@ -114,7 +114,7 @@ const levels = [
     ],
     doppelganger: true,
     message: `My evil doppelganger!!
-              I should avoid him`
+              If we meet we explode!`
   },
   {
     startingColumn: 2,
@@ -198,7 +198,6 @@ const levels = [
   {
     startingColumn: 4,
     terrain: [
-      ['start', 'tree', 'tree', 'tree', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
@@ -222,5 +221,85 @@ const levels = [
     ],
     message: `How to collect the gems
               before the doppelganger?`
+  },
+  {
+    startingColumn: 0,
+    terrain: [
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'stone', 'stone', ],
+      ['start', 'tree', 'tree', 'tree', 'grass', ],
+    ],
+    landBugs: {
+      number: 3,
+      options: {
+        rows: [
+          { row: 2, direction: 1 },
+          { row: 2, direction: -1 },
+          { row: 3, direction: 1 },
+          { row: 3, direction: -1 },
+          { row: 4, direction: 1 },
+          { row: 4, direction: -1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+    ],
+    rocks: [
+      { col: 3, row: 3 }
+    ],
+    message: `Why is this rock
+              so far from here?`
+  },
+  {
+    startingColumn: 2,
+    terrain: [
+      ['grass', 'grass', 'start', 'grass', 'grass', ],
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'water', 'water', 'grass', ],
+      ['grass', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'water', 'water', 'water', ],
+      ['water', 'water', 'start', 'water', 'grass', ],
+    ],
+    landBugs: {
+      number: 0,
+      options: {
+        rows: [
+          { row: 2, direction: 1 },
+          { row: 2, direction: -1 },
+          { row: 3, direction: 1 },
+          { row: 3, direction: -1 },
+          { row: 4, direction: 1 },
+          { row: 4, direction: -1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
+    },
+    waterBugs: {
+      number: 4,
+      options: {
+        rows: [
+          { row: 4, direction: -1 },
+          { row: 1, direction: 1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
+    },
+    items: [
+      { name: 'gem-orange', col: 4, row: 5 },
+    ],
+    rocks: [
+      { col: 0, row: 3 },
+      { col: 4, row: 2 },
+    ],
+    message: `How do I get to the gem?`
   },
 ]
