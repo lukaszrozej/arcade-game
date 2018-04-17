@@ -375,7 +375,7 @@ doppelganger.render();
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    level = 8;
+    level = 9;
 
     terrain = getTerrainForLevel(level);
 

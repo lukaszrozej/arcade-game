@@ -305,8 +305,8 @@ const levels = [
  {
     startingColumn: 1,
     terrain: [
-      ['grass', 'grass', 'grass', 'tree', 'start', ],
-      ['grass', 'grass', 'grass', 'tree', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'start', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'tree', 'water', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'tree', 'grass', ],
       ['tree', 'grass', 'grass', 'tree', 'grass', ],
@@ -326,6 +326,8 @@ const levels = [
       { col: 1, row: 4 },
       { col: 0, row: 2 },
       { col: 1, row: 1 },
+      { col: 3, row: 0 },
+      { col: 3, row: 1 },
     ],
     message: `What a labiryth!`
   },
