@@ -397,6 +397,7 @@ const levels = [
       { col: 4, row: 3 },
       { col: 3, row: 1 },
       { col: 3, row: 0 },
+      { col: 4, row: 1 },
     ],
     message: `I need that key
               to open the door.`
