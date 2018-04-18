@@ -305,7 +305,6 @@ const levels = [
  {
     startingColumn: 1,
     terrain: [
-      ['grass', 'grass', 'grass', 'grass', 'start', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'tree', 'water', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'tree', 'grass', ],
@@ -330,5 +329,76 @@ const levels = [
       { col: 3, row: 1 },
     ],
     message: `What a labiryth!`
+  },
+  {
+    startingColumn: 4,
+    terrain: [
+      ['water', 'water', 'water', 'water', 'stone', ],
+      ['water', 'water', 'water', 'stone', 'stone', ],
+      ['stone', 'stone', 'water', 'water', 'water', ],
+      ['stone', 'stone', 'water', 'water', 'water', ],
+      ['grass', 'grass', 'grass', 'grass', 'start', ],
+    ],
+    landBugs: {
+      number: 2,
+      options: {
+        rows: [
+          { row: 4, direction: 1 },
+          { row: 3, direction: 1 },
+          { row: 2, direction: -1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
+    },
+    waterBugs: {
+      number: 3,
+      options: {
+        rows: [
+          { row: 4, direction: -1 },
+          { row: 2, direction: 1 },
+        ],
+        maxSpeed: 200,
+        minSpeed: 100
+      },
+    },
+    items: [
+      { name: 'gem-orange', col: 0, row: 0 },
+    ],
+    rocks: [
+      { col: 0, row: 5 },
+      { col: 3, row: 5 },
+      { col: 3, row: 0 },
+    ],
+    message: `And bugs one more time`
+  },
+  {
+    startingColumn: 2,
+    terrain: [
+      ['tree', 'door', 'grass', 'grass', 'grass', ],
+      ['tree', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'tree', 'grass', 'grass', 'grass', ],
+      ['water', 'tree', 'grass', 'tree', 'grass'],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'start', 'grass', 'grass', ],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+       { name: 'gem-orange', col: 0, row: 5 },
+       { name: 'key', col: 0, row: 2 },
+    ],
+    rocks: [
+      { col: 1, row: 5 },
+      { col: 4, row: 3 },
+      { col: 3, row: 1 },
+      { col: 3, row: 0 },
+    ],
+    message: `I need that key
+              to open the door.`
   },
 ]
