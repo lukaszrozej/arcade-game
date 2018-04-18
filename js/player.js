@@ -25,6 +25,7 @@ class Player {
   reset() {
     this.score = 0;
     this.lives = 3
+    this.hasKey = false;
     this.state = 'alive';
     this.talking = false;
     this.finishedLevel = false;
@@ -179,14 +180,16 @@ class Player {
     const col = Math.round(newPosition.x / 101);
     const row = Math.round(newPosition.y / 83);
 
-    if (terrain[row][col] === 'tree') return;
+console.log(this.hasKey)
+
+    if (terrain[row][col] === 'tree' || (terrain[row][col] === 'door' && !this.hasKey)) return;
 
     const rock = rocks.find(rock => rock.col === col && rock.row === row);
 
     if(!rock || rock.move(rockNewPosition, terrain, [...obstacles, doppelganger])) {
       this.body.position = newPosition;
       this.body.v.x = 0;
-      if (this.row === 0 && terrain[this.row][this.col] === 'start') {
+      if ((this.row === 0 && terrain[this.row][this.col] === 'start') || terrain[this.row][this.col] === 'door') {
         this.finishedLevel = true;
       }
     }
@@ -245,6 +248,7 @@ class Player {
             this.score++;
           break;
         case 'key':
+          this.hasKey = true;
           break;
       }
       items.splice(index, 1);
