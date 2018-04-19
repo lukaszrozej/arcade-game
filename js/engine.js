@@ -377,6 +377,15 @@ doppelganger.render();
   function renderBottomPanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 606 - 53, canvas.width, 53);
+
+    ctx.font = '24px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'start'
+
+    ctx.fillText(`Move: ⬅ ⬆ ➡ ⬇`, 8, canvas.height - 45) ;
+    ctx.textAlign = 'end';
+    ctx.fillText(`Restart level: R`, canvas.width - 8, canvas.height - 45) ;
   }
 
   /* This function does nothing but it could have been a good place to
@@ -384,7 +393,7 @@ doppelganger.render();
    * those sorts of things. It's only called once by the init() method.
    */
   function reset() {
-    level = 11;
+    level = 0;
 
     terrain = getTerrainForLevel(level);
 
