@@ -320,7 +320,7 @@ doppelganger.render();
 
   function renderCharacterSelection() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 45, canvas.width, canvas.height - 45);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
@@ -351,17 +351,21 @@ doppelganger.render();
   // and within it: level, score, and lives
   function renderScorePanel() {
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, 45);
+    ctx.fillRect(0, 0, canvas.width, 40);
  
     ctx.font = '32px sans-serif';
     ctx.fillStyle = 'white';
     ctx.textBaseline = 'top';
     ctx.textAlign = 'start'
-    ctx.fillText(`Level: ${level}`, 4, 8);
-    ctx.fillText(`Score: ${player.score}`, 140, 8);
+    // ctx.fillText(`Level: ${level}`, 4, 4);
+    ctx.fillText(`Score: ${player.score}`, 4, 0);
  
     for (let i = 1; i <= player.lives; i++) {
-      ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 10);
+      ctx.drawImage(Resources.get('images/heart-small.png'), canvas.width - 4 - i * 32, 4);
+    }
+
+    if (player.hasKey) {
+      ctx.drawImage(Resources.get('images/key-small.png'), 252 - 16, 6)
     }
   }
 
@@ -455,6 +459,7 @@ doppelganger.render();
     'images/gem-green.png',
     'images/gem-blue.png',
     'images/key.png',
+    'images/key-small.png',
     'images/rock.png',
     'images/rock-in-water.png',
     'images/big-splash.png',
