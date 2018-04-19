@@ -180,8 +180,6 @@ class Player {
     const col = Math.round(newPosition.x / 101);
     const row = Math.round(newPosition.y / 83);
 
-console.log(this.hasKey)
-
     if (terrain[row][col] === 'tree' || (terrain[row][col] === 'door' && !this.hasKey)) return;
 
     const rock = rocks.find(rock => rock.col === col && rock.row === row);
