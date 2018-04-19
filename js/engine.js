@@ -305,7 +305,7 @@ doppelganger.render();
 
   function renderMessage(message) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 45, canvas.width, canvas.height - 45);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.textBaseline = 'top';
     ctx.textAlign = 'center'
