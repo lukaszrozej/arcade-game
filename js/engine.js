@@ -127,6 +127,10 @@ var Engine = (function(global) {
         currentCharacter %= 5;
         break;
       case 'play':
+        if (e.keyCode === 82) {
+          restartCurrentLevel();
+        }
+
         const directions = {
           37: 'left',
           38: 'up',
@@ -173,6 +177,7 @@ var Engine = (function(global) {
         }
 
         player.startLevel(level);
+        player.save();
       } else {
         scrollProgress += dt * 83 * 5 / 2;
         newBugs.forEach(bug => bug.update(dt));
@@ -397,7 +402,19 @@ doppelganger.render();
 
     player.reset();
 
+    player.save();
+
     state = 'choose character';
+  }
+
+  function restartCurrentLevel() {
+    items = createItemsForLevel(level);
+    rocks = createRocksForLevel(level);
+    if (levels[level].doppelganger) {
+      doppelganger.activate();
+    }
+    player.restore();
+    player.goToStartingPosition();
   }
 
   function getTerrainForLevel(levelNumber) {

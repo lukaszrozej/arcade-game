@@ -21,6 +21,18 @@ class Player {
     this.defineAnimations();
   }
 
+  save() {
+    this.saved = {
+      lives: this.lives,
+      score: this.score,
+      hasKey: this.hasKey,
+    };
+  }
+
+  restore() {
+    Object.assign(this, this.saved);
+  }
+
   // Resets the player's position to bottom center
   reset() {
     this.score = 0;
