@@ -8,7 +8,7 @@ class Sprite {
    * @param {string} props.url - url of the image containing sprite frames
    * @param {number} props.spriteOffset - distance from the top of the image to the top of the frames
    * @param {Object} props.center - coordinates of the point around which rotation occurs
-   * @param {number} props.bottom - distance from the top of the frame to the bottom of the entity depicted
+   * @param {number} props.bottom - distance from the top of the frame to the bottom of the entity depicted (used for clipping)
    * @param {number} props.numberOfFrames - number of frames
    * @param {number} props.period - time it takes to go through all the frames
    * @param {boolean} props.once - true if frames should be render once and not cycled through
