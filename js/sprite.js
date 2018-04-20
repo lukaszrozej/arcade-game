@@ -1,6 +1,23 @@
+/** Class representing a sprite
+ *  - a collection of frames that are rendered in a sequence and can move around the screen
+ */
 class Sprite {
+
+  /** Create a sprite
+   * @param {Object} props - properties of the sprite
+   * @param {string} props.url - url of the image containing sprite frames
+   * @param {number} props.spriteOffset - distance from the top of the image to the top of the frames
+   * @param {Object} props.center - coordinates of the point around which rotation occurs
+   * @param {number} props.bottom - distance from the top of the frame to the bottom of the entity depicted
+   * @param {number} props.numberOfFrames - number of frames
+   * @param {number} props.period - time it takes to go through all the frames
+   * @param {boolean} props.once - true if frames should be render once and not cycled through
+   * @param {string} props.filter - filter that is applied to when rendering
+   * @param {string} props.position - position (x, y, z and a - angle) of the sprite
+   * @param {string} props.v - velocity (x, y, z and a - angle) of the sprite
+   * @param {string} props.gravity - acceleration in the z direction
+  */
   constructor(props) {
-    // url, spriteOffset, center, bottom, numberOfFrames, period, once
     Object.assign(this, {
         position: { x: 0, y: 0, z: 0, a: 0, },
         v: { x: 0, y: 0, z: 0, a: 0, },
@@ -18,6 +35,9 @@ class Sprite {
     this.resetFrames();
   }
 
+
+  /** Reset the frames state so that they'll start from the begining
+   */
   resetFrames() {
     this.frameTime = this.period / this.numberOfFrames;
     this.frame = 0;
@@ -25,6 +45,9 @@ class Sprite {
     this.done = false;
   }
 
+  /** Update the position, velocity and frame of the sprite
+   * @param {number} dt - time since the previous update
+   */
   update(dt) {
     // Bounce of the floor
     if (this.position.z < 0 && this.gravity !== 0) {
@@ -34,6 +57,7 @@ class Sprite {
       this.v.z += dt * this.gravity;
     }
 
+    // Update position
     this.position.x += dt * this.v.x;
     this.position.y += dt * this.v.y;
     this.position.z += dt * this.v.z;
@@ -41,6 +65,7 @@ class Sprite {
 
     if (this.done) return;
 
+    // Update frame
     this.time += dt;
     if (this.once && this.time >= this.period) {
       this.done = true;
@@ -51,6 +76,8 @@ class Sprite {
     this.frame = Math.floor(this.time / this.frameTime)
   }
 
+  /** Render the sprite on screen
+   */
   render() {
     ctx.save();
 
