@@ -94,8 +94,8 @@ const levels = [
     startingColumn: 2,
     terrain: [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
-      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'tree', 'grass', 'grass', ],
+      ['grass', 'grass', 'tree', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'start', 'grass', 'grass', ],
     ],
@@ -106,11 +106,8 @@ const levels = [
       number: 0,
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 3 },
     ],
     rocks: [
-      { col: 0, row: 1},
-      { col: 3, row: 1},
     ],
     doppelganger: true,
     message: `My evil doppelganger!!
