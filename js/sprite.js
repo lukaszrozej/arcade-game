@@ -10,6 +10,7 @@ class Sprite {
         once: true,
         spriteOffset: 0,
         center: { x: 0,  y: 0 },
+        filter: '',
       },
       props
     );
@@ -52,6 +53,8 @@ class Sprite {
 
   render() {
     ctx.save();
+
+    ctx.filter = this.filter;
 
     if (this.position.z < 0 && this.gravity === 0) {
       const clipY = this.position.y + this.bottom;
