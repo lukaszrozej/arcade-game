@@ -156,13 +156,13 @@ class Player {
     switch (direction) {
       case 'left':
         if (this.col === 0) return;
-        explosion = doppelganger.row === this.row && doppelganger.x >= this.x - 101;
+        explosion = doppelganger.row === this.row && doppelganger.col === this.col - 1;
         newPosition.x -= 101;
         rockNewPosition.col -= 2;
         break;
       case 'right':
         if (this.col === 4) return;
-        explosion = doppelganger.row === this.row && doppelganger.x <= this.x + 101;
+        explosion = doppelganger.row === this.row && doppelganger.col === this.col + 1;
         newPosition.x += 101;
         rockNewPosition.col += 2;
         break;
