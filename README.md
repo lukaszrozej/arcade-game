@@ -12,9 +12,16 @@ Avoid contact with land bugs and doppelganger.
 Avoid falling into water.
 You can jump on water bugs.
 You can push the rocks around.
-You can collect orange gems for points and green gems for lives.
+You can collect: keys to open a door, orange gems for points and green gems for lives.
 
-Use arrow keys to move. If you get stuck in level press R to restart it.
+You can't move if you have the following obstacles in your way:
+a tree, two rocks in a row, a rock and a collectible item in row.
+
+Use arrow keys to move.
+Your doppelganger reacts to arrow keys with up and down switched.
+
+
+If you get stuck in level press R to restart it.
 
 ## How to run
 
