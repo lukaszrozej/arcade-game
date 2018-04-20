@@ -7,7 +7,14 @@ A project for Udacity [Front-End Nanodegree](https://eu.udacity.com/course/front
 
 You can play the game [here](https://lukaszrozej.github.io/arcade-game/)
 
-Use arrow keys to move. Get to the river at the top of the screen. Avoid contact with the bugs.
+Get to the wooden spot at the top of the screen.
+Avoid contact with land bugs and doppelganger.
+Avoid falling into water.
+You can jump on water bugs.
+You can push the rocks around.
+You can collect orange gems for points and green gems for lives.
+
+Use arrow keys to move. If you get stuck in level press R to restart it.
 
 ## How to run
 
