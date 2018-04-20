@@ -417,6 +417,7 @@ doppelganger.render();
   }
 
   function restartCurrentLevel() {
+    terrain = getTerrainForLevel(level);
     items = createItemsForLevel(level);
     rocks = createRocksForLevel(level);
     if (levels[level].doppelganger) {
