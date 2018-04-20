@@ -1,4 +1,18 @@
+/** Class representing animation of a sprite
+ */
 class Animation {
+
+  /** Create an animation
+   * @param {Object} props - properties of the animation
+   * @param {Sprite} props.sprite - the sprite to be animated
+   * @param {Object} props.from - starting position (x, y, z, a - angle) of the animation
+                                  if not specified animation starts at current sprite position
+   * @param {Object} props.to - final position (x, y, z, a - angle) of the animation
+   * @param {Object} props.duration - duration of the animation
+   * @param {Object} props.numberOfJumps - how many times the sprite should jump
+   * @param {Object} props.heightFactor - is multiplied by distance covered by the animation
+                                          to calculate how heigh the sprite will move in the z direction
+   */
   constructor(props) {
     Object.assign(this, {
         duration: 1,
