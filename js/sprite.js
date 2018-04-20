@@ -27,6 +27,7 @@ class Sprite {
         once: true,
         spriteOffset: 0,
         center: { x: 0,  y: 0 },
+        bottom: 171,
         filter: '',
       },
       props
