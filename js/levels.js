@@ -95,7 +95,7 @@ const levels = [
     terrain: [
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'tree', 'grass', 'grass', ],
-      ['grass', 'grass', 'tree', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'grass', 'grass', 'grass', ],
       ['grass', 'grass', 'start', 'grass', 'grass', ],
     ],
@@ -112,6 +112,43 @@ const levels = [
     doppelganger: true,
     message: `My evil doppelganger!!
               If we meet we explode!`
+  },
+  {
+    startingColumn: 2,
+    terrain: [
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'grass', 'water', 'grass', ],
+      ['grass', 'grass', 'grass', 'water', 'grass', ],
+      ['grass', 'grass', 'grass', 'grass', 'grass', ],
+      ['grass', 'grass', 'start', 'grass', 'grass', ],
+    ],
+    landBugs: {
+      number: 0,
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+      { name: 'gem-orange', col: 0, row: 2 },
+      { name: 'gem-orange', col: 1, row: 4 },
+      { name: 'gem-orange', col: 4, row: 4 },
+    ],
+    rocks: [
+      { row: 1, col: 0 },
+      { row: 1, col: 1 },
+      { row: 1, col: 2 },
+      { row: 1, col: 3 },
+      { row: 1, col: 4 },
+      { row: 2, col: 4 },
+      { row: 3, col: 0 },
+      { row: 3, col: 1 },
+      { row: 4, col: 2 },
+      { row: 4, col: 3 },
+    ],
+    doppelganger: true,
+    message: `How do I get through this
+              collecting all the gems
+              and not exploding?`
   },
   {
     startingColumn: 2,
