@@ -401,10 +401,7 @@ class Player {
     ctx.font = '24px sans-serif';
     const textWidth = Math.max(...textLines.map(line => ctx.measureText(line).width));
 
-    // Speech bubble:
-    // adapted from: http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
-
-    // Corner radius
+     // Corner radius
     const radius = 25;
 
     const tailHeight = 50;
