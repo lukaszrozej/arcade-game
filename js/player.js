@@ -240,18 +240,27 @@ class Player {
     }
   }
 
+  /** Revive the player
+    * @description It'c called after an animation of losing life finishes
+    */
   revive() {
     this.state = 'alive';
     this.goToStartingPosition()
     this.say(this.message);
   }
 
+  /** Show player's death
+    * @description It'c called after an animation of losing life finishes
+    *   and the player has no more life
+    */
   die() {
     this.state = 'dead';
     this.animation = this.dieAnimation;
     this.animation.initialize();
   }
 
+  /** Explode the player
+   */
   explode() {
     this.lives--;
     this.state = 'killed';
