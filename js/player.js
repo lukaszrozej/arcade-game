@@ -458,16 +458,28 @@ class Player {
     });
   }
 
+  /** Say the given text
+   * @param {string} text - text text to be said by the player
+   */
   say(text) {
     this.talking = true;
     this.currentText = text;
   }
 
+  /** Go to the starting position
+   */
   goToStartingPosition() {
     Object.assign(this.body.position, this.startingPosition);
     this.body.v = { x: 0, y: 0, z: 0, a: 0 }
   }
 
+  /** Define animations
+   * @description
+   *  Defines sprites: head, trunk, splash, explosion
+   *  that are used in animations
+   *  and defines the animations themselves
+   *  The animations are displayed when the player loses life
+   */
   defineAnimations() {
     this.head = new Sprite({
       url: this.sprite,
@@ -637,6 +649,11 @@ class Player {
 
 }
 
+/** @constant
+  * @type {string[]}
+  * @description
+  *   Array of messages to be shown when the player loses life
+  */
 const hitMessages = [
   `Ouch, that hurt!`,
   `No wonder I got hit.
