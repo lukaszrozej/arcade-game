@@ -4,6 +4,10 @@ class Player {
 
   /** Create a player
    * @param {string} sprite - url of the image of the player sprite
+   *  The image should contain 3 sections:
+   *    - top section for the whole body
+   *    - middle section for the head
+   *    - bottom section for the trunk
    * @param {Object} startingPosition - position (x, y, z, a - angle)
    *    where the player starts level
    */
@@ -39,11 +43,14 @@ class Player {
     };
   }
 
+  /** Restore the saved lives, score and hasKey properties
+   */
   restore() {
     Object.assign(this, this.saved);
   }
 
-  // Resets the player's position to bottom center
+  /** Reset the player's properties to their starting values
+   */
   reset() {
     this.score = 0;
     this.lives = 3
@@ -54,6 +61,9 @@ class Player {
     this.goToStartingPosition();
   }
 
+  /** Update the player's state
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     switch (this.state) {
       case 'alive':
@@ -84,6 +94,9 @@ class Player {
     }
   }
 
+  /** Set the character for the player
+   * @param {string} url - url of the character's image
+   */
   setCharacter(url) {
     this.sprite = url;
     this.body.url = url;
