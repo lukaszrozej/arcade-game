@@ -1,4 +1,16 @@
 /** Class representing animation of a sprite
+ * @description The sprite's frames are displayed
+ *  with a period equal to the aniamtion duration.
+ *  The sprite is moved through the screen.
+ *  The movement starts at position:
+ *    - this.from if it's defined or
+ *    - current sprite position otherwise
+ *  The movement stops at position:
+ *    - this.to if it's defined or
+ *    - current sprite position otherwise
+ *  The movement in the x, y directions has constant velocity
+ *  If heightFactor is not zero the movement happens also in the z direction.
+ *  numberOfJumps jumps happen in the z direction
  */
 class Animation {
 
@@ -61,7 +73,7 @@ class Animation {
   }
 
   /** Update the animation state
-   * @param {number} dt - time since previous update
+   * @param {number} dt - time since previous update or initilize
    */
   update(dt) {
     if (this.done) return;
@@ -112,7 +124,7 @@ class AnimationSequence {
   }
 
   /** Update the animation state
-   * @param {number} dt - time since previous update
+   * @param {number} dt - time since previous update or initilize
    */
   update(dt) {
     if (this.done) return;
@@ -165,7 +177,7 @@ class AnimationParallel {
   }
 
   /** Update the animation state
-   * @param {number} dt - time since previous update
+   * @param {number} dt - time since previous update or initilize
    */
   update(dt) {
     if (this.done) return;
