@@ -1,6 +1,6 @@
 /** Class representing player's doppelganger
  */
-class Doppelganger extends Player{
+class Doppelganger extends Player {
 
   /** Create doppelganger
    * @param {string} sprite - url of the image of the player sprite
@@ -44,7 +44,6 @@ class Doppelganger extends Player{
     super.move(props);
   }
 
-  say(text) {
-  }
+  say(text) {}
 
 }
