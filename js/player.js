@@ -279,15 +279,6 @@ class Player {
     this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 
-  currentPosition() {
-    return {
-      x: this.col * 101,
-      y: this.row * 83,
-      z: 0,
-      a: 0,
-    }
-  }
-
   collect(items) {
     const index = items.findIndex(item => item.row === this.row && item.col === this.col);
     if (index >= 0) {
