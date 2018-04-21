@@ -104,6 +104,8 @@ class Player {
     this.trunk.url = url;
   }
 
+  /** Render the player
+   */
   render() {
     switch (this.state) {
       case 'dead':
@@ -148,6 +150,9 @@ class Player {
     this.body.position.y = value;
   }
 
+  /** Start a level 
+   * @param {number} level - index of the level in the levels array
+   */
   startLevel(level) {
     this.state = 'alive';
     const x = levels[level].startingColumn * 101;
@@ -160,6 +165,19 @@ class Player {
     this.say(levels[level].message);
   }
 
+  /** Move player
+   * @description - The player moves if:
+   *  - there are no rocks or items or trees ahead in the given direction
+   *    and the screen doesn't end
+   *  - there is a rock and it can move in the same direction, then the rock is pushed
+   *  After the movement collision with doppelganger and finish of level are detected
+   * @param {Object} params - parameter of the movement
+   * @param {string} params.direction - direction ('up', 'down, 'left' or 'right')
+   * @param {Array} params.terrain - terrain
+   * @param {Rock[]} params.rocks - array of rocks on current level
+   * @param {Object[]} params.obstackles - array of all obstackles (items, rocks, bugs) on current level
+   * @param {Player} params.doppelganger - doppelganger of the player
+   */
   move({ direction, terrain, rocks, obstacles, doppelganger, }) {
     if (this.state !== 'alive') return;
 
