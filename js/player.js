@@ -1,11 +1,11 @@
 class Player {
-    constructor(sprite = 'images/char-horn-girl.png', startingPosition) {
+  constructor(sprite = 'images/char-horn-girl.png', startingPosition) {
     this.sprite = sprite;
 
     this.body = new Sprite({
       url: this.sprite,
       spriteOffset: 0,
-      center: { x: 50,  y: 90 },
+      center: { x: 50, y: 90 },
       bottom: 102,
     });
 
@@ -98,11 +98,11 @@ class Player {
   }
 
   get row() {
-    return Math.round(this.body.position.y / 83); 
+    return Math.round(this.body.position.y / 83);
   }
 
   get col() {
-    return Math.round(this.body.position.x / 101); 
+    return Math.round(this.body.position.x / 101);
   }
 
   set row(value) {
@@ -143,7 +143,7 @@ class Player {
     this.headThrow.to.x = col * 101;
   }
 
-  move({direction, terrain, rocks, obstacles, doppelganger, }) {
+  move({ direction, terrain, rocks, obstacles, doppelganger, }) {
     if (this.state !== 'alive') return;
 
     // Don't talk when you walk :)
@@ -196,7 +196,7 @@ class Player {
 
     const rock = rocks.find(rock => rock.col === col && rock.row === row);
 
-    if(!rock || rock.move(rockNewPosition, terrain, [...obstacles, doppelganger])) {
+    if (!rock || rock.move(rockNewPosition, terrain, [...obstacles, doppelganger])) {
       this.body.position = newPosition;
       this.body.v.x = 0;
       if ((this.row === 0 && terrain[this.row][this.col] === 'start') || terrain[this.row][this.col] === 'door') {
@@ -249,13 +249,13 @@ class Player {
     if (index >= 0) {
       switch (items[index].name) {
         case 'gem-orange':
-            this.score++;
+          this.score++;
           break;
         case 'gem-green':
-            this.lives++;
+          this.lives++;
           break;
         case 'gem-blue':
-            this.score++;
+          this.score++;
           break;
         case 'key':
           this.hasKey = true;
@@ -371,7 +371,6 @@ class Player {
     const width = textWidth + radius > MIN_WIDTH ? textWidth + radius : MIN_WIDTH;
     const height = textLines.length * 30 + radius;
 
-
     ctx.beginPath();
     ctx.moveTo(tipX, tipY);
     // tail left edge
@@ -424,21 +423,21 @@ class Player {
     this.head = new Sprite({
       url: this.sprite,
       spriteOffset: 171,
-      center: { x: 50,  y: 60 },
+      center: { x: 50, y: 60 },
       bottom: 102,
     });
 
     this.trunk = new Sprite({
       url: this.sprite,
       spriteOffset: 2 * 171,
-      center: { x: 50,  y: 90 },
+      center: { x: 50, y: 90 },
       bottom: 102,
     });
 
     this.splash = new Sprite({
       url: 'images/splash.png',
       spriteOffset: 0,
-      center: { x: 50,  y: 90 },
+      center: { x: 50, y: 90 },
       numberOfFrames: 9,
       period: 1,
       once: true,
@@ -447,7 +446,7 @@ class Player {
     this.explosion = new Sprite({
       url: 'images/explosion.png',
       spriteOffset: 0,
-      center: { x: 50,  y: 90 },
+      center: { x: 50, y: 90 },
       numberOfFrames: 32,
       period: 2,
       once: true,
@@ -461,7 +460,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 1,
-      heightFactor: 1/2,
+      heightFactor: 1 / 2,
     });
 
     this.trunkThrow = new Animation({
@@ -472,7 +471,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 1,
-      heightFactor: 1/2,
+      heightFactor: 1 / 2,
     });
 
     this.trunkJump = new Animation({
@@ -483,7 +482,7 @@ class Player {
       },
       duration: 1,
       numberOfJumps: 4,
-      heightFactor: 1/15,
+      heightFactor: 1 / 15,
     });
 
     this.hitAnimation = new AnimationParallel([
