@@ -173,7 +173,7 @@ class Player {
    *  After the movement collision with doppelganger and finish of level are detected
    * @param {Object} params - parameter of the movement
    * @param {string} params.direction - direction ('up', 'down, 'left' or 'right')
-   * @param {Array} params.terrain - terrain
+   * @param {string[][]} params.terrain - terrain
    * @param {Rock[]} params.rocks - array of rocks on current level
    * @param {Object[]} params.obstackles - array of all obstackles (items, rocks, bugs) on current level
    * @param {Player} params.doppelganger - doppelganger of the player
@@ -279,6 +279,9 @@ class Player {
     this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 
+  /** Collect an item
+   * @param {Item[]} items - array of items on current level
+   */
   collect(items) {
     const index = items.findIndex(item => item.row === this.row && item.col === this.col);
     if (index >= 0) {
@@ -300,6 +303,9 @@ class Player {
     }
   }
 
+  /** Handle collisions with bugs
+   * @param {Bug[]} bugs - array of bugs on the current level
+   */
   handleCollisions(bugs) {
     if (this.state !== 'alive') return;
 
@@ -329,6 +335,13 @@ class Player {
     }
   }
 
+  /** Handle terrain in current player position
+   * @description If the terrain for the current player row and column
+   *  is water and the player is not on a bug
+   *  drowning animation is initialized
+   *  Otherwise the player position snaps to grid
+   * @param {string[][]} - terrain for the current level
+   */
   handleTerrain(terrain) {
     if (this.state !== 'alive') return;
 
@@ -339,6 +352,7 @@ class Player {
       this.lives--;
       this.state = 'killed';
 
+      // Start drowning animation
       Object.assign(this.splash.position, this.body.position);
 
       let row = this.row;
@@ -375,6 +389,9 @@ class Player {
     }
   }
 
+  /** Render speach bubble
+   * @param {string} text - text to be rendered in the bubble
+   */
   renderSpeech(text) {
 
     // Split text into lines, omit unneccessary whitespace:
