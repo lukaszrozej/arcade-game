@@ -29,6 +29,8 @@ class Player {
     this.defineAnimations();
   }
 
+  /** Save the player's lives, score, and hasKey properties
+   */
   save() {
     this.saved = {
       lives: this.lives,
@@ -143,12 +145,6 @@ class Player {
     this.trunkFall.to.x = x;
     this.goToStartingPosition()
     this.say(levels[level].message);
-  }
-
-  setStartingColumn(col) {
-    this.startingPosition.x = col * 101;
-    this.trunkJump.to.x = col * 101;
-    this.headThrow.to.x = col * 101;
   }
 
   move({ direction, terrain, rocks, obstacles, doppelganger, }) {

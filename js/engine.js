@@ -407,8 +407,6 @@ doppelganger.render();
       doppelganger.activate();
     }
 
-    player.setStartingColumn(levels[level].startingColumn);
-
     player.reset();
 
     player.save();
