@@ -6,12 +6,10 @@ class Animation {
    * @param {Object} props - properties of the animation
    * @param {Sprite} props.sprite - the sprite to be animated
    * @param {Object} props.from - starting position (x, y, z, a - angle) of the animation
-                                  if not specified animation starts at current sprite position
    * @param {Object} props.to - final position (x, y, z, a - angle) of the animation
    * @param {Object} props.duration - duration of the animation
    * @param {Object} props.numberOfJumps - how many times the sprite should jump
-   * @param {Object} props.heightFactor - is multiplied by distance covered by the animation
-                                          to calculate how heigh the sprite will move in the z direction
+   * @param {Object} props.heightFactor - ratio of the height of the animation to the distance covered
    */
   constructor(props) {
     Object.assign(this, {
@@ -26,6 +24,9 @@ class Animation {
     this.done = false;
   }
 
+  /** Initialize animation
+   * @description Should be called before each animation run
+   */  
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -59,6 +60,9 @@ class Animation {
     this.time = 0;
   }
 
+  /** Update the animation state
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     if (this.done) return;
 
@@ -76,19 +80,29 @@ class Animation {
     }
   }
 
+  /** Render the current state of the animation
+   */
   render() {
     this.sprite.render();
   }
 }
 
+/** Representing collection of animations to be played in sequence
+ */
 class AnimationSequence {
+
+  /** Create animationSequence
+   * @param animations[] - an array of animations to played
+   */
   constructor(animations) {
     this.animations = animations;
     this.initialized = false;
     this.done = false;
   }
 
-
+  /** Initialize animation
+   * @description Should be called before each animation run
+   */  
   initialize() {
     this.done = false;
     this.initialized = true;
@@ -97,6 +111,9 @@ class AnimationSequence {
     this.currentAnimation.initialize();
   }
 
+  /** Update the animation state
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     if (this.done) return;
 
@@ -118,24 +135,38 @@ class AnimationSequence {
     }
   }
 
+  /** Render the current state of the animation
+   */
   render() {
     this.currentAnimation.render();
   }
 }
 
+/** Representing collection of animations to be played in parallel
+ */
 class AnimationParallel {
+
+  /** Create animationParallel
+   * @param animations[] - an array of animations to played
+   */
   constructor(animations) {
     this.animations = animations;
     this.initialized = false;
     this.done = false;
   }
 
+  /** Initialize animation
+   * @description Should be called before each animation run
+   */  
   initialize() {
     this.done = false;
     this.initialized = true;
     this.animations.forEach(animation => animation.initialize());
   }
 
+  /** Update the animation state
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     if (this.done) return;
 
@@ -150,6 +181,8 @@ class AnimationParallel {
     }
   }
 
+  /** Render the current state of the animation
+   */
   render(dt) {
     this.animations.forEach(animation => animation.render());
   }
