@@ -1,4 +1,12 @@
+/** Class representing the player
+ */
 class Player {
+
+  /** Create a player
+   * @param {string} sprite - url of the image of the player sprite
+   * @param {Object} startingPosition - position (x, y, z, a - angle)
+   *    where the player starts level
+   */
   constructor(sprite = 'images/char-horn-girl.png', startingPosition) {
     this.sprite = sprite;
 
