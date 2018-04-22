@@ -1,4 +1,16 @@
+/** Class representing a bug
+ */
 class Bug {
+
+  /** Create a bug
+   * @param {string} type - type of the bug ('land-bug' or 'water-bug')
+   * @param {Object} options - options for bug position and velocity
+   * @param {number} options.maxSpeed - maximal speed of the bug
+   * @param {number} options.minSpeed - minimal speed of the bug
+   * @param {Object[]} options.rows - descriptions of rows where bug can appear
+   * @param {number} options.rows[].row - index of a row where bug can appear
+   * @param {number} options.rows[].direction - direction in which the byg can move in this row (+1 or -1)
+   */
   constructor(type, options) {
     this.type = type;
     this.options = options;
@@ -13,6 +25,8 @@ class Bug {
     this.setToRandom();
   };
 
+  /** Set random velocity and offscreen position of the bug
+   */
   setToRandom() {
     const rowNumber = Math.floor(Math.random() * this.options.rows.length);
     const direction = this.options.rows[rowNumber].direction;
@@ -26,6 +40,9 @@ class Bug {
     this.sprite.spriteOffset = direction > 0 ? 0 : 171;
   }
 
+  /** Update the bug state
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     this.sprite.update(dt);
 
@@ -34,6 +51,12 @@ class Bug {
     }
   };
 
+  /** Check terrain collisions
+   * @description
+   *  Check if the bug doesn't bump into terrain it's not allowed to move on: 
+   *    - anything non-water for water-bugs
+   *    - trees, door or water for land-bugs
+   */
   checkTerrain(terrain) {
     const col = this.sprite.v.x > 0
                 ? Math.ceil(this.sprite.position.x / 101)
