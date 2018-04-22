@@ -1,4 +1,13 @@
+/** Class representing an item placed on the terrain
+ */
 class Item {
+
+  /** Create an item
+   * @param {Object} props - properties of the item
+   * @param {string} name - name of the item
+   * @param {number} col - column number of the item
+   * @param {number} row - row number of the item
+   */
   constructor(props) {
     Object.assign(this,
                  { name: 'gem-orange', col: 2, row: 0 },
@@ -7,6 +16,8 @@ class Item {
     this.url = `images/${this.name}.png`;
   }
 
+  /** Render the item
+   */
   render() {
     ctx.drawImage(Resources.get(this.url),
                   0, 0, 101, 171,
@@ -14,7 +25,15 @@ class Item {
   }
 }
 
+/** Class representing a rock
+ */
 class Rock extends Item {
+
+  /** Create a rock
+   * @param {Object} props - properties of the rock
+   * @param {number} col - column number of the rock
+   * @param {number} row - row number of the rock
+   */
   constructor(props) {
     props.name = 'rock';
     super(props);
@@ -32,6 +51,20 @@ class Rock extends Item {
     });
   }
 
+  /** Move the rock
+   * @description The rock moves to the given position if:
+   *  - the positions not offscreen and
+   *  - no obstacle is at the position and
+   *  - the terrain at the position is not a tree or door
+   * If the terrain at the position is water the rock submerges into water:
+   *  - the terrain changes to 'rock-in-water'
+   *  - the rock moves offscreen
+   * @param {Object} position - coordinates of the destination of the movement
+   * @param {number} position.col - column of the destination of the movement
+   * @param {number} position.row - row of the destination of the movement
+   * @param {string[][]} terrain - terrain of the current level
+   * @param {Object[]} obstacles - obstacles that might prevent the movement (items, bugs, rocks)
+   */
   move(position, terrain, obstacles) {
     if (position.col < 0
       || position.col > 4
@@ -61,12 +94,18 @@ class Rock extends Item {
     return true;
   }
 
+  /** Update the state of the rock
+   * @description Used only to show animation of rock falling into water
+   * @param {number} dt - time since previous update
+   */
   update(dt) {
     if (this.splashAnimation.initialized) {
       this.splashAnimation.update(dt);
     }
   }
 
+  /** Render the rock
+   */
   render() {
     if (this.splashAnimation.done) return;
 
