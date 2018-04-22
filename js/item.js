@@ -64,6 +64,7 @@ class Rock extends Item {
    * @param {number} position.row - row of the destination of the movement
    * @param {string[][]} terrain - terrain of the current level
    * @param {Object[]} obstacles - obstacles that might prevent the movement (items, bugs, rocks)
+   * @returns true if movement happened, false otherwise
    */
   move(position, terrain, obstacles) {
     if (position.col < 0
