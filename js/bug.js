@@ -72,10 +72,15 @@ class Bug {
     }
   }
 
+  /** Render the bug
+   */
   render() {
     this.sprite.render();
   };
 
+  /** Check if bug is offscreen
+    * returns true if bug is offscreen, false otherwise
+   */
   offScreen() {
     return this.sprite.position.x < -101 || this.sprite.position.x > 505;
   }
