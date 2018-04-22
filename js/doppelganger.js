@@ -20,16 +20,38 @@ class Doppelganger extends Player {
     this.deactivate();
   }
 
+  /** Activate doppelganger
+   * @description Puts doppelganger onscreen,
+   *  in alive state
+   */
   activate() {
     this.state = 'alive';
     this.goToStartingPosition();
   }
 
+  /** Dectivate doppelganger
+   * @description Puts doppelganger offscreen,
+   *  stops it's movement and interactions
+   */
   deactivate() {
     this.state = 'inactive';
     this.body.position = { x: -1000, y: -1000, z: 0, a: 0 };
   }
 
+  /** Move doppelganger
+   * @description - The player moves if:
+   *  - there are no rocks or items or trees ahead in the given direction
+   *    and the screen doesn't end
+   *  - there is a rock and it can move in the same direction, then the rock is pushed
+   *  After the movement collision with doppelganger and finish of level are detected
+   * @param {Object} props - parameters of the movement
+   * @param {string} props.direction - direction ('up', 'down, 'left' or 'right')
+   *  for doppelganger 'up' means 'down' and vice versa
+   * @param {string[][]} props.terrain - terrain
+   * @param {Rock[]} props.rocks - array of rocks on current level
+   * @param {Object[]} props.obstackles - array of all obstackles (items, rocks, bugs) on current level
+   * @param {Player} props.doppelganger - doppelganger of the player
+   */
   move(props) {
     if (this.state === 'inactive') return;
 
@@ -44,6 +66,9 @@ class Doppelganger extends Player {
     super.move(props);
   }
 
+  /** Doesn't do anyrthinh
+   *  I'ts here because other functions might call say on doppelganger object
+   *  and we don't want doppelganger to say anything
+   */
   say(text) {}
-
 }
