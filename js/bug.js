@@ -67,7 +67,7 @@ class Bug {
     const spot = terrain[this.row][col];
 
     if ((this.type === 'water' && spot !== 'water')
-        || this.type === 'land' && (spot === 'water' || spot === 'tree')) {
+        || this.type === 'land' && (spot === 'water' || spot === 'tree' || spot === 'door')) {
       this.v *= -1;
     }
   }
