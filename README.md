@@ -46,3 +46,7 @@ The images where edited using [ImageMagick](https://www.imagemagick.org/) and [P
 The sprite class was inspired by [an article by James Long](https://jlongster.com/Making-Sprite-based-Games-with-Canvas).
 
 The speach bubble was inspired by [an article by Juan Mendes](http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html)
+
+## License
+
+[MIT License](https://github.com/lukaszrozej/arcade-game/blob/master/README.md)
