@@ -145,7 +145,7 @@ const levels = [
       ['tree', 'grass', 'start', 'grass', 'grass', ],
     ],
     landBugs: {
-      number: 5,
+      number: 4,
       options: {
         rows: [
           { row: 1, direction: 1 },
