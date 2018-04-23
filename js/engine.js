@@ -299,9 +299,7 @@ var Engine = (function(global) {
       renderTerrain(newTerrain);
 
       newItems.forEach(item => item.render());
-
       newBugs.forEach(bug => bug.render());
-
       newRocks.forEach(rock => rock.render());
 
       ctx.translate(0, -scrollProgress + 5 * 83);
