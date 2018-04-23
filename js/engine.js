@@ -24,15 +24,24 @@ var Engine = (function(global) {
     ctx = canvas.getContext('2d'),
     lastTime;
 
+  // Current level index  
   let level = 0;
+
+  // Current state of the game
+  // Posible values:
+  //  - 'choose character' - whemn the character for the player is chosen
+  //  - 'scroll' - when the screen scrolls between levels
+  //  - 'play' - when the game is being played
+  //  - 'win' - when the game is won
+  //  - 'game over' - when the game is over
   let state = 'choose character';
 
+  // Variables for terrain and vairous entities  
+  // the variables with 'new' prefix
+  // reference terrain and entities for the next level
   let terrain, newTerrain;
-
   let bugs, newBugs;
-
   let items, newItems;
-
   let rocks, newRocks;
 
   let player = new Player();
@@ -95,6 +104,9 @@ var Engine = (function(global) {
     main();
   }
 
+  /** Handle keyboard input
+   * @param {Object} e - event
+   */
   function handleInput(e) {
     switch (state) {
       case 'game over':
@@ -179,6 +191,7 @@ var Engine = (function(global) {
         player.startLevel(level);
         player.save();
       } else {
+        // Continue scroll
         scrollProgress += dt * 83 * 5 / 2;
         newBugs.forEach(bug => bug.update(dt));
         newBugs.forEach(bug => bug.checkTerrain(levels[level + 1].terrain));
@@ -224,9 +237,14 @@ var Engine = (function(global) {
     }
   }
 
-  // For each pair of different bugs checks if they collide
-  // If one is still ofscreen it is reset to random
-  // If both are onscreen they switch their velocities
+
+  /** Handles bug collisions
+   * @description
+   * For each pair of different bugs checks if they collide
+   * If one is still ofscreen it is reset to random
+   * If both are onscreen they switch their velocities
+   * @param {Bug[]} bugs - array of bugs
+   */
   function checkBugCollisions(bugs) {
     for (let i = 0; i < bugs.length; i++) {
       for (let j = i+1; j < bugs.length; j++) {
@@ -244,6 +262,13 @@ var Engine = (function(global) {
     }
   }
 
+  /** Handle bug collisions with rocks
+   * @description
+   * If any bug collides with any rock
+   * it's velocity is reverses
+   * @param {Bug[]} bugs - array of bugs
+   * @param {Rock[]} bugs - array of rocks
+   */
   function handleBugRockCollisions(bugs, rocks) {
     for(const bug of bugs) {
       for (const rock of rocks) {
@@ -287,8 +312,7 @@ var Engine = (function(global) {
 
     [...items, ...bugs, ...rocks].forEach(entity => entity.render());
 
-
-doppelganger.render();
+    doppelganger.render();
 
     if (state !== 'choose character') {
       player.render();
