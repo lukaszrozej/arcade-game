@@ -1,6 +1,7 @@
 body {
   text-align: center;
   margin: 0;
+  background-color: hsla(187, 8%, 10%, 1);
 }
 
 canvas {
