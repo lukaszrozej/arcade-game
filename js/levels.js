@@ -487,11 +487,11 @@ const levels = [
        { name: 'key', col: 0, row: 2 },
     ],
     rocks: [
-      { col: 1, row: 5 },
-      { col: 4, row: 3 },
-      { col: 3, row: 1 },
       { col: 3, row: 0 },
       { col: 4, row: 1 },
+      { col: 3, row: 1 },
+      { col: 4, row: 3 },
+      { col: 1, row: 5 },
     ],
     message: `I need that key
               to open the door.`
