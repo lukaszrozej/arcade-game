@@ -1,3 +1,28 @@
+/* Array of levels
+ * each level is an object with tje following properties:
+ *  - startintColumn - column in which the player and doppelganger start the level
+ *  - terrain - array of rows,
+ *    each row is an array of strings,
+ *    each string can be one of the following:
+ *    'stone', 'grass', 'water', tree', 'door', 'rock-in'water'
+ *  - landBugs - object with the following properties:
+ *    - number - number of land bugs in this level
+ *    - options - options for landbugs in this level:
+ *      - maxSpeed - maximal speed of the bug
+ *      - minSpeed - minimal speed of the bug
+ *      - rows - descriptions of rows where bug can appear
+ *      - rows[].row - index of a row where bug can appear
+ *      - rows[].direction - direction in which the byg can move in this row (+1 or -1)
+ *  - waterBugs - same as landBugs but for waterBugs
+ *  - items - array of objects with the following properties:
+ *    - name - name of the items
+ *    - col - column of the item
+ *    - row - row of the item
+ *  - rocks - array of objects with the following properties:
+ *    - col - column of the rock
+ *    - row - row of the rock
+ *  - message - message displayed at the beginning of the level
+ */
 const levels = [
   {
     startingColumn: 2,
