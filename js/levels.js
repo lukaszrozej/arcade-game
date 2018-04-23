@@ -244,7 +244,8 @@ const levels = [
       { col: 1, row: 1},
       { col: 1, row: 3},
     ],
-    message: `???`
+    message: `How do I get
+              through this water?`
   },
   {
     startingColumn: 3,
@@ -285,7 +286,7 @@ const levels = [
       { row: 3, col: 1 },
       { row: 3, col: 3 },
     ],
-    message: `???`
+    message: `Who plants all these trees?`
   },
   {
     startingColumn: 4,
@@ -346,8 +347,9 @@ const levels = [
     rocks: [
       { col: 3, row: 3 }
     ],
-    message: `Why is this rock
-              so far from here?`
+    message: `Good.
+              Someone left a rock
+              on the road.`
   },
   {
     startingColumn: 2,
