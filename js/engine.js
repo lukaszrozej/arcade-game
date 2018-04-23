@@ -192,7 +192,7 @@ var Engine = (function(global) {
         player.save();
       } else {
         // Continue scroll
-        scrollProgress += dt * 83 * 5 / 2;
+        scrollProgress += dt * 83 * 5 / 1;
         newBugs.forEach(bug => bug.update(dt));
         newBugs.forEach(bug => bug.checkTerrain(levels[level + 1].terrain));
         checkBugCollisions(newBugs);
