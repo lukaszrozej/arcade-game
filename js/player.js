@@ -236,6 +236,7 @@ class Player {
       this.body.v.x = 0;
       if ((this.row === 0 && terrain[this.row][this.col] === 'start') || terrain[this.row][this.col] === 'door') {
         this.finishedLevel = true;
+        this.score += 10;
       }
     }
   }
