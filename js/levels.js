@@ -12,7 +12,7 @@
  *      - minSpeed - minimal speed of the bug
  *      - rows - descriptions of rows where bug can appear
  *      - rows[].row - index of a row where bug can appear
- *      - rows[].direction - direction in which the byg can move in this row (+1 or -1)
+ *      - rows[].direction - direction in which the bug can move in this row (+1 or -1)
  *  - waterBugs - same as landBugs but for waterBugs
  *  - items - array of objects with the following properties:
  *    - name - name of the items

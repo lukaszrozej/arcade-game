@@ -381,8 +381,9 @@ var Engine = (function(global) {
       });
   }
 
-  // Displays score panel at the top of the screen
-  // and within it: level, score, and lives
+  /** Renders score panel with info on
+   * score, lives and collected keys
+   */
   function renderScorePanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, 40);
@@ -403,6 +404,8 @@ var Engine = (function(global) {
     }
   }
 
+  /** Renders bottom panel
+   */
   function renderBottomPanel() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 606 - 53, canvas.width, 53);
@@ -417,19 +420,14 @@ var Engine = (function(global) {
     ctx.fillText(`Restart level: R`, canvas.width - 8, canvas.height - 45) ;
   }
 
-  /* This function does nothing but it could have been a good place to
-   * handle game reset states - maybe a new game menu or a game over screen
-   * those sorts of things. It's only called once by the init() method.
+  /** Resets the game to the 0 level
    */
   function reset() {
     level = 0;
 
     terrain = getTerrainForLevel(level);
-
     bugs = createBugsForLevel(level);
-
     items = createItemsForLevel(level);
-
     rocks = createRocksForLevel(level);
 
     if (levels[level].doppelganger) {
@@ -437,12 +435,13 @@ var Engine = (function(global) {
     }
 
     player.reset();
-
     player.save();
 
     state = 'choose character';
   }
 
+  /** Restart current level
+   */
   function restartCurrentLevel() {
     terrain = getTerrainForLevel(level);
     items = createItemsForLevel(level);
@@ -454,6 +453,11 @@ var Engine = (function(global) {
     player.goToStartingPosition();
   }
 
+  /** Get terrain for given level
+   * @param {number} levelNumber - index of level
+   * @returns - terrain
+   *  Row 0 comes from next level if it exists
+   */
   function getTerrainForLevel(levelNumber) {
     const currentTerrain = levels[levelNumber].terrain;
     if (levelNumber === levels.length - 1) {
@@ -466,6 +470,10 @@ var Engine = (function(global) {
     }
   }
 
+  /** Create bugs for given level
+   * @param {number} levelNumber - index of level
+   * @returns - array of bugs
+   */
   function createBugsForLevel(levelNumber) {
     const level = levels[levelNumber];
 
@@ -479,12 +487,20 @@ var Engine = (function(global) {
     return bugs;
   }
 
+  /** Create items for given level
+   * @param {number} levelNumber - index of level
+   * @returns - array of items
+   */
   function createItemsForLevel(levelNumber) {
     return levels[levelNumber]
       .items
       .map(itemProps => new Item(itemProps));
   }
 
+  /** Create rocks for given level
+   * @param {number} levelNumber - index of level
+   * @returns - array of rocks
+   */
   function createRocksForLevel(levelNumber) {
     return levels[levelNumber]
       .rocks
