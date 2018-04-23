@@ -372,7 +372,6 @@ var Engine = (function(global) {
    * @param {string[][]} terrain - terrain
    */
   function renderTerrain(terrain) {
-    // levels[level].terrain
     terrain
       .forEach((row, i) => {
         row.forEach((img, j) => {
