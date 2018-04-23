@@ -330,6 +330,9 @@ var Engine = (function(global) {
     }
   }
 
+  /** Renders a modal message on the screen
+   * @param {string} message - text of the message
+   */
   function renderMessage(message) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -345,6 +348,8 @@ var Engine = (function(global) {
     ctx.fillText(`Press enter to restart the game`, 253, 300);
   }
 
+  /** Renders a character selection screen
+   */
   function renderCharacterSelection() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -363,6 +368,9 @@ var Engine = (function(global) {
     );
   }
 
+  /** Renders terrain
+   * @param {string[][]} terrain - terrain
+   */
   function renderTerrain(terrain) {
     // levels[level].terrain
     terrain
