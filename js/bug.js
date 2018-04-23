@@ -9,7 +9,7 @@ class Bug {
    * @param {number} options.minSpeed - minimal speed of the bug
    * @param {Object[]} options.rows - descriptions of rows where bug can appear
    * @param {number} options.rows[].row - index of a row where bug can appear
-   * @param {number} options.rows[].direction - direction in which the byg can move in this row (+1 or -1)
+   * @param {number} options.rows[].direction - direction in which the bug can move in this row (+1 or -1)
    */
   constructor(type, options) {
     this.type = type;

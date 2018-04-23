@@ -49,7 +49,6 @@ const levels = [
       number: 0,
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 3 },
     ],
     rocks: [
     ],
@@ -81,7 +80,6 @@ const levels = [
       },
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 0 },
     ],
     rocks: [
     ],
@@ -105,7 +103,6 @@ const levels = [
       number: 0,
     },
     items: [
-      { name: 'gem-blue', col: 2, row: 0 },
     ],
     rocks: [
       { col: 3, row: 2},
@@ -137,6 +134,42 @@ const levels = [
     doppelganger: true,
     message: `My evil doppelganger!!
               If we meet we explode!`
+  },
+  {
+    startingColumn: 2,
+    terrain: [
+      ['stone', 'stone', 'stone', 'tree', 'grass', ],
+      ['grass', 'tree', 'stone', 'stone', 'stone', ],
+      ['stone', 'stone', 'stone', 'tree', 'grass', ],
+      ['grass', 'tree', 'stone', 'stone', 'stone', ],
+      ['tree', 'grass', 'start', 'grass', 'grass', ],
+    ],
+    landBugs: {
+      number: 5,
+      options: {
+        rows: [
+          { row: 1, direction: 1 },
+          { row: 2, direction: -1 },
+          { row: 3, direction: 1 },
+          { row: 4, direction: -1 },
+        ],
+        maxSpeed: 300,
+        minSpeed: 100,
+      },
+    },
+    waterBugs: {
+      number: 0,
+    },
+    items: [
+      { name: 'gem-green', col: 4, row: 1 },
+      { name: 'gem-orange', col: 0, row: 2 },
+      { name: 'gem-orange', col: 4, row: 3 },
+      { name: 'gem-orange', col: 0, row: 4 },
+    ],
+    rocks: [
+    ],
+    message: `Gems!
+              I love gems!`
   },
   {
     startingColumn: 2,
