@@ -277,7 +277,7 @@ class Player {
     this.animation = this.explodeAnimation;
     this.animation.initialize();
 
-    this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
+    this.message = explodeMessages[Math.floor(Math.random() * hitMessages.length)];
   }
 
   /** Collect an item
@@ -383,7 +383,7 @@ class Player {
       this.animation = this.drownAnimation;
       this.animation.initialize();
 
-      this.message = hitMessages[Math.floor(Math.random() * hitMessages.length)];
+      this.message = drownMessages[Math.floor(Math.random() * hitMessages.length)];
     } else {
       // Snap to grid
       this.body.position.x = this.col * 101;
@@ -650,11 +650,7 @@ class Player {
 
 }
 
-/** @constant
-  * @type {string[]}
-  * @description
-  *   Array of messages to be shown when the player loses life
-  */
+// Arrays of messages for different kinds of life losing
 const hitMessages = [
   `Ouch, that hurt!`,
   `No wonder I got hit.
@@ -662,5 +658,25 @@ const hitMessages = [
   `Should I try again?
   I feel dizzy.`,
   `I get knocked down,
-  Then I get up again \u266B`
+  Then I get up again \u266B`,
+];
+
+const drownMessages = [
+  `Why didn't I learn to swim?`,
+  `Something bit me.
+  Piranhas?`,
+  `Take me to the river \u266B`,
+  `Diving for dear life
+  When we could be
+  diving for pearls \u266B`,
+];
+
+const explodeMessages = [
+  `Dude!
+  Watch were you're going!`,
+  `Great balls of fire \u266B`,
+  `I was afraid his head
+  would land on my body.`,
+  `Come on baby,
+  light my fire \u266B`,
 ];
